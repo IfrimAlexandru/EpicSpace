@@ -1,0 +1,111 @@
+<div class="container-wrapper">
+    <img
+      class="moon-background"
+      src="../../../assets/img/LUNA4-Photoroom.png"
+      alt="Moon"
+    />
+    <div class="container" style="margin: 0 auto;">
+      <div class="d-flex justify-content-between align-items-center pb-5">
+        <div>
+          <img
+            src="../../../assets/img/LOGO.png"
+            style="width: 170px"
+            alt="logoEpicSpace"
+          />
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="mx-5">1</div>
+          <div class="mx-5 fs-3 fw-bold">2</div>
+          <div class="mx-5">3</div>
+          <div class="mx-5">4</div>
+        </div>
+        <div>
+            <i class="bi bi-arrow-return-left fs-1" routerLink="/sceltaPianeta"></i>
+        </div>
+      </div>
+      <div class="pb-5">
+        <h1 class="header">To Space and Back</h1>
+        <p>Safely in one day, just select destination</p>
+      </div>
+  
+      <!-- CAROUSEL -->
+      <div class="sub-header">
+        <div id="shipCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex justify-content-around">
+                <div class="ship" (click)="selectShip('Nave1')">
+                  <img src="../../../assets/img/immagini-navicelle/Nave1.png" alt="mercurio" />
+                  <p>Nave1</p>
+                </div>
+                <div class="ship" (click)="selectShip('Nave2')">
+                  <img src="../../../assets/img/immagini-navicelle/Nave2.png" alt="venere" />
+                  <p>Nave2</p>
+                </div>
+                
+             
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="d-flex justify-content-around">
+                <div class="ship" (click)="selectShip('Nave3')">
+                  <img src="../../../assets/img/immagini-navicelle/Nave3.png" alt="mars" />
+                  <p>Nave3</p>
+                </div>
+                <div class="ship" (click)="selectShip('Nave4')">
+                  <img src="../../../assets/img/immagini-navicelle/Nave4.png" alt="giove" />
+                  <p>Nave4</p>
+                </div>
+                
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="d-flex justify-content-around">
+                <div class="ship" (click)="selectShip('Nave5')">
+                  <img src="../../../assets/img/immagini-navicelle/Nave5.png" alt="nettuno" />
+                  <p>Nave5</p>
+                </div>
+                <div class="ship" (click)="selectShip('Nave6')">
+                  <img src="../../../assets/img/immagini-navicelle/Nave6.png" alt="urano" />
+                  <p>Nave6</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" style=" width: 80px;" type="button" data-bs-target="#shipCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon me-2" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" style="width: 80px;" type="button" data-bs-target="#shipCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon ms-2" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+  
+        <!-- DATI VOLO -->
+  
+        <div class="d-flex justify-content-between" style="margin-top: 100px;">
+          <div class="details d-flex justify-content-around">
+            <div class="text-start mx-3">
+              <p>Flight time</p>
+              <p class="fw-bold">{{ details.flightTime }}</p>
+            </div>
+            <div class="text-start mx-3">
+              <p>Distance from Earth</p>
+              <p class="fw-bold">{{ details.distance }}</p>
+            </div>
+            <div class="text-start mx-3">
+              <p>Price</p>
+              <p class="fw-bold">{{ details.price }}</p>
+            </div>
+          </div>
+          <div>
+            <!-- (click)="bookFlight()" -->
+            <button class="book-btn" routerLink="/sceltaTuta" >Scelta tuta -></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
