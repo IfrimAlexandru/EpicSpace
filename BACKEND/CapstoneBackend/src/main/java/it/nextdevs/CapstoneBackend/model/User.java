@@ -25,6 +25,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private TipoUtente tipoUtente;
     private String avatar;
+    private String provider;
 
 
     @Override

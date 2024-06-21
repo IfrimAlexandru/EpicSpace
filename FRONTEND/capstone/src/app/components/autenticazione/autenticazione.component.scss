@@ -212,8 +212,8 @@ html,body {
 			}
 
 			.submit-btn {
-				background-color: #ffffff;
-				color: rgba(256,256,256,0.7);
+				background-color: #222020;
+				color: rgba(256,256,256,0.2);
 				border:0;
 				border-radius: 15px;
 				display: block;
@@ -229,7 +229,8 @@ html,body {
 
 				&:hover {
 					transition: all .3s ease;
-					background-color: rgba(0,0,0,0.8);
+					background-color: rgba(0,0,0,1);
+					color: white;
 				}
 			}
 		}

@@ -46,7 +46,9 @@ import { ScelteUtenteService } from './service/scelte-utente.service';
     SwiperModule,
     HttpClientModule,
     SocialLoginModule,
-    FormsModule
+    FormsModule,
+    
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
@@ -59,7 +61,9 @@ import { ScelteUtenteService } from './service/scelte-utente.service';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '722812885951-dvlljpp34qhkm2mgd0vifbtncgh4b7sk.apps.googleusercontent.com'
+              '722812885951-dvlljpp34qhkm2mgd0vifbtncgh4b7sk.apps.googleusercontent.com', {
+                scopes: 'openid profile email',
+              }
             )
           },
           {

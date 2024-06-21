@@ -1,0 +1,115 @@
+{
+  "pianeti": [
+    {
+      "nome": "Mercurio",
+      "tempoDiVoloOre": 8760,
+      "distanzaDallaTerraKm": 91691000,
+      "descrizione": "Il pianeta più piccolo del nostro sistema solare e il più vicino al Sole.",
+      "prezzoDelVoloEuro": 250000000
+    },
+    {
+      "nome": "Venere",
+      "tempoDiVoloOre": 7200,
+      "distanzaDallaTerraKm": 41400000,
+      "descrizione": "Il secondo pianeta dal Sole e simile per dimensioni alla Terra.",
+      "prezzoDelVoloEuro": 200000000
+    },
+    {
+      "nome": "Luna",
+      "tempoDiVoloOre": 72,
+      "distanzaDallaTerraKm": 384400,
+      "descrizione": "L'unico satellite naturale della Terra.",
+      "prezzoDelVoloEuro": 100000000
+    },
+    {
+      "nome": "Marte",
+      "tempoDiVoloOre": 9360,
+      "distanzaDallaTerraKm": 78340000,
+      "descrizione": "Il quarto pianeta dal Sole, noto come il Pianeta Rosso.",
+      "prezzoDelVoloEuro": 300000000
+    },
+    {
+      "nome": "Giove",
+      "tempoDiVoloOre": 35040,
+      "distanzaDallaTerraKm": 628730000,
+      "descrizione": "Il pianeta più grande del nostro sistema solare.",
+      "prezzoDelVoloEuro": 500000000
+    },
+    {
+      "nome": "Saturno",
+      "tempoDiVoloOre": 47304,
+      "distanzaDallaTerraKm": 1275000000,
+      "descrizione": "Il sesto pianeta dal Sole noto per il suo sistema di anelli.",
+      "prezzoDelVoloEuro": 600000000
+    },
+    {
+      "nome": "Urano",
+      "tempoDiVoloOre": 262800,
+      "distanzaDallaTerraKm": 2723950000,
+      "descrizione": "Il settimo pianeta dal Sole con una rotazione unica laterale.",
+      "prezzoDelVoloEuro": 700000000
+    },
+    {
+      "nome": "Nettuno",
+      "tempoDiVoloOre": 278160,
+      "distanzaDallaTerraKm": 4351400000,
+      "descrizione": "L'ottavo pianeta dal Sole, noto per il suo intenso colore blu.",
+      "prezzoDelVoloEuro": 750000000
+    },
+    {
+      "nome": "Plutone",
+      "tempoDiVoloOre": 340776,
+      "distanzaDallaTerraKm": 5884400000,
+      "descrizione": "Un pianeta nano nella fascia di Kuiper.",
+      "prezzoDelVoloEuro": 800000000
+    }
+  ],
+  "tuteSpaziali": [
+    {
+      "nome": "Orlan",
+      "descrizione": "Una serie di tute spaziali semirigide monopezzo progettate e costruite dalla Russia."
+    },
+    {
+      "nome": "EMU",
+      "descrizione": "L'Extravehicular Mobility Unit è una tuta spaziale americana capace di operare nel vuoto dello spazio."
+    }
+  ],
+  "naviSpaziali": [
+    {
+      "nome": "Modulo di Comando Apollo",
+      "produttore": "North American Aviation",
+      "capacitaEquipaggio": 3,
+      "descrizione": "Una navicella spaziale utilizzata nel programma Apollo per le missioni lunari."
+    },
+    {
+      "nome": "Space Shuttle",
+      "produttore": "Rockwell International",
+      "capacitaEquipaggio": 7,
+      "descrizione": "Una navicella spaziale riutilizzabile che faceva parte del programma Space Shuttle."
+    },
+    {
+      "nome": "Dragon",
+      "produttore": "SpaceX",
+      "capacitaEquipaggio": 4,
+      "descrizione": "Una navicella spaziale sviluppata da SpaceX per trasportare equipaggi e rifornimenti alla Stazione Spaziale Internazionale."
+    },
+    {
+      "nome": "Starship",
+      "produttore": "SpaceX",
+      "capacitaEquipaggio": 100,
+      "descrizione": "Un veicolo di lancio super pesante riutilizzabile progettato da SpaceX per missioni interplanetarie."
+    },
+    {
+      "nome": "Orion",
+      "produttore": "Lockheed Martin",
+      "capacitaEquipaggio": 6,
+      "descrizione": "Una navicella spaziale sviluppata dalla NASA per missioni di esplorazione dello spazio profondo."
+    },
+    {
+      "nome": "Dream Chaser",
+      "produttore": "Sierra Nevada Corporation",
+      "capacitaEquipaggio": 7,
+      "descrizione": "Un veicolo spaziale riutilizzabile progettato per trasportare equipaggi e rifornimenti alla Stazione Spaziale Internazionale."
+    }
+  ]
+}

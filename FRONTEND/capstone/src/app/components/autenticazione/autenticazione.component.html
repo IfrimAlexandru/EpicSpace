@@ -1,23 +1,28 @@
 <body>
-    <div class="form-structor ">
-	<div class="signup">
-		<h2 class="form-title m-auto" id="signup">Sign up</h2>
-		<div class="form-holder">
-			<input type="text" class="input" placeholder="Name" />
-			<input type="email" class="input" placeholder="Email" />
-			<input type="password" class="input" placeholder="Password" />
+	<div class="form-structor">
+		<div [ngClass]="{'slide-up': !isLoginActive}" class="signup">
+		  <h2 class="form-title m-auto" id="signup" (click)="toggleSlide(false)">Sign up</h2>
+		  <div class="form-holder">
+			<input type="text" class="input" placeholder="Username" [(ngModel)]="username" />
+			<input type="email" class="input" placeholder="Email" [(ngModel)]="email" />
+			<input type="password" class="input" placeholder="Password" [(ngModel)]="password" />
+			<input type="text" class="input" placeholder="First Name" [(ngModel)]="nome" />
+			<input type="text" class="input" placeholder="Last Name" [(ngModel)]="cognome" />
+		  </div>
+		  <button class="submit-btn" (click)="onRegister()">Sign up</button>
 		</div>
-		<button class="submit-btn">Sign up</button>
-	</div>
-	<div class="login slide-up">
-		<div class="center">
-			<h2 class="form-title me-4" id="login"><span>or</span>Log in</h2>
+		<div [ngClass]="{'slide-up': isLoginActive}" class="login">
+		  <div class="center">
+			<h2 class="form-title m-auto" id="login" (click)="toggleSlide(true)">Log in</h2>
 			<div class="form-holder">
-				<input type="email" class="input" placeholder="Email" />
-				<input type="password" class="input" placeholder="Password" />
+			  <input type="email" class="input" placeholder="Email" [(ngModel)]="email" />
+			  <input type="password" class="input" placeholder="Password" [(ngModel)]="password" />
 			</div>
-			<button class="submit-btn">Log in</button>
+			<button class="submit-btn" (click)="onLogin()">Log in</button>
+			<app-google-login></app-google-login>
+		  </div>
 		</div>
-	</div>
-</div>
+	  </div>
+	  
+
 </body>

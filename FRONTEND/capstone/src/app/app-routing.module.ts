@@ -7,13 +7,14 @@ import { SceltaNaveComponent } from './components/scelta-nave/scelta-nave.compon
 import { AutenticazioneComponent } from './components/autenticazione/autenticazione.component';
 import { RiepilogoComponent } from './components/riepilogo/riepilogo.component';
 import { RecensioniComponent } from './components/recensioni/recensioni.component';
+import { AuthGuard } from './guard/auth.guard';
 
 
 
 const routes: Routes = [
   {path: "", component:HomeComponent},
   {path: 'sceltaTuta', component: SceltaTutaComponent},
-  {path: 'sceltaPianeta', component: SceltaPianetaComponent},
+  {path: 'sceltaPianeta', component: SceltaPianetaComponent, canActivate:[AuthGuard]},
   {path: 'sceltaNave', component: SceltaNaveComponent},
   {path: 'auth', component: AutenticazioneComponent },
   {path: 'riepilogo', component: RiepilogoComponent},

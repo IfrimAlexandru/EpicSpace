@@ -24,10 +24,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
-
-
     @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public Page<User> getAllUser(@RequestParam(defaultValue = "0") int page,

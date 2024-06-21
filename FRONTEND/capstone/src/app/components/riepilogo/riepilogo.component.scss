@@ -128,7 +128,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
-  margin: 0 auto;
+  margin: 20px auto; /* Adjust margin for spacing */
 }
 
 .form-container h1 {
@@ -143,7 +143,8 @@
 }
 
 .form-container input[type="text"],
-.form-container input[type="email"] {
+.form-container input[type="email"],
+.form-container select {
   width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 15px;
@@ -175,4 +176,9 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+}
+
+.image-small {
+  max-width: 100px; /* Imposta una larghezza massima */
+  height: auto; /* Mantiene il rapporto di aspetto */
 }

@@ -13,4 +13,5 @@ public class UserDataDto {
     private String cognome;
     private TipoUtente tipoUtente;
     private String avatar;
+
 }
