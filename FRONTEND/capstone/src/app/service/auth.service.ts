@@ -2,16 +2,20 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { AuthData } from '../interface/auth-data.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../interface/user.interface';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  
+
   private jwtHelper = new JwtHelperService();
 
   private authSub = new BehaviorSubject<AuthData | null >(null);
@@ -25,56 +29,6 @@ export class AuthService {
       catchError(this.errors)
     );
   }
-
-  // login(data: { email: string, password: string }) {
-  //   console.log(data);
-  //   return this.http.post<AuthData>(`${environment.apiUrl}auth/login`, data).pipe(
-  //     tap((data) => {
-  //       console.log('Auth:', data);
-  //     }),
-  //     tap(async (user) => {
-  //       this.authSub.next(user);
-  //       localStorage.setItem('user', JSON.stringify(user));
-  //       this.autoLogout(user);
-  //     }),
-  //     catchError(this.errors)
-  //   );
-  // }
-
-  // login(data: { email: string, password: string }) {
-  //   console.log(data);
-  //   return this.http.post<AuthData>(`${environment.apiUrl}auth/login`, data).pipe(
-  //     tap((data) => {
-  //       console.log('Auth:', data);
-  //     }),
-  //     tap(async (user) => {
-  //       this.authSub.next(user);
-  //       localStorage.setItem('authToken', user.accessToken); // Assicurati che il token venga salvato qui, ultima modifica
-  //       localStorage.setItem('user', JSON.stringify(user));
-  //       this.autoLogout(user);
-  //       this.router.navigate(['/']); // Reindirizza alla homepage dopo il login
-  //     }),
-  //     catchError(this.errors)
-  //   );
-  // }
-
-  // login(data: { email: string, password: string }) {
-  //   console.log(data);
-  //   return this.http.post<AuthData>(`${environment.apiUrl}auth/login`, data).pipe(
-  //     tap((data) => {
-  //       console.log('Auth:', data);
-  //     }),
-  //     tap(async (authData) => {
-  //       this.authSub.next(authData);
-  //       localStorage.setItem('authToken', authData.accessToken); // Salva il token nel localStorage
-  //       console.log('Token salvato:', authData.accessToken); // Log per verificare il salvataggio
-  //       localStorage.setItem('user', JSON.stringify(authData));
-  //       this.autoLogout(authData);
-  //       this.router.navigate(['/']); // Reindirizza alla homepage dopo il login
-  //     }),
-  //     catchError(this.errors)
-  //   );
-  // }
 
 
   login(data: { email: string, password: string }) {
@@ -92,33 +46,6 @@ export class AuthService {
     );
   }
   
-  
-
-  // loginGoogle(token:any){
-
-  //   return this.http.post<AuthData>(`${environment.apiUrl}auth/login/oauth2/code/google`,token).pipe(
-  //     tap(async (user) => {
-  //       this.authSub.next(user);
-  //       localStorage.setItem('user', JSON.stringify(user));
-  //       this.autoLogout(user);
-        
-  //     })
-  //   )
-  // }
-
-  // loginGoogle(token: any) {
-  //   return this.http.post<AuthData>(`${environment.apiUrl}auth/login/oauth2/code/google`, token).pipe(
-  //     tap(async (user) => {
-  //       this.authSub.next(user);
-  //       localStorage.setItem('user', JSON.stringify(user));
-  //       this.autoLogout(user);
-  //       this.router.navigate(['/']); // Reindirizza alla homepage dopo il login
-  //     }),
-  //     catchError(this.errors)
-  //   );
-  // }
-
-
   loginGoogle(token: any) {
     return this.http.post<AuthData>(`${environment.apiUrl}auth/login/oauth2/code/google`, token).pipe(
       tap((authData) => {
@@ -149,16 +76,6 @@ export class AuthService {
      }
   }
 
-  // logout() {
-  //   this.authSub.next(null);
-  //   localStorage.removeItem('user');
-  //   if (this.timeout) {
-  //     clearTimeout(this.timeout);
-  //   }
-  //   this.router.navigate(['/']);
-  //   this.initializeGoogleLogin();
-  // }
-
   logout() {
     this.authSub.next(null);
     localStorage.removeItem('authToken');
@@ -179,18 +96,6 @@ export class AuthService {
     }, expirationTime);
   }
 
-  // async restore() {
-  //   //const userJson = localStorage.getItem('user');
-  //   const userJson = localStorage.getItem('authToken')
-  //   if (!userJson) {
-  //     return;
-  //   }
-  //   const user: AuthData = JSON.parse(userJson);
-  //   this.authSub.next(user);
-  //   this.router.navigate(['/']);
-  //   this.autoLogout(user);
-  // }
-
   async restore() {
     const userJson = localStorage.getItem('user');
     if (!userJson) {
@@ -205,6 +110,11 @@ export class AuthService {
       console.error('Error parsing user JSON:', error);
       this.logout();
     }
+  }
+
+  // AGGIUNTA
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
   }
 
  
@@ -229,5 +139,9 @@ export class AuthService {
         break;
     }
     return throwError(error);
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('authToken');
   }
 }

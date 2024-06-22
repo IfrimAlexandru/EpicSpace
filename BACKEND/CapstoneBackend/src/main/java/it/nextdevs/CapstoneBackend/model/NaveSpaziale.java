@@ -17,4 +17,5 @@ public class NaveSpaziale {
     private String produttore;
     private Integer capacitaEquipaggio;
     private String descrizione;
+    private String immagine;
 }

@@ -20,10 +20,10 @@ public class BigliettoController {
     private EmailService emailService;
 
     @PostMapping("/submit-order")
-    public String submitOrder(@RequestBody BigliettoDto bigliettoDto) {
+    public Integer submitOrder(@RequestBody BigliettoDto bigliettoDto) {
         Biglietto biglietto = bigliettoService.createBiglietto(bigliettoDto);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = biglietto.getDataPrenotazione().format(formatter);
 
         String subject = "Il tuo biglietto per il volo spaziale";
@@ -37,9 +37,9 @@ public class BigliettoController {
                 "Buon viaggio!\n\n" +
                 "Saluti,\nIl team di EpicSpace";
 
-        emailService.sendTicketEmail(biglietto.getEmail(), subject, text);
+        return emailService.sendTicketEmail(biglietto.getEmail(), subject, text);
 
-        return "Ordine ricevuto! Controlla la tua email per il biglietto.";
+
     }
 }
 

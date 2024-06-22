@@ -15,4 +15,6 @@ public class TutaSpaziale {
 
     private String nome;
     private String descrizione;
+    private String immagineFronte;
+    private String immagineRetro;
 }

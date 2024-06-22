@@ -23,6 +23,7 @@ import { RecensioniComponent } from './components/recensioni/recensioni.componen
 import { GoogleLoginComponent } from './components/autenticazione/google-login/google-login.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { ScelteUtenteService } from './service/scelte-utente.service';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ScelteUtenteService } from './service/scelte-utente.service';
     RiepilogoComponent,
     AutenticazioneComponent,
     RecensioniComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

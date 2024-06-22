@@ -18,4 +18,5 @@ public class Pianeta {
     private Long distanzaDallaTerraKm;
     private String descrizione;
     private Long prezzoDelVoloEuro;
+    private String immagine;
 }

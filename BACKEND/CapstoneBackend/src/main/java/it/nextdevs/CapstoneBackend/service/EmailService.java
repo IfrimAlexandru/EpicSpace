@@ -23,7 +23,7 @@ public class EmailService {
     @Value("${gmail.mail.from}")
     private String fromEmail;
 
-    public void sendTicketEmail(String to, String subject, String text) {
+    public Integer sendTicketEmail(String to, String subject, String text) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -32,6 +32,7 @@ public class EmailService {
             helper.setSubject(subject);
             helper.setText(text);
             mailSender.send(message);
+            return 0; // 0 indica successo
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

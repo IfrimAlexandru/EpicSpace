@@ -8,6 +8,7 @@ import { AutenticazioneComponent } from './components/autenticazione/autenticazi
 import { RiepilogoComponent } from './components/riepilogo/riepilogo.component';
 import { RecensioniComponent } from './components/recensioni/recensioni.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'sceltaNave', component: SceltaNaveComponent},
   {path: 'auth', component: AutenticazioneComponent },
   {path: 'riepilogo', component: RiepilogoComponent},
-  {path: 'recensioni', component: RecensioniComponent}
+  {path: 'recensioni', component: RecensioniComponent},
+  {path: 'admin', component: AdminComponent}
 
 
 ];
