@@ -4,11 +4,13 @@ import it.nextdevs.CapstoneBackend.model.Recensione;
 import it.nextdevs.CapstoneBackend.model.User;
 import it.nextdevs.CapstoneBackend.service.RecensioneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/recensioni")
@@ -18,8 +20,16 @@ public class RecensioneController {
     private RecensioneService recensioneService;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
     public Recensione createRecensione(@RequestBody RecensioneRequest recensioneRequest, @AuthenticationPrincipal User user) {
-        return recensioneService.saveRecensione(recensioneRequest.getText(), (Integer) user.getIdUtente());
+        return recensioneService.saveRecensione(recensioneRequest.getText(), user.getIdUtente());
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public List<Recensione> getAllRecensioni() {
+        return recensioneService.getAllRecensioni();
     }
 
     // Classe di richiesta interna per gestire i dati della richiesta

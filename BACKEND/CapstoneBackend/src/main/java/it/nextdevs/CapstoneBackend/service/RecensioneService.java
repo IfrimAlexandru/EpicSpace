@@ -7,6 +7,8 @@ import it.nextdevs.CapstoneBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RecensioneService {
 
@@ -22,5 +24,9 @@ public class RecensioneService {
         recensione.setText(text);
         recensione.setUser(user);
         return recensioneRepository.save(recensione);
+    }
+
+    public List<Recensione> getAllRecensioni() {
+        return recensioneRepository.findAll();
     }
 }

@@ -25,6 +25,7 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
 import { ScelteUtenteService } from './service/scelte-utente.service';
 import { AdminComponent } from './components/admin/admin.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { AdminComponent } from './components/admin/admin.component';
     AutenticazioneComponent,
     RecensioniComponent,
     GoogleLoginComponent,
-    AdminComponent
+    AdminComponent,
+  
   ],
   imports: [
     BrowserModule,
