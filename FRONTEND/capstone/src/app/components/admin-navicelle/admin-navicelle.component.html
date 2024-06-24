@@ -1,13 +1,13 @@
-<div class="navicelle-container">
+<div class="navicelle-container text-center my-4">
     <h2>Gestione Navicelle Spaziali</h2>
-    <div>
+    <div class="my-4">
       <h3>Nuova Navicella</h3>
       <input [(ngModel)]="newNavicella.nome" placeholder="Nome">
       <input [(ngModel)]="newNavicella.descrizione" placeholder="Descrizione">
       <input [(ngModel)]="newNavicella.immagineUrl" placeholder="URL Immagine">
       <button (click)="addNavicella()">Aggiungi</button>
     </div>
-    <div *ngFor="let navicella of navicelle">
+    <div *ngFor="let navicella of navicelle" class="my-4">
       <h3>{{ navicella.nome }}</h3>
       <input [(ngModel)]="navicella.descrizione" placeholder="Descrizione">
       <input [(ngModel)]="navicella.immagineUrl" placeholder="URL Immagine">
