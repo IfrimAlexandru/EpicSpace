@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/tute_spaziali")
+@RequestMapping("/tute_spaziali")
 public class TutaSpazialeController {
 
     @Autowired

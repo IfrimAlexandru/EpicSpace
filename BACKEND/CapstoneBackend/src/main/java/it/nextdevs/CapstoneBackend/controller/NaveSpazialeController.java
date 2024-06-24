@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/navi_spaziali")
+@RequestMapping("/navi_spaziali")
 public class NaveSpazialeController {
 
     @Autowired

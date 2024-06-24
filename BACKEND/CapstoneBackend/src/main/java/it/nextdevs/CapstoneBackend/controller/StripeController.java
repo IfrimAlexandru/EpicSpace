@@ -28,7 +28,7 @@ public class StripeController {
      */
     public String paymentWithCheckoutPage(@RequestBody CheckoutPayment payment) throws StripeException {
         // We initilize stripe object with the api key
-        init();
+//        init();
         // We create a  stripe session parameters
         SessionCreateParams params = SessionCreateParams.builder()
                 // We will use the credit card payment method
@@ -55,7 +55,4 @@ public class StripeController {
         return gson.toJson(responseData);
     }
 
-    private static void init() {
-        Stripe.apiKey = "sk_test_51PUd3wK77lkHwPqgvsmQ2iNwuHmuN8DaKHkIqynNa7IsFRl4GgNQtFUil7aWCN7PmbsbCSTwZ1YkvEKdJDfqaHBc00vh7Bvh3A";
-    }
 }
