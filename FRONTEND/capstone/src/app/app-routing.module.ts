@@ -9,6 +9,9 @@ import { RiepilogoComponent } from './components/riepilogo/riepilogo.component';
 import { RecensioniComponent } from './components/recensioni/recensioni.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AdminComponent } from './components/admin/admin.component';
+import { SuccessComponent } from './components/success/success.component';
+import { CancelComponent } from './components/cancel/cancel.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 
@@ -20,7 +23,11 @@ const routes: Routes = [
   {path: 'auth', component: AutenticazioneComponent },
   {path: 'riepilogo', component: RiepilogoComponent},
   {path: 'recensioni', component: RecensioniComponent},
-  {path: 'admin', component: AdminComponent}
+  {path: 'admin', component: AdminComponent},
+  {path: 'success', component: SuccessComponent},
+  {path: 'cancel', component: CancelComponent},
+  {path: 'checkout', component: CheckoutComponent}
+
 
 
 ];

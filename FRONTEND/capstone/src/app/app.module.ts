@@ -24,6 +24,11 @@ import { GoogleLoginComponent } from './components/autenticazione/google-login/g
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { ScelteUtenteService } from './service/scelte-utente.service';
 import { AdminComponent } from './components/admin/admin.component';
+import { CancelComponent } from './components/cancel/cancel.component';
+import { SuccessComponent } from './components/success/success.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+// import { BrowserAnimationModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -41,6 +46,9 @@ import { AdminComponent } from './components/admin/admin.component';
     RecensioniComponent,
     GoogleLoginComponent,
     AdminComponent,
+    CancelComponent,
+    SuccessComponent,
+    CheckoutComponent,
   
   ],
   imports: [
@@ -51,6 +59,7 @@ import { AdminComponent } from './components/admin/admin.component';
     HttpClientModule,
     SocialLoginModule,
     FormsModule,
+    // BrowserAnimationModule
     
     
   ],
