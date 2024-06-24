@@ -12,6 +12,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { SuccessComponent } from './components/success/success.component';
 import { CancelComponent } from './components/cancel/cancel.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AdminNavicelleComponent } from './components/admin-navicelle/admin-navicelle.component';
+import { AdminTuteComponent } from './components/admin-tute/admin-tute.component';
+import { AdminDateComponent } from './components/admin-date/admin-date.component';
 
 
 
@@ -23,12 +26,15 @@ const routes: Routes = [
   {path: 'auth', component: AutenticazioneComponent },
   {path: 'riepilogo', component: RiepilogoComponent},
   {path: 'recensioni', component: RecensioniComponent},
-  {path: 'admin', component: AdminComponent},
   {path: 'success', component: SuccessComponent},
   {path: 'cancel', component: CancelComponent},
-  {path: 'checkout', component: CheckoutComponent}
-
-
+  {path: 'checkout', component: CheckoutComponent},
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
+    { path: 'navicelle', component: AdminNavicelleComponent },
+    { path: 'tute', component: AdminTuteComponent },
+    { path: 'date', component: AdminDateComponent },
+  ]
+},
 
 ];
 

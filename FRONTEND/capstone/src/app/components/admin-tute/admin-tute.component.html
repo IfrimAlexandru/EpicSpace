@@ -1,0 +1,17 @@
+<div class="tute-container">
+    <h2>Gestione Tute Spaziali</h2>
+    <div>
+      <h3>Nuova Tuta</h3>
+      <input [(ngModel)]="newTuta.nome" placeholder="Nome">
+      <input [(ngModel)]="newTuta.descrizione" placeholder="Descrizione">
+      <input [(ngModel)]="newTuta.immagineUrl" placeholder="URL Immagine">
+      <button (click)="addTuta()">Aggiungi</button>
+    </div>
+    <div *ngFor="let tuta of tute">
+      <h3>{{ tuta.nome }}</h3>
+      <input [(ngModel)]="tuta.descrizione" placeholder="Descrizione">
+      <input [(ngModel)]="tuta.immagineUrl" placeholder="URL Immagine">
+      <button (click)="updateTuta(tuta)">Modifica</button>
+      <button (click)="deleteTuta(tuta.id)">Elimina</button>
+    </div>
+  </div>

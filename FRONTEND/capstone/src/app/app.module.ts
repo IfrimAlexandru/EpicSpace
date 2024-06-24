@@ -27,6 +27,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { CancelComponent } from './components/cancel/cancel.component';
 import { SuccessComponent } from './components/success/success.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AdminNavicelleComponent } from './components/admin-navicelle/admin-navicelle.component';
+import { AdminTuteComponent } from './components/admin-tute/admin-tute.component';
+import { AdminDateComponent } from './components/admin-date/admin-date.component';
 // import { BrowserAnimationModule } from '@angular/platform-browser/animations';
 
 
@@ -49,6 +52,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CancelComponent,
     SuccessComponent,
     CheckoutComponent,
+    AdminNavicelleComponent,
+    AdminTuteComponent,
+    AdminDateComponent,
   
   ],
   imports: [

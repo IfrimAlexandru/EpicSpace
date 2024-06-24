@@ -14,22 +14,19 @@ import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
   providedIn: 'root'
 })
 export class AuthService {
-  
 
   private jwtHelper = new JwtHelperService();
-
   private authSub = new BehaviorSubject<AuthData | null >(null);
   user$ = this.authSub.asObservable();
   private timeout!: any;
 
   constructor(private http: HttpClient, private router: Router) {}
-  
+
   register(data: { username: string, password: string, email: string, nome: string, cognome: string }) {
     return this.http.post(`${environment.apiUrl}auth/register`, data).pipe(
       catchError(this.errors)
     );
   }
-
 
   login(data: { email: string, password: string }) {
     return this.http.post<AuthData>(`${environment.apiUrl}auth/login`, data).pipe(
@@ -59,11 +56,8 @@ export class AuthService {
       catchError(this.errors)
     );
   }
-  
+
   private initializeGoogleLogin() {
-    // Assicurati che il componente GoogleLoginComponent venga reinizializzato
-    // ad esempio, ricaricando la pagina o richiamando la funzione di inizializzazione del componente
-   
     window.location.reload(); // Questo è un modo semplice ma potrebbe non essere il più elegante
   }
 
@@ -112,12 +106,19 @@ export class AuthService {
     }
   }
 
-  // AGGIUNTA
   getToken(): string | null {
     return localStorage.getItem('authToken');
   }
 
- 
+  getUserRole(): string | null {
+    const userJson = localStorage.getItem('user');
+    if (userJson) {
+      const user: AuthData = JSON.parse(userJson);
+      return user.user.tipoUtente;
+    }
+    return null;
+  }
+
   private errors(err: any) {
     console.log(err);
     let error = '';

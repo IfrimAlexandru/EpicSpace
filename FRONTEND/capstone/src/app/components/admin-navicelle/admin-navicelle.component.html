@@ -1,0 +1,18 @@
+<div class="navicelle-container">
+    <h2>Gestione Navicelle Spaziali</h2>
+    <div>
+      <h3>Nuova Navicella</h3>
+      <input [(ngModel)]="newNavicella.nome" placeholder="Nome">
+      <input [(ngModel)]="newNavicella.descrizione" placeholder="Descrizione">
+      <input [(ngModel)]="newNavicella.immagineUrl" placeholder="URL Immagine">
+      <button (click)="addNavicella()">Aggiungi</button>
+    </div>
+    <div *ngFor="let navicella of navicelle">
+      <h3>{{ navicella.nome }}</h3>
+      <input [(ngModel)]="navicella.descrizione" placeholder="Descrizione">
+      <input [(ngModel)]="navicella.immagineUrl" placeholder="URL Immagine">
+      <button (click)="updateNavicella(navicella)">Modifica</button>
+      <button (click)="deleteNavicella(navicella.id)">Elimina</button>
+    </div>
+  </div>
+  
