@@ -62,37 +62,3 @@ export class RecensioniComponent implements OnInit {
     }
   }
 }
-// export class RecensioniComponent implements OnInit {
-
-//   reviewText: string = '';
-
-//   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
-
-//   ngOnInit(): void {}
-
-//   showReviewForm(): void {
-//     if (this.authService.isLoggedIn()) {
-//       document.getElementById('review-form')!.style.display = 'block';
-//     } else {
-//       this.router.navigate(['/auth']);
-//     }
-//   }
-
-//   submitReview(): void {
-//     const text = this.reviewText;
-//     const token = this.authService.getToken();
-
-//     if (token) {
-//       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-//       this.http.post(`${environment.apiUrl}recensioni`, { text }, { headers }).subscribe(response => {
-//         console.log('Review submitted', response);
-//         this.reviewText = ''; // Clear the form after submission
-//       }, error => {
-//         console.error('Error submitting review', error);
-//       });
-//     } else {
-//       console.error('No token found, user might not be authenticated');
-//       this.router.navigate(['/auth']);
-//     }
-//   }
-// }

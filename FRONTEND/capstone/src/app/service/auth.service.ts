@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment.development';
 import { User } from '../interface/user.interface';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +17,7 @@ export class AuthService {
   private authSub = new BehaviorSubject<AuthData | null >(null);
   user$ = this.authSub.asObservable();
   private timeout!: any;
+  redirectUrl: string | null = null;  // Aggiungi questa riga
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -37,12 +36,14 @@ export class AuthService {
         console.log('Token salvato:', authData.accessToken);
         this.authSub.next(authData);
         this.autoLogout(authData);
-        this.router.navigate(['/']); // Reindirizza alla homepage dopo il login
+        const redirect = this.redirectUrl ? this.redirectUrl : '/';  // Aggiungi questa riga
+        this.redirectUrl = null;  // Aggiungi questa riga
+        this.router.navigate([redirect]);  // Modifica questa riga
       }),
       catchError(this.errors)
     );
   }
-  
+
   loginGoogle(token: any) {
     return this.http.post<AuthData>(`${environment.apiUrl}auth/login/oauth2/code/google`, token).pipe(
       tap((authData) => {
@@ -51,7 +52,9 @@ export class AuthService {
         console.log('Token salvato:', authData.accessToken);
         this.authSub.next(authData);
         this.autoLogout(authData);
-        this.router.navigate(['/']); // Reindirizza alla homepage dopo il login
+        const redirect = this.redirectUrl ? this.redirectUrl : '/';  // Aggiungi questa riga
+        this.redirectUrl = null;  // Aggiungi questa riga
+        this.router.navigate([redirect]);  // Modifica questa riga
       }),
       catchError(this.errors)
     );

@@ -8,27 +8,10 @@ import { AuthService } from 'src/app/service/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit  {
-  // [x: string]: any;
+export class NavbarComponent implements OnInit {
   
-  // user!: AuthData | null
-
-  //   constructor(private authSrv: AuthService) {}
-
-  //   ngOnInit(): void {
-  //     this.authSrv.user$.subscribe((data) => {
-  //       this.user = data
-  //     })
-  //   }
-  
-  //   logout() {
-  //     this.authSrv.logout();
-  //   }
-  
-  // }
-
   user!: AuthData | null;
-  
+
   constructor(private authSrv: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -46,6 +29,16 @@ export class NavbarComponent implements OnInit  {
     if (this.user) {
       this.router.navigate(['/sceltaPianeta']);
     } else {
+      this.authSrv.redirectUrl = '/sceltaPianeta';  // Save the redirect URL
+      this.router.navigate(['/auth']);
+    }
+  }
+
+  handleAdminClick() {
+    if (this.user) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.authSrv.redirectUrl = '/admin';
       this.router.navigate(['/auth']);
     }
   }
