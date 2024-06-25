@@ -1,14 +1,13 @@
-<div class="date-container text-center my-4" >
-    <h2>Gestione Date Disponibili</h2>
-    <div class="my-4">
-      <h3>Nuova Data</h3>
-      <input [(ngModel)]="newData.data" placeholder="Data (yyyy-MM-dd)">
-      <button (click)="addData()">Aggiungi</button>
-    </div>
-    <div *ngFor="let data of date" class="my-4">
-      <h3>{{ data.data }}</h3>
-      <input [(ngModel)]="data.data" placeholder="Data (yyyy-MM-dd)">
-      <button (click)="updateData(data)">Modifica</button>
-      <button (click)="deleteData(data.id)">Elimina</button>
-    </div>
+<div class="date-container text-center my-4">
+  <h2>Gestione Date Disponibili</h2>
+  <div class="my-4">
+    <h3>Nuova Data</h3>
+    <input type="date" [(ngModel)]="newData.data" placeholder="Data">
+    <button (click)="addData()">Aggiungi</button>
   </div>
+  <div *ngFor="let d of date" class="my-4">
+    <input type="date" [(ngModel)]="d.data" placeholder="Data">
+    <button (click)="updateData(d)">Modifica</button>
+    <button (click)="deleteData(d.id)">Elimina</button>
+  </div>
+</div>

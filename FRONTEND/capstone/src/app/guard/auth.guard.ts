@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     return this.authSrv.user$.pipe(
       take(1),
       map((user) => {
-        if (user && this.authSrv.getUserRole() === 'USER') {
+        if (user && this.authSrv.getUserRole() === 'ADMIN') {
           return true;
         }
         return this.router.createUrlTree(['/']);

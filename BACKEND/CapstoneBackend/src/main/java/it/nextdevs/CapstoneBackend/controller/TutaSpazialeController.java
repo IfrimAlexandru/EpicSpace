@@ -31,6 +31,12 @@ public class TutaSpazialeController {
         return tutaSpazialeService.saveTutaSpaziale(tutaSpaziale);
     }
 
+    @PutMapping("/{id}")
+    public TutaSpaziale updateTutaSpaziale(@PathVariable Integer id, @RequestBody TutaSpaziale tutaSpaziale) {
+        tutaSpaziale.setId(id);
+        return tutaSpazialeService.saveTutaSpaziale(tutaSpaziale);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTutaSpaziale(@PathVariable Integer id) {
         tutaSpazialeService.deleteTutaSpaziale(id);

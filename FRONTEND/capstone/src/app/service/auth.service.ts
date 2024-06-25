@@ -145,6 +145,11 @@ export class AuthService {
     return throwError(error);
   }
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem('authToken');
   }

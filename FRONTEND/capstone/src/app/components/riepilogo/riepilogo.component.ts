@@ -21,10 +21,10 @@ export class RiepilogoComponent implements OnInit {
   buyerName: string = '';
   email: string = '';
   selectedDate: string = '';
-  availableDates: string[] = ['2024-07-01', '2024-07-15', '2024-08-01']; // Example dates
+  availableDates: string[] = [];
 
-  // private apiUrl = environment.apiUrl;
   private apiUrl = `${environment.apiUrl}api/biglietti/submit-order`;
+  private datesUrl = `${environment.apiUrl}api/dates`; // URL to fetch available dates
 
   constructor(
     private scelteUtenteService: ScelteUtenteService,
@@ -43,6 +43,25 @@ export class RiepilogoComponent implements OnInit {
         this.router.navigate(['/auth']);  // Redirect to login if no user found
       }
     });
+
+    this.loadAvailableDates();
+  }
+
+  loadAvailableDates(): void {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<{ id: number, data: string }[]>(this.datesUrl, { headers }).subscribe(
+      data => {
+        this.availableDates = data.map(dateObj => dateObj.data);
+        console.log('Loaded dates:', this.availableDates); // Log dates for debugging
+      },
+      error => {
+        console.error('Error loading available dates:', error);
+      }
+    );
   }
 
   onSubmit() {
@@ -89,4 +108,3 @@ export class RiepilogoComponent implements OnInit {
         );
   }
 }
-

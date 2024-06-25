@@ -1,17 +1,9 @@
 <div class="container-wrapper">
-  <img
-    class="moon-background"
-    src="../../../assets/img/LUNA4-Photoroom.png"
-    alt="Moon"
-  />
+  <img class="moon-background" src="../../../assets/img/LUNA4-Photoroom.png" alt="Moon" />
   <div class="container" style="margin: 0 auto">
     <div class="row d-flex justify-content-between align-items-center pb-5">
       <div class="col-auto">
-        <img
-          src="../../../assets/img/LOGO.png"
-          style="width: 170px"
-          alt="logoEpicSpace"
-        />
+        <img src="../../../assets/img/LOGO.png" style="width: 170px" alt="logoEpicSpace" />
       </div>
       <div class="col d-flex justify-content-center">
         <div class="mx-5">1</div>
@@ -32,26 +24,11 @@
       <div class="col-lg-6 summary">
         <h2>Riepilogo delle tue scelte</h2>
         <p>Pianeta selezionato <br>{{ choices.planet }}</p>
-        <img
-          [src]="choices.planetImg"
-          alt="Pianeta"
-          class="image-small"
-          *ngIf="choices.planetImg"
-        />
+        <img [src]="choices.planetImg" alt="Pianeta" class="image-small" *ngIf="choices.planetImg" />
         <p>Nave selezionata <br> {{ choices.ship }}</p>
-        <img
-          [src]="choices.shipImg"
-          alt="Nave"
-          class="image-small"
-          *ngIf="choices.shipImg"
-        />
+        <img [src]="choices.shipImg" alt="Nave" class="image-small" *ngIf="choices.shipImg" />
         <p>Tuta selezionata <br> {{ choices.suit }}</p>
-        <img
-          [src]="choices.suitImg"
-          alt="Tuta"
-          class="image-small"
-          *ngIf="choices.suitImg"
-        />
+        <img [src]="choices.suitImg" alt="Tuta" class="image-small" *ngIf="choices.suitImg" />
       </div>
 
       <div class="col-lg-6 date-selection">
@@ -70,32 +47,15 @@
       <form (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="buyer-name">Nome Acquirente:</label>
-          <input
-            type="text"
-            id="buyer-name"
-            name="buyer-name"
-            class="form-control"
-            [(ngModel)]="buyerName"
-            required
-          />
+          <input type="text" id="buyer-name" name="buyer-name" class="form-control" [(ngModel)]="buyerName" required />
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            [(ngModel)]="email"
-            required
-          />
+          <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required />
         </div>
         <app-checkout></app-checkout>
         <button type="submit" class="btn btn-primary btn-block">Acquista</button>
       </form>
     </div>
-    
   </div>
 </div>
-
-

@@ -67,11 +67,15 @@
   "tuteSpaziali": [
     {
       "nome": "Orlan",
-      "descrizione": "Una serie di tute spaziali semirigide monopezzo progettate e costruite dalla Russia."
+      "descrizione": "Una serie di tute spaziali semirigide monopezzo progettate e costruite dalla Russia.",
+      "immagineFronte": "",
+      "immagineRetro": ""
     },
     {
       "nome": "EMU",
-      "descrizione": "L'Extravehicular Mobility Unit è una tuta spaziale americana capace di operare nel vuoto dello spazio."
+      "descrizione": "L'Extravehicular Mobility Unit è una tuta spaziale americana capace di operare nel vuoto dello spazio.",
+      "immagineFronte": "",
+      "immagineRetro": ""
     }
   ],
   "naviSpaziali": [

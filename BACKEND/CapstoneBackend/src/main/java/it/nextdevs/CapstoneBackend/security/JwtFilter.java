@@ -38,8 +38,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             throw new UnauthorizedException("Errore in authorization, token mancante!");
         }
-
+        System.err.println(authHeader);
         String token = authHeader.substring(7);
+        System.err.println(token);
 
         jwtTool.verifyToken(token);
 

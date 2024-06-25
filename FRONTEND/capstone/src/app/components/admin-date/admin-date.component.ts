@@ -19,14 +19,14 @@ export class AdminDateComponent implements OnInit {
 
   loadDate(): void {
     const headers = this.getAuthHeaders();
-    this.http.get<any[]>(`${environment.apiUrl}data_volo/date`, { headers }).subscribe(data => {
+    this.http.get<any[]>(`${environment.apiUrl}api/dates`, { headers }).subscribe(data => {
       this.date = data;
     });
   }
 
   addData(): void {
     const headers = this.getAuthHeaders();
-    this.http.post(`${environment.apiUrl}data_volo/date`, this.newData, { headers }).subscribe(() => {
+    this.http.post(`${environment.apiUrl}api/dates`, this.newData, { headers }).subscribe(() => {
       this.loadDate();
       this.newData = { data: '' };
     });
@@ -34,14 +34,14 @@ export class AdminDateComponent implements OnInit {
 
   updateData(data: any): void {
     const headers = this.getAuthHeaders();
-    this.http.put(`${environment.apiUrl}data_volo/date/${data.id}`, data, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}api/dates/${data.id}`, data, { headers }).subscribe(() => {
       this.loadDate();
     });
   }
 
   deleteData(id: number): void {
     const headers = this.getAuthHeaders();
-    this.http.delete(`${environment.apiUrl}data_volo/date/${id}`, { headers }).subscribe(() => {
+    this.http.delete(`${environment.apiUrl}api/dates/${id}`, { headers }).subscribe(() => {
       this.loadDate();
     });
   }
