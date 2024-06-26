@@ -41,4 +41,6 @@ public class TutaSpazialeController {
     public void deleteTutaSpaziale(@PathVariable Integer id) {
         tutaSpazialeService.deleteTutaSpaziale(id);
     }
+
+
 }

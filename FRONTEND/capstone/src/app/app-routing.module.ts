@@ -15,6 +15,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminNavicelleComponent } from './components/admin-navicelle/admin-navicelle.component';
 import { AdminTuteComponent } from './components/admin-tute/admin-tute.component';
 import { AdminDateComponent } from './components/admin-date/admin-date.component';
+import { ProveComponent } from './prove/prove.component';
 
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'success', component: SuccessComponent},
   {path: 'cancel', component: CancelComponent},
   {path: 'checkout', component: CheckoutComponent},
+  {path: 'prove', component: ProveComponent},
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
     { path: 'navicelle', component: AdminNavicelleComponent },
     { path: 'tute', component: AdminTuteComponent },

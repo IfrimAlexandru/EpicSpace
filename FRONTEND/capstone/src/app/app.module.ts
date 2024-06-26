@@ -30,6 +30,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminNavicelleComponent } from './components/admin-navicelle/admin-navicelle.component';
 import { AdminTuteComponent } from './components/admin-tute/admin-tute.component';
 import { AdminDateComponent } from './components/admin-date/admin-date.component';
+import { ProveComponent } from './prove/prove.component';
 // import { BrowserAnimationModule } from '@angular/platform-browser/animations';
 
 
@@ -55,6 +56,7 @@ import { AdminDateComponent } from './components/admin-date/admin-date.component
     AdminNavicelleComponent,
     AdminTuteComponent,
     AdminDateComponent,
+    ProveComponent,
   
   ],
   imports: [
