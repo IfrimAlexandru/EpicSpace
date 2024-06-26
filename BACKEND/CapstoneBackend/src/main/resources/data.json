@@ -83,13 +83,15 @@
       "nome": "Modulo di Comando Apollo",
       "produttore": "North American Aviation",
       "capacitaEquipaggio": 3,
-      "descrizione": "Una navicella spaziale utilizzata nel programma Apollo per le missioni lunari."
+      "descrizione": "Una navicella spaziale utilizzata nel programma Apollo per le missioni lunari.",
+      "immagine": ""
     },
     {
       "nome": "Space Shuttle",
       "produttore": "Rockwell International",
       "capacitaEquipaggio": 7,
-      "descrizione": "Una navicella spaziale riutilizzabile che faceva parte del programma Space Shuttle."
+      "descrizione": "Una navicella spaziale riutilizzabile che faceva parte del programma Space Shuttle.",
+      "immagine": ""
     },
     {
       "nome": "Dragon",

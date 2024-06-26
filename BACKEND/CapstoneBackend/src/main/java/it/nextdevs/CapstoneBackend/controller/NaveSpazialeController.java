@@ -31,6 +31,12 @@ public class NaveSpazialeController {
         return naveSpazialeService.saveNaveSpaziale(naveSpaziale);
     }
 
+    @PutMapping("/{id}")
+    public NaveSpaziale updateNaveSpaziale(@PathVariable Integer id, @RequestBody NaveSpaziale naveSpaziale) {
+        naveSpaziale.setId(id);
+        return naveSpazialeService.saveNaveSpaziale(naveSpaziale);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteNaveSpaziale(@PathVariable Integer id) {
         naveSpazialeService.deleteNaveSpaziale(id);

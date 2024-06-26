@@ -1,0 +1,39 @@
+.navicelle-container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .new-navicella-form {
+    background-color: #f8f9fa; /* Light gray background for new navicella form */
+    border: 1px solid #007bff; /* Blue border */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); /* Light blue shadow */
+  }
+  
+  .new-navicella-form .card-header {
+    background-color: #007bff; /* Blue header */
+  }
+  
+  .card-header {
+    background-color: #6c757d; /* Default gray header for existing navicella forms */
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  

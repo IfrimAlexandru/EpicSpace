@@ -31,21 +31,25 @@ export class AdminTuteComponent implements OnInit {
 
   onFronteFileSelected(event: any): void {
     this.selectedFronteFile = event.target.files[0];
+    console.log('Selected front file:', this.selectedFronteFile); // Log file for debugging
   }
 
   onRetroFileSelected(event: any): void {
     this.selectedRetroFile = event.target.files[0];
+    console.log('Selected back file:', this.selectedRetroFile); // Log file for debugging
   }
 
   onFronteFileUpdateSelected(event: any, tutaId: number): void {
     this.selectedFronteFileUpdate[tutaId] = event.target.files[0];
+    console.log(`Selected front file for update (ID: ${tutaId}):`, this.selectedFronteFileUpdate[tutaId]); // Log file for debugging
   }
 
   onRetroFileUpdateSelected(event: any, tutaId: number): void {
     this.selectedRetroFileUpdate[tutaId] = event.target.files[0];
+    console.log(`Selected back file for update (ID: ${tutaId}):`, this.selectedRetroFileUpdate[tutaId]); // Log file for debugging
   }
 
-  uploadFile(id: number, file: File, type: 'front' | 'back') {
+  uploadFile(id: number, file: File, type: 'front' | 'back'): Observable<{ url: string }> {
     const formData = new FormData();
     formData.append('file', file);
 
@@ -56,7 +60,7 @@ export class AdminTuteComponent implements OnInit {
       url = `${environment.apiUrl}api/uploadTutaSpazialeImageBack/${id}`;
     }
 
-    const headers = this.getAuthHeaders(); // Aggiunto il token di autenticazione
+    const headers = this.getAuthHeaders();
     console.log('Uploading file to:', url); // Log URL for debugging
     console.log('Headers:', headers); // Log headers for debugging
 
@@ -66,17 +70,19 @@ export class AdminTuteComponent implements OnInit {
   async addTuta(): Promise<void> {
     const headers = this.getAuthHeaders();
     const newTuta = await this.http.post<any>(`${environment.apiUrl}tute_spaziali`, this.newTuta, { headers }).toPromise();
+    console.log('New tuta created:', newTuta); // Log new tuta for debugging
 
     if (this.selectedFronteFile) {
-      const immagineFronte = await this.uploadFile(newTuta.id, this.selectedFronteFile, 'front');
+      const immagineFronte = await this.uploadFile(newTuta.id, this.selectedFronteFile, 'front').toPromise();
       if (immagineFronte) {
-        this.newTuta.immagineFronte = immagineFronte;
+        this.newTuta.immagineFronte = immagineFronte.url;
       }
     }
+
     if (this.selectedRetroFile) {
-      const immagineRetro = await this.uploadFile(newTuta.id, this.selectedRetroFile, 'back');
+      const immagineRetro = await this.uploadFile(newTuta.id, this.selectedRetroFile, 'back').toPromise();
       if (immagineRetro) {
-        this.newTuta.immagineRetro = immagineRetro;
+        this.newTuta.immagineRetro = immagineRetro.url;
       }
     }
 
@@ -90,27 +96,24 @@ export class AdminTuteComponent implements OnInit {
     const headers = this.getAuthHeaders();
 
     if (this.selectedFronteFileUpdate[tuta.id]) {
-      this.uploadFile(tuta.id, this.selectedFronteFileUpdate[tuta.id] as File, 'front').subscribe(url=>{
-        tuta.immagineFronte=url;
-    });
-  }
-
-    if (this.selectedRetroFileUpdate[tuta.id]) {
-      this.uploadFile(tuta.id, this.selectedRetroFileUpdate[tuta.id] as File, 'back').subscribe(url=>{
-        tuta.immagineRetro=url;
-      });
+      const immagineFronte = await this.uploadFile(tuta.id, this.selectedFronteFileUpdate[tuta.id] as File, 'front').toPromise();
+      if (immagineFronte) {
+        tuta.immagineFronte = immagineFronte.url;
+      }
     }
 
-    setTimeout(()=>{
-      this.http.put(`${environment.apiUrl}tute_spaziali/${tuta.id}`, tuta, { headers }).subscribe(() => {
-      this.loadTute();
-    });
-    },2000)
+    if (this.selectedRetroFileUpdate[tuta.id]) {
+      const immagineRetro = await this.uploadFile(tuta.id, this.selectedRetroFileUpdate[tuta.id] as File, 'back').toPromise();
+      if (immagineRetro) {
+        tuta.immagineRetro = immagineRetro.url;
+      }
+    }
+
+    await this.http.put(`${environment.apiUrl}tute_spaziali/${tuta.id}`, tuta, { headers }).toPromise();
+    this.loadTute();
   }
 
-
-
-deleteTuta(id: number): void {
+  deleteTuta(id: number): void {
     const headers = this.getAuthHeaders();
     this.http.delete(`${environment.apiUrl}tute_spaziali/${id}`, { headers }).subscribe(() => {
       this.loadTute();

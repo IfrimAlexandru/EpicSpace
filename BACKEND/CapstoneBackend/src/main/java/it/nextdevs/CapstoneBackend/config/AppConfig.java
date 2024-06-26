@@ -15,6 +15,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("application.properties")
+//@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     @Value("${STRIPE_KEY}")

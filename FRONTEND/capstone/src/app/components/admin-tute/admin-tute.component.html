@@ -1,19 +1,56 @@
-<div class="tute-container text-center my-4">
-  <h2>Gestione Tute Spaziali</h2>
-  <div class="my-4">
-    <h3>Nuova Tuta</h3>
-    <input [(ngModel)]="newTuta.nome" placeholder="Nome">
-    <input [(ngModel)]="newTuta.descrizione" placeholder="Descrizione">
-    <input type="file" (change)="onFronteFileSelected($event)" placeholder="Immagine Fronte">
-    <input type="file" (change)="onRetroFileSelected($event)" placeholder="Immagine Retro">
-    <button (click)="addTuta()">Aggiungi</button>
+<div class="container tute-container my-4">
+  <h2 class="text-center mb-4">Gestione Tute Spaziali</h2>
+  
+  <!-- Form di Creazione Nuova Tuta -->
+  <div class="card mb-4 new-tuta-form">
+    <div class="card-header bg-primary text-white">
+      <h3>Nuova Tuta</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group mb-3">
+          <label for="nome">Nome</label>
+          <input id="nome" name="nome" [(ngModel)]="newTuta.nome" class="form-control" placeholder="Nome">
+        </div>
+        <div class="form-group mb-3">
+          <label for="descrizione">Descrizione</label>
+          <input id="descrizione" name="descrizione" [(ngModel)]="newTuta.descrizione" class="form-control" placeholder="Descrizione">
+        </div>
+        <div class="form-group mb-3">
+          <label for="immagineFronte">Immagine Fronte</label>
+          <input id="immagineFronte" type="file" (change)="onFronteFileSelected($event)" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+          <label for="immagineRetro">Immagine Retro</label>
+          <input id="immagineRetro" type="file" (change)="onRetroFileSelected($event)" class="form-control">
+        </div>
+        <button type="button" (click)="addTuta()" class="btn btn-success">Aggiungi</button>
+      </form>
+    </div>
   </div>
-  <div *ngFor="let tuta of tute" class="my-4">
-    <h3>{{ tuta.nome }}</h3>
-    <input [(ngModel)]="tuta.descrizione" placeholder="Descrizione">
-    <input type="file" (change)="onFronteFileUpdateSelected($event, tuta.id)" placeholder="Immagine Fronte">
-    <input type="file" (change)="onRetroFileUpdateSelected($event, tuta.id)" placeholder="Immagine Retro">
-    <button (click)="updateTuta(tuta)">Modifica</button>
-    <button (click)="deleteTuta(tuta.id)">Elimina</button>
+
+  <!-- Form di Modifica Tuta -->
+  <div *ngFor="let tuta of tute" class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h3>{{ tuta.nome }}</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group mb-3">
+          <label for="descrizione-{{tuta.id}}">Descrizione</label>
+          <input id="descrizione-{{tuta.id}}" name="descrizione-{{tuta.id}}" [(ngModel)]="tuta.descrizione" class="form-control" placeholder="Descrizione">
+        </div>
+        <div class="form-group mb-3">
+          <label for="immagineFronte-{{tuta.id}}">Immagine Fronte</label>
+          <input id="immagineFronte-{{tuta.id}}" type="file" (change)="onFronteFileUpdateSelected($event, tuta.id)" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+          <label for="immagineRetro-{{tuta.id}}">Immagine Retro</label>
+          <input id="immagineRetro-{{tuta.id}}" type="file" (change)="onRetroFileUpdateSelected($event, tuta.id)" class="form-control">
+        </div>
+        <button type="button" (click)="updateTuta(tuta)" class="btn btn-success me-3">Modifica</button>
+        <button type="button" (click)="deleteTuta(tuta.id)" class="btn btn-danger">Elimina</button>
+      </form>
+    </div>
   </div>
 </div>

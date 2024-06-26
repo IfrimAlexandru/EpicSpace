@@ -1,9 +1,6 @@
 package it.nextdevs.CapstoneBackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -17,5 +14,6 @@ public class NaveSpaziale {
     private String produttore;
     private Integer capacitaEquipaggio;
     private String descrizione;
+    @Column(name = "immagine")
     private String immagine;
 }
