@@ -29,4 +29,8 @@ public class RecensioneService {
     public List<Recensione> getAllRecensioni() {
         return recensioneRepository.findAll();
     }
+
+    public void deleteRecensione(Integer id) {
+        recensioneRepository.deleteById(id);
+    }
 }

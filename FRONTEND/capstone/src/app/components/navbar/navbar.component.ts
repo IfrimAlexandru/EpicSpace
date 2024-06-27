@@ -11,12 +11,14 @@ import { AuthService } from 'src/app/service/auth.service';
 export class NavbarComponent implements OnInit {
   
   user!: AuthData | null;
+  isAdmin: boolean = false;
 
   constructor(private authSrv: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
       this.user = data;
+      this.isAdmin = this.user?.user.tipoUtente === 'ADMIN';
     });
   }
 

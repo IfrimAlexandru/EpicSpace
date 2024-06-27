@@ -31,7 +31,7 @@ public class NaveSpazialeController {
         return naveSpazialeService.saveNaveSpaziale(naveSpaziale);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public NaveSpaziale updateNaveSpaziale(@PathVariable Integer id, @RequestBody NaveSpaziale naveSpaziale) {
         naveSpaziale.setId(id);
         return naveSpazialeService.saveNaveSpaziale(naveSpaziale);

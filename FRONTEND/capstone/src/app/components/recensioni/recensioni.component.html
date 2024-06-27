@@ -5,7 +5,8 @@
   <div class="reviews-grid">
     <div *ngFor="let recensione of recensioni" class="review">
       <p class="review-text">{{ recensione.text }}</p>
-      <p class="review-author">- {{ recensione.user.username }}</p>
+      <p class="review-author">- {{ recensione.user.nome }}</p>
+      <button *ngIf="isAdmin" class="delete-button" (click)="deleteRecensione(recensione.id)">Cancella</button>
     </div>
   </div>
   <div class="review-button-container">

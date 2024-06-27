@@ -109,7 +109,7 @@ export class AdminTuteComponent implements OnInit {
       }
     }
 
-    await this.http.put(`${environment.apiUrl}tute_spaziali/${tuta.id}`, tuta, { headers }).toPromise();
+    await this.http.patch(`${environment.apiUrl}tute_spaziali/${tuta.id}`, tuta, { headers }).toPromise();
     this.loadTute();
   }
 

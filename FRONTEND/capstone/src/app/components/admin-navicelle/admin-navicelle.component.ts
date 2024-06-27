@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-navicelle',
@@ -28,73 +29,84 @@ export class AdminNavicelleComponent implements OnInit {
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
+    console.log('Selected file:', this.selectedFile); // Log file for debugging
   }
 
   onFileUpdateSelected(event: any, navicellaId: number): void {
     this.selectedFileUpdate[navicellaId] = event.target.files[0];
+    console.log(`Selected file for update (ID: ${navicellaId}):`, this.selectedFileUpdate[navicellaId]); // Log file for debugging
   }
 
-  async uploadFile(file: File, id: number, type: 'navicella'): Promise<string> {
+  uploadFile(id: number, file: File): Observable<{ url: string }> {
     const formData = new FormData();
     formData.append('file', file);
-    
-    let url = '';
-    switch (type) {
-      case 'navicella':
-        url = `${environment.apiUrl}api/uploadNaveSpazialeImage/${id}`;
-        break;
-      // Puoi aggiungere altri case per altri tipi di upload, se necessario
-    }
-    
-    const headers = this.getAuthHeaders();
 
-    try {
-      const response = await this.http.patch<{ url: string }>(url, formData, { headers }).toPromise();
-      if (response && response.url) {
-        console.log('Image URL:', response.url);
-        return response.url;
-      } else {
-        throw new Error('Invalid response from upload endpoint');
-      }
-    } catch (error) {
-      console.error('Error uploading file', error);
-      return '';
-    }
+    const url = `${environment.apiUrl}api/uploadNaveSpazialeImage/${id}`;
+
+    const headers = this.getAuthHeaders();
+    console.log('Uploading file to:', url); // Log URL for debugging
+    console.log('Headers:', headers); // Log headers for debugging
+
+    return this.http.patch<{ url: string }>(url, formData, { headers });
   }
 
   async addNavicella(): Promise<void> {
-    const headers = this.getAuthHeaders();
+    try {
+      const headers = this.getAuthHeaders();
+      const newNavicella = await this.http.post<any>(`${environment.apiUrl}navi_spaziali`, this.newNavicella, { headers }).toPromise();
+      console.log('New navicella created:', newNavicella); // Log new navicella for debugging
 
-    const newNavicella = await this.http.post<any>(`${environment.apiUrl}navi_spaziali`, this.newNavicella, { headers }).toPromise();
-    if (this.selectedFile) {
-      const imageUrl = await this.uploadFile(this.selectedFile, newNavicella.id, 'navicella');
-      newNavicella.immagineUrl = imageUrl;
-      await this.http.put(`${environment.apiUrl}navi_spaziali/${newNavicella.id}`, newNavicella, { headers }).toPromise();
+      if (this.selectedFile) {
+        const immagineUrl = await this.uploadFile(newNavicella.id, this.selectedFile).toPromise();
+        if (immagineUrl) {
+          console.log('Image uploaded, URL:', immagineUrl.url); // Log image URL for debugging
+          this.newNavicella.immagineUrl = immagineUrl.url;
+          newNavicella.immagineUrl = immagineUrl.url;
+          await this.http.patch(`${environment.apiUrl}navi_spaziali/${newNavicella.id}`, newNavicella, { headers }).toPromise();
+        } else {
+          console.error('Image upload failed'); // Log error if image upload fails
+        }
+      } else {
+        console.error('No file selected for upload'); // Log error if no file selected
+      }
+
+      this.loadNavicelle();
+      this.newNavicella = { nome: '', descrizione: '', immagineUrl: '' };
+      this.selectedFile = null;
+    } catch (error) {
+      console.error('Error adding navicella:', error); // Log any errors
     }
-
-    this.loadNavicelle();
-    this.newNavicella = { nome: '', descrizione: '', immagineUrl: '' };
-    this.selectedFile = null;
   }
 
   async updateNavicella(navicella: any): Promise<void> {
-    const headers = this.getAuthHeaders();
+    try {
+      const headers = this.getAuthHeaders();
 
-    if (this.selectedFileUpdate[navicella.id]) {
-      const imageUrl = await this.uploadFile(this.selectedFileUpdate[navicella.id] as File, navicella.id, 'navicella');
-      navicella.immagineUrl = imageUrl;
-    }
+      if (this.selectedFileUpdate[navicella.id]) {
+        const immagineUrl = await this.uploadFile(navicella.id, this.selectedFileUpdate[navicella.id] as File).toPromise();
+        if (immagineUrl) {
+          console.log('Image uploaded for update, URL:', immagineUrl.url); // Log image URL for debugging
+          navicella.immagineUrl = immagineUrl.url;
+        } else {
+          console.error('Image upload for update failed'); // Log error if image upload fails
+        }
+      } else {
+        console.error('No file selected for update upload'); // Log error if no file selected
+      }
 
-    this.http.put(`${environment.apiUrl}navi_spaziali/${navicella.id}`, navicella, { headers }).subscribe(() => {
+      await this.http.patch(`${environment.apiUrl}navi_spaziali/${navicella.id}`, navicella, { headers }).toPromise();
       this.loadNavicelle();
-      this.selectedFileUpdate[navicella.id] = null;
-    });
+    } catch (error) {
+      console.error('Error updating navicella:', error); // Log any errors
+    }
   }
 
   deleteNavicella(id: number): void {
     const headers = this.getAuthHeaders();
     this.http.delete(`${environment.apiUrl}navi_spaziali/${id}`, { headers }).subscribe(() => {
       this.loadNavicelle();
+    }, error => {
+      console.error('Error deleting navicella:', error); // Log any errors
     });
   }
 

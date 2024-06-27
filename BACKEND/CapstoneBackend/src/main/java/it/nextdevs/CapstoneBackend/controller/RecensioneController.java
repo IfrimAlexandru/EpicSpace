@@ -10,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/recensioni")
@@ -30,6 +29,13 @@ public class RecensioneController {
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public List<Recensione> getAllRecensioni() {
         return recensioneService.getAllRecensioni();
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRecensione(@PathVariable Integer id) {
+        recensioneService.deleteRecensione(id);
     }
 
     // Classe di richiesta interna per gestire i dati della richiesta

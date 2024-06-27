@@ -9,15 +9,16 @@ import { environment } from 'src/environments/environment.development';
   templateUrl: './recensioni.component.html',
   styleUrls: ['./recensioni.component.scss']
 })
-
 export class RecensioniComponent implements OnInit {
 
   reviewText: string = '';
   recensioni: any[] = [];
+  isAdmin: boolean = false;
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.getUserRole() === 'ADMIN';
     this.loadRecensioni();
   }
 
@@ -59,6 +60,24 @@ export class RecensioniComponent implements OnInit {
     } else {
       console.error('No token found, user might not be authenticated');
       this.router.navigate(['/auth']);
+    }
+  }
+
+  deleteRecensione(id: number): void {
+    if (confirm('Sei sicuro di voler cancellare questa recensione?')) {
+      const token = this.authService.getToken();
+      if (token) {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        this.http.delete(`${environment.apiUrl}recensioni/${id}`, { headers }).subscribe(() => {
+          console.log('Review deleted');
+          this.loadRecensioni(); // Reload recensioni after deletion
+        }, error => {
+          console.error('Error deleting review', error);
+        });
+      } else {
+        console.error('No token found, user might not be authenticated');
+        this.router.navigate(['/auth']);
+      }
     }
   }
 }
