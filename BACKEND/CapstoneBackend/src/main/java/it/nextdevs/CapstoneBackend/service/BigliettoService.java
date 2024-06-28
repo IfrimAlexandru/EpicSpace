@@ -55,9 +55,11 @@ public class BigliettoService {
         biglietto.setPlanet(bigliettoDto.getPlanet());
         biglietto.setSpaceship(bigliettoDto.getShip());
         biglietto.setSuit(bigliettoDto.getSuit());
+        biglietto.setShipImg(bigliettoDto.getShipImg()); // Include the ship image URL
         biglietto.setDataPrenotazione(LocalDateTime.now());
         return biglietto;
     }
+
 }
 
 //    @Autowired

@@ -1,21 +1,19 @@
 package it.nextdevs.CapstoneBackend.service;
 
-import it.nextdevs.CapstoneBackend.model.Biglietto;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class EmailService {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     @Autowired
     private JavaMailSender mailSender;
@@ -23,70 +21,47 @@ public class EmailService {
     @Value("${gmail.mail.from}")
     private String fromEmail;
 
-    public Integer sendTicketEmail(String to, String subject, String text) {
+    public Integer sendTicketEmail(String to, String buyerName, String planet, String spaceship, String suit, String dataPrenotazione, String spaceshipImageUrl) {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            String subject = "Il tuo biglietto per il volo spaziale";
+            String htmlContent = "<html>" +
+                    "<body style='font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px;'>" +
+                    "<div style='max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);'>" +
+                    "<h2 style='text-align: center; color: #004080;'>Biglietto di Volo Spaziale</h2>" +
+                    "<p>Ciao <strong>" + buyerName + "</strong>,</p>" +
+                    "<p>Grazie per aver acquistato il biglietto per il volo spaziale. Ecco i dettagli del tuo volo:</p>" +
+                    "<div style='background-color: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px;'>" +
+                    "<table style='width: 100%; border-collapse: collapse;'>" +
+                    "<tr><td style='padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;'>Pianeta:</td><td style='padding: 10px; border-bottom: 1px solid #ddd;'>" + planet + "</td></tr>" +
+                    "<tr>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: top;'>Nave:</td>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; display: flex; align-items: center;'>" +
+                    "<span>" + spaceship + "</span>" +
+                    "<img src='" + spaceshipImageUrl + "' alt='Nave Spaziale' style='max-width: 100px; margin-left: 15px; border-radius: 10px;'>" +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr><td style='padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;'>Tuta:</td><td style='padding: 10px; border-bottom: 1px solid #ddd;'>" + suit + "</td></tr>" +
+                    "<tr><td style='padding: 10px; font-weight: bold;'>Data della Prenotazione:</td><td style='padding: 10px;'>" + dataPrenotazione + "</td></tr>" +
+                    "</table>" +
+                    "</div>" +
+                    "<p style='text-align: center; color: #004080;'>Buon viaggio!</p>" +
+                    "<p style='text-align: center;'>Saluti,<br>Il team di EpicSpace</p>" +
+                    "</div>" +
+                    "</body>" +
+                    "</html>";
+
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(text);
+            helper.setText(htmlContent, true); // true indica che il contenuto è HTML
             mailSender.send(message);
             return 0; // 0 indica successo
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            logger.error("Errore durante l'invio dell'email a " + to, e);
+            return 1; // 1 indica errore
         }
     }
 }
-//public void sendTicketEmail(String to, String subject, String text, Biglietto biglietto) {
-//    MimeMessage message = mailSender.createMimeMessage();
-//    MimeMessageHelper helper;
-//
-//    try {
-//        helper = new MimeMessageHelper(message, true); // `true` indicates multipart message
-//
-//        helper.setFrom(fromEmail);
-//        helper.setTo(to);
-//        helper.setSubject(subject);
-//        helper.setText(text, true); // `true` indicates HTML
-//
-//        // Add images as inline attachments
-//        String planetImgPath = biglietto.getPlanetImg();
-//        String shipImgPath = biglietto.getShipImg();
-//        String suitImgPath = biglietto.getSuitImg();
-//
-//        System.out.println("Planet Image Path: " + planetImgPath);
-//        System.out.println("Ship Image Path: " + shipImgPath);
-//        System.out.println("Suit Image Path: " + suitImgPath);
-//
-//        // Check if files exist
-//        File planetImgFile = new ClassPathResource(planetImgPath).getFile();
-//        File shipImgFile = new ClassPathResource(shipImgPath).getFile();
-//        File suitImgFile = new ClassPathResource(suitImgPath).getFile();
-//
-//        System.out.println("Planet Image Exists: " + planetImgFile.exists());
-//        System.out.println("Ship Image Exists: " + shipImgFile.exists());
-//        System.out.println("Suit Image Exists: " + suitImgFile.exists());
-//
-//        // Log absolute paths for additional debugging
-//        System.out.println("Planet Image Absolute Path: " + planetImgFile.getAbsolutePath());
-//        System.out.println("Ship Image Absolute Path: " + shipImgFile.getAbsolutePath());
-//        System.out.println("Suit Image Absolute Path: " + suitImgFile.getAbsolutePath());
-//
-//        helper.addInline("planetImage", new ClassPathResource(planetImgPath));
-//        helper.addInline("shipImage", new ClassPathResource(shipImgPath));
-//        helper.addInline("suitImage", new ClassPathResource(suitImgPath));
-//
-//        mailSender.send(message);
-//    } catch (MessagingException e) {
-//        e.printStackTrace(); // Stampa l'eccezione completa nel log del server
-//        throw new RuntimeException("Failed to send email", e);
-//    } catch (IOException e) {
-//        e.printStackTrace(); // Stampa l'eccezione completa nel log del server
-//        throw new RuntimeException("Failed to load images", e);
-//    } catch (Exception e) {
-//        e.printStackTrace(); // Stampa l'eccezione completa nel log del server
-//        throw new RuntimeException("Unexpected error occurred", e);
-//    }
-//}
-//}

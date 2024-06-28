@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-
 
 @Component({
   selector: 'app-riepilogo',
@@ -13,18 +12,14 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RiepilogoComponent implements OnInit {
 
-  choices: any = {
-    planet: '',
-    ship: '',
-    suit: ''
-  };
+  choices: any; // Ora non è più necessario inizializzarla, verrà inizializzata nel metodo ngOnInit
   buyerName: string = '';
   email: string = '';
   selectedDate: string = '';
   availableDates: string[] = [];
 
   private apiUrl = `${environment.apiUrl}api/biglietti/submit-order`;
-  private datesUrl = `${environment.apiUrl}api/dates`; // URL to fetch available dates
+  private datesUrl = `${environment.apiUrl}api/dates`; // URL per recuperare le date disponibili
 
   constructor(
     private scelteUtenteService: ScelteUtenteService,
@@ -33,18 +28,21 @@ export class RiepilogoComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.choices = this.scelteUtenteService.getChoices();
+  ngOnInit(): void {
+    this.loadUserChoices(); // Carica le scelte dell'utente
+    this.loadAvailableDates(); // Carica le date disponibili
+  }
+
+  loadUserChoices(): void {
+    this.choices = this.scelteUtenteService.getChoices(); // Ottieni le scelte dell'utente dal servizio
     this.authService.user$.subscribe(user => {
       if (user) {
-        this.buyerName = user.user.nome;  // Assuming user object has a 'nome' field
-        this.email = user.user.email;    // Assuming user object has an 'email' field
+        this.buyerName = user.user.nome;  // Assumendo che l'oggetto user abbia un campo 'nome'
+        this.email = user.user.email;    // Assumendo che l'oggetto user abbia un campo 'email'
       } else {
-        this.router.navigate(['/auth']);  // Redirect to login if no user found
+        this.router.navigate(['/auth']);  // Reindirizza al login se non c'è un utente loggato
       }
     });
-
-    this.loadAvailableDates();
   }
 
   loadAvailableDates(): void {
@@ -56,34 +54,32 @@ export class RiepilogoComponent implements OnInit {
     this.http.get<{ id: number, data: string }[]>(this.datesUrl, { headers }).subscribe(
       data => {
         this.availableDates = data.map(dateObj => dateObj.data);
-        console.log('Loaded dates:', this.availableDates); // Log dates for debugging
+        console.log('Loaded dates:', this.availableDates); // Log delle date per debug
       },
       error => {
-        console.error('Error loading available dates:', error);
+        console.error('Errore nel caricamento delle date disponibili:', error);
       }
     );
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const data = {
       buyerName: this.buyerName,
       email: this.email,
       planet: this.choices.planet,
       ship: this.choices.ship,
-      suit: this.choices.suit,
+      suit: this.choices.suit, // Ora prendi solo la scelta della tuta
       planetImg: this.choices.planetImg,
       shipImg: this.choices.shipImg,
       suitImg: this.choices.suitImg,
       selectedDate: this.selectedDate
     };
 
-    const token = localStorage.getItem('authToken'); // Adjust according to how you store the token
-
-    console.log('Token:', token); // Log the token to the console
+    const token = localStorage.getItem('authToken');
 
     if (!token) {
-      console.error('No token found, redirecting to login.');
-      this.router.navigate(['/auth']); // Redirect to login if no token is found
+      console.error('Nessun token trovato, reindirizzando al login.');
+      this.router.navigate(['/auth']);
       return;
     }
 
@@ -92,19 +88,18 @@ export class RiepilogoComponent implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.post(this.apiUrl, data, { headers })
-        .subscribe(
-          response => {
-            alert('Ordine ricevuto! Controlla la tua email per il biglietto.');
-          },
-          error => {
-            if (error.status === 401) { // Handle unauthorized error
-              console.error('Unauthorized error, redirecting to login.');
-              this.router.navigate(['/login']); // Redirect to login on unauthorized error
-            } else {
-              console.error('Error:', error);
-            }
-          }
-        );
+    this.http.post(this.apiUrl, data, { headers }).subscribe(
+      response => {
+        alert('Ordine ricevuto! Controlla la tua email per il biglietto.');
+      },
+      error => {
+        if (error.status === 401) {
+          console.error('Errore di autorizzazione, reindirizzando al login.');
+          this.router.navigate(['/login']);
+        } else {
+          console.error('Errore:', error);
+        }
+      }
+    );
   }
 }

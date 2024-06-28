@@ -47,7 +47,7 @@ export class SceltaTutaComponent implements OnInit {
 
   selectSuit(suit: any) {
     this.selectedSuit = suit;
-    this.scelteUtenteService.setChoice('suit', suit.nome);
+    this.scelteUtenteService.setSuit(suit); // Setta suit e suitImg nel servizio
     this.updateSelectedSuitUI();
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scelta-nave',
@@ -15,7 +16,8 @@ export class SceltaNaveComponent implements OnInit {
 
   constructor(
     private scelteUtenteService: ScelteUtenteService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class SceltaNaveComponent implements OnInit {
       this.navicelle = data;
       this.groupNavicelleInPairs();  // Group navicelle in pairs
       if (this.navicelle.length > 0) {
-        this.selectShip(this.navicelle[0]);
+        this.selectShip(this.navicelle[0]);  // Select the first ship by default
       }
     });
   }
@@ -47,11 +49,8 @@ export class SceltaNaveComponent implements OnInit {
   selectShip(ship: any) {
     this.selectedShip = ship;
     this.scelteUtenteService.setChoice('ship', ship.nome);
+    this.scelteUtenteService.setShipImg(ship.immagine);  // Set ship image in service
     this.updateSelectedShipUI();
-  }
-
-  bookFlight() {
-    alert('Flight booked successfully!');
   }
 
   private updateSelectedShipUI() {
@@ -63,5 +62,9 @@ export class SceltaNaveComponent implements OnInit {
     if (selectedImg) {
       selectedImg.classList.add('selected');
     }
+  }
+
+  goToNextStep() {
+    this.router.navigate(['/sceltaTuta']);  // Navigate to the next step (scelta tuta)
   }
 }

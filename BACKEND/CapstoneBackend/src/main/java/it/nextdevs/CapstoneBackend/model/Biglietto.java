@@ -21,7 +21,7 @@ public class Biglietto {
     private String suit;
     private LocalDateTime dataPrenotazione;
 //    private String planetImg;
-//    private String shipImg;
+   private String shipImg;
 //    private String suitImg;
 
 }

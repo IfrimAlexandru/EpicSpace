@@ -1,7 +1,6 @@
 package it.nextdevs.CapstoneBackend.dto;
 
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -13,7 +12,5 @@ public class BigliettoDto {
     private String ship;
     private String suit;
     private LocalDateTime dataPrenotazione;
-//    private String planetImg;
-//    private String shipImg;
-//    private String suitImg;
+    private String shipImg; // Ensure this is correctly set
 }
