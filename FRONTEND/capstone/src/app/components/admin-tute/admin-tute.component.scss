@@ -1,40 +1,44 @@
 .tute-container {
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  .new-tuta-form {
-    background-color: #f8f9fa; /* Light gray background for new tuta form */
-    border: 1px solid #007bff; /* Blue border */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); /* Light blue shadow */
-  }
-  
-  .new-tuta-form .card-header {
-    background-color: #007bff; /* Blue header */
-  }
-  
-  .card-header {
-    background-color: #2983d1; /* Default gray header for existing tuta forms */
-  }
-  
-  .card-body {
-    padding: 1.5rem;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  
-  .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-  }
-  
+.tute-container h2 {
+  font-weight: 700;
+}
+
+.tute-container .card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.tute-container .card-header {
+  font-weight: 700;
+}
+
+.tute-container .card-body {
+  padding: 1.5rem;
+}
+
+.tute-container .form-group {
+  margin-bottom: 1rem;
+}
+
+.tute-container .form-control {
+  margin-bottom: 0.5rem;
+}
+
+.tute-container .btn {
+  min-width: 100px;
+}
+
+.tute-container .btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.tute-container .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}

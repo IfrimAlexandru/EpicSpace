@@ -1,90 +1,58 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-scelta-tuta',
   templateUrl: './scelta-tuta.component.html',
   styleUrls: ['./scelta-tuta.component.scss']
 })
-export class SceltaTutaComponent implements AfterViewInit {
-  selectedSuit: string | null = null;
-  isRedSuitFront: boolean = true;
-  isGoldSuitFront: boolean = true;
+export class SceltaTutaComponent implements OnInit {
+  tute: any[] = [];
+  tutePairs: any[][] = [];
+  selectedSuit: any = null;
+  isFront: { [key: string]: boolean } = {};
 
-  planetDetails = {
-    moon: {
-      flightTime: '24 hrs',
-      distance: '384,400 km',
-      price: 'Since $5000'
-    },
-    tuta1: {
-      flightTime: '48 hrs',
-      distance: '225 million km',
-      price: 'Since $20000'
-    },
-    tuta2: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    tuta3: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    tuta4: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    tuta5: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    tuta6: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
+  constructor(
+    private scelteUtenteService: ScelteUtenteService,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit(): void {
+    this.loadTute();
+  }
+
+  loadTute(): void {
+    const headers = this.getAuthHeaders();
+    this.http.get<any[]>(`${environment.apiUrl}tute_spaziali`, { headers }).subscribe(data => {
+      this.tute = data;
+      this.groupTuteInPairs();
+      this.tute.forEach(tuta => {
+        this.isFront[tuta.id] = true; // Initialize all suits to show the front image
+      });
+    });
+  }
+
+  groupTuteInPairs(): void {
+    for (let i = 0; i < this.tute.length; i += 2) {
+      this.tutePairs.push(this.tute.slice(i, i + 2));
     }
-  };
-
-  selectedPlanet: keyof typeof this.planetDetails = 'moon';
-
-  constructor(private scelteUtenteService: ScelteUtenteService) {}
-
-  get details() {
-    return this.planetDetails[this.selectedPlanet];
   }
 
-  selectPlanet(planet: keyof typeof this.planetDetails) {
-    this.selectedPlanet = planet;
-    this.updateSelectedPlanetUI();
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  selectSuit(suit: string) {
+  selectSuit(suit: any) {
     this.selectedSuit = suit;
-    this.scelteUtenteService.setChoice('suit', suit);
+    this.scelteUtenteService.setChoice('suit', suit.nome);
     this.updateSelectedSuitUI();
   }
 
-  toggleRedSuitImage() {
-    this.isRedSuitFront = !this.isRedSuitFront;
-  }
-
-  toggleGoldSuitImage() {
-    this.isGoldSuitFront = !this.isGoldSuitFront;
-  }
-
-  private updateSelectedPlanetUI() {
-    const planets = document.querySelectorAll('.suit img');
-    planets.forEach((img) => {
-      img.classList.remove('selected');
-    });
-    const selectedImg = document.querySelector(`.suit img[alt="${this.selectedPlanet}"]`);
-    if (selectedImg) {
-      selectedImg.classList.add('selected');
-    }
+  toggleImage(tutaId: string) {
+    this.isFront[tutaId] = !this.isFront[tutaId];
   }
 
   private updateSelectedSuitUI() {
@@ -92,13 +60,9 @@ export class SceltaTutaComponent implements AfterViewInit {
     suits.forEach((img) => {
       img.classList.remove('selected');
     });
-    const selectedImg = document.querySelector(`.suit img[alt="${this.selectedSuit}"]`);
+    const selectedImg = document.querySelector(`.suit img[alt="${this.selectedSuit.nome}"]`);
     if (selectedImg) {
       selectedImg.classList.add('selected');
     }
-  }
-
-  ngAfterViewInit() {
-    // Initialize the carousel here if needed
   }
 }

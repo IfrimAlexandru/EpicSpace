@@ -1,8 +1,8 @@
 <div class="container tute-container my-4">
   <h2 class="text-center mb-4">Gestione Tute Spaziali</h2>
-  
+
   <!-- Form di Creazione Nuova Tuta -->
-  <div class="card mb-4 new-tuta-form">
+  <div class="card mb-4 new-tuta-form shadow-sm">
     <div class="card-header bg-primary text-white">
       <h3>Nuova Tuta</h3>
     </div>
@@ -14,15 +14,15 @@
         </div>
         <div class="form-group mb-3">
           <label for="descrizione">Descrizione</label>
-          <input id="descrizione" name="descrizione" [(ngModel)]="newTuta.descrizione" class="form-control" placeholder="Descrizione">
+          <textarea id="descrizione" name="descrizione" [(ngModel)]="newTuta.descrizione" class="form-control" placeholder="Descrizione" rows="1" (input)="adjustTextareaHeight($event)"></textarea>
         </div>
         <div class="form-group mb-3">
           <label for="immagineFronte">Immagine Fronte</label>
-          <input id="immagineFronte" type="file" (change)="onFronteFileSelected($event)" class="form-control">
+          <input id="immagineFronte" type="file" (change)="onFronteFileSelected($event)" class="form-control" #fronteFileInput>
         </div>
         <div class="form-group mb-3">
           <label for="immagineRetro">Immagine Retro</label>
-          <input id="immagineRetro" type="file" (change)="onRetroFileSelected($event)" class="form-control">
+          <input id="immagineRetro" type="file" (change)="onRetroFileSelected($event)" class="form-control" #retroFileInput>
         </div>
         <button type="button" (click)="addTuta()" class="btn btn-success">Aggiungi</button>
       </form>
@@ -30,7 +30,7 @@
   </div>
 
   <!-- Form di Modifica Tuta -->
-  <div *ngFor="let tuta of tute" class="card mb-4">
+  <div *ngFor="let tuta of tute" class="card mb-4 shadow-sm">
     <div class="card-header bg-secondary text-white">
       <h3>{{ tuta.nome }}</h3>
     </div>
@@ -38,7 +38,7 @@
       <form>
         <div class="form-group mb-3">
           <label for="descrizione-{{tuta.id}}">Descrizione</label>
-          <input id="descrizione-{{tuta.id}}" name="descrizione-{{tuta.id}}" [(ngModel)]="tuta.descrizione" class="form-control" placeholder="Descrizione">
+          <textarea id="descrizione-{{tuta.id}}" name="descrizione-{{tuta.id}}" [(ngModel)]="tuta.descrizione" class="form-control" placeholder="Descrizione" rows="1" (input)="adjustTextareaHeight($event)"></textarea>
         </div>
         <div class="form-group mb-3">
           <label for="immagineFronte-{{tuta.id}}">Immagine Fronte</label>

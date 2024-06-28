@@ -5,11 +5,14 @@
       <div>
         <img src="../../../assets/img/LOGO.png" style="width: 170px" alt="logoEpicSpace" />
       </div>
-      <div class="d-flex justify-content-between">
-        <div class="mx-5">1</div>
-        <div class="mx-5">2</div>
-        <div class="mx-5 fs-3 fw-bold">3</div>
-        <div class="mx-5">4</div>
+      <div class="d-flex justify-content-between align-content-center">
+        <div class="mx-2 ">Scelta Pianeta</div>
+        <div class="mx-3 "><i class="bi bi-arrow-right"></i></div>
+        <div class="mx-2 ">Scelta nave</div>
+        <div class="mx-3 "><i class="bi bi-arrow-right"></i></div>
+        <div class="mx-2 fs-4 fw-bold">Scelta tuta</div>
+        <div class="mx-3 "><i class="bi bi-arrow-right"></i></div>
+        <div class="mx-2">Riepilogo</div>
       </div>
       <div>
         <i class="bi bi-arrow-return-left fs-1" routerLink="/sceltaNave"></i>
@@ -22,106 +25,48 @@
 
     <!-- CAROUSEL -->
     <div class="sub-header">
-      <div id="planetCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div id="suitCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="d-flex justify-content-around">
-              <div class="suit" (click)="selectSuit('tuta1')">
+          <div class="carousel-item" *ngFor="let pair of tutePairs; let i = index" [class.active]="i === 0">
+            <div class="d-flex justify-content-around text-center">
+              <div class="suit" *ngFor="let tuta of pair" (click)="selectSuit(tuta)">
                 <div class="position-relative">
                   <img
-                    [ngClass]="{ 'selected': selectedSuit === 'TutaGrigioRossoFronte_1-Photoroom.png' }"
-                    *ngIf="isRedSuitFront"
-                    src="../../../assets/img/immagini-tute/TutaGrigioRossoFronte_1-Photoroom.png"
-                    alt="tuta1"
-                  />
-                  <img
-                    [ngClass]="{ 'selected': selectedSuit === 'TutaGrigioRossoRetro_1-Photoroom.png' }"
-                    *ngIf="!isRedSuitFront"
-                    src="../../../assets/img/immagini-tute/TutaGrigioRossoRetro_1-Photoroom.png"
-                    alt="tuta1"
+                    [ngClass]="{ 'selected': selectedSuit?.id === tuta.id }"
+                    [src]="isFront[tuta.id] ? tuta.immagineFronte : tuta.immagineRetro"
+                    alt="{{tuta.nome}}"
+                    class="fixed-width-image"
                   />
                   <i
-                    *ngIf="selectedSuit === 'tuta1'"
+                    *ngIf="selectedSuit?.id === tuta.id"
                     class="bi bi-arrow-repeat fs-3 position-absolute start-50 translate-middle"
-                    style="top: 30px;"
-                    (click)="toggleRedSuitImage()"
+                    (click)="toggleImage(tuta.id)"
                   ></i>
                 </div>
-                <p>RED</p>
-              </div>
-              <div class="suit" (click)="selectSuit('tuta2')">
-                <div class="position-relative">
-                  <img
-                    [ngClass]="{ 'selected': selectedSuit === 'tuta2' }"
-                    *ngIf="isGoldSuitFront"
-                    src="../../../assets/img/immagini-tute/TutaNeroOroFronte_1-Photoroom.png"
-                    alt="tuta2"
-                  />
-                  <img
-                    [ngClass]="{ 'selected': selectedSuit === 'tuta2' }"
-                    *ngIf="!isGoldSuitFront"
-                    src="../../../assets/img/immagini-tute/TutaNeroOroRetro_1-Photoroom.png"
-                    alt="tuta2"
-                  />
-                  <i
-                    *ngIf="selectedSuit === 'tuta2'"
-                    class="bi bi-arrow-repeat fs-3 position-absolute start-50 translate-middle"
-                    style="top: 30px;"
-                    (click)="toggleGoldSuitImage()"
-                  ></i>
-                </div>
-                <p>GOLD</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="d-flex justify-content-around">
-              <div class="suit" (click)="selectSuit('tuta3')">
-                <p>TUTA 3</p>
-              </div>
-              <div class="suit" (click)="selectSuit('tuta4')">
-                <p>TUTA 4</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="d-flex justify-content-around">
-              <div class="suit" (click)="selectSuit('tuta5')">
-                <p>TUTA 5</p>
-              </div>
-              <div class="suit" (click)="selectSuit('tuta6')">
-                <p>TUTA 6</p>
+                <p>{{tuta.nome}}</p>
               </div>
             </div>
           </div>
         </div>
-        <button class="carousel-control-prev" style="width: 80px;" type="button" data-bs-target="#planetCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" style="width: 80px;" type="button" data-bs-target="#suitCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon me-2" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" style="width: 80px;" type="button" data-bs-target="#planetCarousel" data-bs-slide="next">
+        <button class="carousel-control-next" style="width: 80px;" type="button" data-bs-target="#suitCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon ms-2" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
       </div>
 
-      <!-- DATI VOLO -->
-      <div class="d-flex justify-content-between bg-secondary" style="margin-top: 100px;">
-        <div class="details d-flex justify-content-around bg-secondary">
-          <div class="text-start mx-3">
-            <p>Flight time</p>
-            <p class="fw-bold">{{ details.flightTime }}</p>
-          </div>
-          <div class="text-start mx-3">
-            <p>Distance from Earth</p>
-            <p class="fw-bold">{{ details.distance }}</p>
-          </div>
-          <div class="text-start mx-3">
-            <p>Price</p>
-            <p class="fw-bold">{{ details.price }}</p>
+      <!-- TUTA DESCRIPTION -->
+      <div class="description-section mt-5" *ngIf="selectedSuit">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ selectedSuit.nome }}</h5>
+            <p class="card-text">{{ selectedSuit.descrizione }}</p>
           </div>
         </div>
-        <div>
+        <div class="text-center mt-3">
           <button class="book-btn" routerLink="/riepilogo">Riepilogo -></button>
         </div>
       </div>

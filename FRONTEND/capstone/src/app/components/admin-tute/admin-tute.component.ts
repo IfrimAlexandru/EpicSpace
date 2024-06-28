@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -15,6 +15,9 @@ export class AdminTuteComponent implements OnInit {
   selectedRetroFile: File | null = null;
   selectedFronteFileUpdate: { [key: number]: File | null } = {};
   selectedRetroFileUpdate: { [key: number]: File | null } = {};
+
+  @ViewChild('fronteFileInput') fronteFileInput!: ElementRef;
+  @ViewChild('retroFileInput') retroFileInput!: ElementRef;
 
   constructor(private http: HttpClient) {}
 
@@ -87,9 +90,7 @@ export class AdminTuteComponent implements OnInit {
     }
 
     this.loadTute();
-    this.newTuta = { nome: '', descrizione: '', immagineFronte: '', immagineRetro: '' };
-    this.selectedFronteFile = null;
-    this.selectedRetroFile = null;
+    this.resetForm();
   }
 
   async updateTuta(tuta: any): Promise<void> {
@@ -118,6 +119,24 @@ export class AdminTuteComponent implements OnInit {
     this.http.delete(`${environment.apiUrl}tute_spaziali/${id}`, { headers }).subscribe(() => {
       this.loadTute();
     });
+  }
+
+  adjustTextareaHeight(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  resetForm(): void {
+    this.newTuta = { nome: '', descrizione: '', immagineFronte: '', immagineRetro: '' };
+    this.selectedFronteFile = null;
+    this.selectedRetroFile = null;
+    if (this.fronteFileInput) {
+      this.fronteFileInput.nativeElement.value = '';
+    }
+    if (this.retroFileInput) {
+      this.retroFileInput.nativeElement.value = '';
+    }
   }
 
   private getAuthHeaders(): HttpHeaders {

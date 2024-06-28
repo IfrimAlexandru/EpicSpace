@@ -1,56 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-scelta-nave',
   templateUrl: './scelta-nave.component.html',
   styleUrls: ['./scelta-nave.component.scss']
 })
-export class SceltaNaveComponent {
-  selectedShip: keyof typeof this.shipDetails = 'Nave1';
+export class SceltaNaveComponent implements OnInit {
+  navicelle: any[] = [];
+  navicellePairs: any[][] = [];  // Array to hold pairs of navicelle
+  selectedShip: any = null;
 
-  shipDetails = {
-    Nave1: {
-      flightTime: '24 hrs',
-      distance: '384,400 km',
-      price: 'Since $5000'
-    },
-    Nave2: {
-      flightTime: '48 hrs',
-      distance: '225 million km',
-      price: 'Since $20000'
-    },
-    Nave3: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    Nave4: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    Nave5: {
-      flightTime: '722 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    },
-    Nave6: {
-      flightTime: '72 hrs',
-      distance: '628 million km',
-      price: 'Since $30000'
-    }
-  };
+  constructor(
+    private scelteUtenteService: ScelteUtenteService,
+    private http: HttpClient
+  ) {}
 
-  constructor(private scelteUtenteService: ScelteUtenteService) {}
-
-  get details() {
-    return this.shipDetails[this.selectedShip];
+  ngOnInit(): void {
+    this.loadNavicelle();
   }
 
-  selectShip(ship: keyof typeof this.shipDetails) {
+  loadNavicelle(): void {
+    const headers = this.getAuthHeaders();
+    this.http.get<any[]>(`${environment.apiUrl}navi_spaziali`, { headers }).subscribe(data => {
+      this.navicelle = data;
+      this.groupNavicelleInPairs();  // Group navicelle in pairs
+      if (this.navicelle.length > 0) {
+        this.selectShip(this.navicelle[0]);
+      }
+    });
+  }
+
+  groupNavicelleInPairs(): void {
+    for (let i = 0; i < this.navicelle.length; i += 2) {
+      this.navicellePairs.push(this.navicelle.slice(i, i + 2));
+    }
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
+  selectShip(ship: any) {
     this.selectedShip = ship;
-    this.scelteUtenteService.setChoice('ship', ship);
+    this.scelteUtenteService.setChoice('ship', ship.nome);
     this.updateSelectedShipUI();
   }
 
@@ -63,7 +59,7 @@ export class SceltaNaveComponent {
     ships.forEach((img) => {
       img.classList.remove('selected');
     });
-    const selectedImg = document.querySelector(`.ship img[alt="${this.selectedShip}"]`);
+    const selectedImg = document.querySelector(`.ship img[alt="${this.selectedShip.nome}"]`);
     if (selectedImg) {
       selectedImg.classList.add('selected');
     }

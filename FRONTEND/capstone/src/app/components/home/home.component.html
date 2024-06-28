@@ -111,7 +111,7 @@
 
 <!--CAROUSEL NAVICELLE-->
 
-<div id="carouselExampleInterval2" class="carousel slide" data-bs-ride="carousel">
+<!-- <div id="carouselExampleInterval2" class="carousel slide" data-bs-ride="carousel">
   
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="100000">
@@ -165,7 +165,34 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div> -->
+
+<div class="container-fluid px-0">
+  <div id="carouselExampleInterval2" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let pair of navicellePairs; let i = index" [class.active]="i === 0" [attr.data-bs-interval]="100000">
+        <div class="d-flex justify-content-around text-center">
+          <div *ngFor="let navicella of pair">
+            <img [src]="navicella.immagine" class="fixed-width-image" [alt]="navicella.nome">
+            <p>{{ navicella.nome }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </div>
+
+
+
+
 
 <!-- RECENSIONI -->
 

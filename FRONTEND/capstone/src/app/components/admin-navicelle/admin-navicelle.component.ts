@@ -60,8 +60,8 @@ export class AdminNavicelleComponent implements OnInit {
         const immagineUrl = await this.uploadFile(newNavicella.id, this.selectedFile).toPromise();
         if (immagineUrl) {
           console.log('Image uploaded, URL:', immagineUrl.url); // Log image URL for debugging
-          this.newNavicella.immagineUrl = immagineUrl.url;
-          newNavicella.immagineUrl = immagineUrl.url;
+          this.newNavicella.immagine = immagineUrl.url;
+          newNavicella.immagine = immagineUrl.url;
           await this.http.patch(`${environment.apiUrl}navi_spaziali/${newNavicella.id}`, newNavicella, { headers }).toPromise();
         } else {
           console.error('Image upload failed'); // Log error if image upload fails
@@ -86,13 +86,14 @@ export class AdminNavicelleComponent implements OnInit {
         const immagineUrl = await this.uploadFile(navicella.id, this.selectedFileUpdate[navicella.id] as File).toPromise();
         if (immagineUrl) {
           console.log('Image uploaded for update, URL:', immagineUrl.url); // Log image URL for debugging
-          navicella.immagineUrl = immagineUrl.url;
+          navicella.immagine = immagineUrl.url;
         } else {
           console.error('Image upload for update failed'); // Log error if image upload fails
         }
       } else {
         console.error('No file selected for update upload'); // Log error if no file selected
       }
+      console.log(navicella);
 
       await this.http.patch(`${environment.apiUrl}navi_spaziali/${navicella.id}`, navicella, { headers }).toPromise();
       this.loadNavicelle();

@@ -1,8 +1,8 @@
 <div class="container navicelle-container my-4">
   <h2 class="text-center mb-4">Gestione Navicelle Spaziali</h2>
-  
+
   <!-- Form di Creazione Nuova Navicella -->
-  <div class="card mb-4 new-navicella-form">
+  <div class="card mb-4 new-navicella-form shadow-sm">
     <div class="card-header bg-primary text-white">
       <h3>Nuova Navicella</h3>
     </div>
@@ -26,7 +26,7 @@
   </div>
 
   <!-- Form di Modifica Navicella -->
-  <div *ngFor="let navicella of navicelle" class="card mb-4">
+  <div *ngFor="let navicella of navicelle" class="card mb-4 shadow-sm">
     <div class="card-header bg-secondary text-white">
       <h3>{{ navicella.nome }}</h3>
     </div>
