@@ -7,7 +7,9 @@
           <i class="bi bi-person-fill text-white" style="cursor: pointer;"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li><button class="dropdown-item" (click)="logout()" type="button">Logout</button></li>
+          <li><button class="dropdown-item fw-bold" (click)="logout()" type="button">Logout</button></li>
+          <hr>
+          <li><button class="dropdown-item fw-bold " routerLink="/areaPersonale" type="button">AreaPersonale</button></li>
         </ul>
       </div>
       <ng-template #notLoggedIn>
@@ -30,9 +32,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" style="cursor: pointer;" (click)="handleSceltaPianetaClick()">Viaggi</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/prove">Prove</a>
         </li>
       </ul>
     </div>

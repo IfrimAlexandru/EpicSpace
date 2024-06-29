@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2>Area Personale</h2>
+  
+    <div *ngIf="user" class="card mb-4">
+        <div class="card-header">
+          Dati Personali
+        </div>
+        <div class="card-body">
+          <p><strong>Nome:</strong> {{ user.nome }}</p>
+          <p><strong>Cognome:</strong> {{ user.cognome }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+         
+          <!-- Verifica se avatar è presente e mostra l'immagine -->
+          <div *ngIf="user.avatar">
+            <img [src]="user.avatar" alt="Avatar di {{ user.username }}" class="avatar-image">
+          </div>
+        </div>
+      </div>
+      
+  
+    <button class="btn btn-danger mt-3" (click)="logout()">Logout</button>
+  </div>
+  

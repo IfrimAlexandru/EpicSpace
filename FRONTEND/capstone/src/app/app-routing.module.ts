@@ -15,7 +15,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminNavicelleComponent } from './components/admin-navicelle/admin-navicelle.component';
 import { AdminTuteComponent } from './components/admin-tute/admin-tute.component';
 import { AdminDateComponent } from './components/admin-date/admin-date.component';
-import { ProveComponent } from './prove/prove.component';
+import { AreaPersonaleComponent } from './components/area-personale/area-personale.component';
 
 
 
@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'success', component: SuccessComponent},
   {path: 'cancel', component: CancelComponent},
   {path: 'checkout', component: CheckoutComponent},
-  {path: 'prove', component: ProveComponent},
+  {path: 'areaPersonale', component: AreaPersonaleComponent},
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
     { path: 'navicelle', component: AdminNavicelleComponent },
     { path: 'tute', component: AdminTuteComponent },

@@ -30,7 +30,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminNavicelleComponent } from './components/admin-navicelle/admin-navicelle.component';
 import { AdminTuteComponent } from './components/admin-tute/admin-tute.component';
 import { AdminDateComponent } from './components/admin-date/admin-date.component';
-import { ProveComponent } from './components/prove/prove.component';
+import { AreaPersonaleComponent } from './components/area-personale/area-personale.component';
 // import { BrowserAnimationModule } from '@angular/platform-browser/animations';
 
 
@@ -56,7 +56,8 @@ import { ProveComponent } from './components/prove/prove.component';
     AdminNavicelleComponent,
     AdminTuteComponent,
     AdminDateComponent,
-    ProveComponent,
+    AreaPersonaleComponent,
+  
   
   ],
   imports: [
