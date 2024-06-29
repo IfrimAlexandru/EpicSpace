@@ -65,57 +65,9 @@
     }
   ],
   "tuteSpaziali": [
-    {
-      "nome": "Orlan",
-      "descrizione": "Una serie di tute spaziali semirigide monopezzo progettate e costruite dalla Russia.",
-      "immagineFronte": "",
-      "immagineRetro": ""
-    },
-    {
-      "nome": "EMU",
-      "descrizione": "L'Extravehicular Mobility Unit è una tuta spaziale americana capace di operare nel vuoto dello spazio.",
-      "immagineFronte": "",
-      "immagineRetro": ""
-    }
+    
   ],
   "naviSpaziali": [
-    {
-      "nome": "Modulo di Comando Apollo",
-      "produttore": "North American Aviation",
-      "capacitaEquipaggio": 3,
-      "descrizione": "Una navicella spaziale utilizzata nel programma Apollo per le missioni lunari.",
-      "immagine": ""
-    },
-    {
-      "nome": "Space Shuttle",
-      "produttore": "Rockwell International",
-      "capacitaEquipaggio": 7,
-      "descrizione": "Una navicella spaziale riutilizzabile che faceva parte del programma Space Shuttle.",
-      "immagine": ""
-    },
-    {
-      "nome": "Dragon",
-      "produttore": "SpaceX",
-      "capacitaEquipaggio": 4,
-      "descrizione": "Una navicella spaziale sviluppata da SpaceX per trasportare equipaggi e rifornimenti alla Stazione Spaziale Internazionale."
-    },
-    {
-      "nome": "Starship",
-      "produttore": "SpaceX",
-      "capacitaEquipaggio": 100,
-      "descrizione": "Un veicolo di lancio super pesante riutilizzabile progettato da SpaceX per missioni interplanetarie."
-    },
-    {
-      "nome": "Orion",
-      "produttore": "Lockheed Martin",
-      "capacitaEquipaggio": 6,
-      "descrizione": "Una navicella spaziale sviluppata dalla NASA per missioni di esplorazione dello spazio profondo."
-    },
-    {
-      "nome": "Dream Chaser",
-      "produttore": "Sierra Nevada Corporation",
-      "capacitaEquipaggio": 7,
-      "descrizione": "Un veicolo spaziale riutilizzabile progettato per trasportare equipaggi e rifornimenti alla Stazione Spaziale Internazionale."
-    }
+
   ]
 }
