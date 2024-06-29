@@ -12,7 +12,8 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RiepilogoComponent implements OnInit {
 
-  choices: any; // Ora non è più necessario inizializzarla, verrà inizializzata nel metodo ngOnInit
+  choices: any; // Dichiarazione della proprietà choices come any
+
   buyerName: string = '';
   email: string = '';
   selectedDate: string = '';
@@ -68,28 +69,31 @@ export class RiepilogoComponent implements OnInit {
       email: this.email,
       planet: this.choices.planet,
       ship: this.choices.ship,
-      suit: this.choices.suit, // Ora prendi solo la scelta della tuta
+      suit: this.choices.suit,
       planetImg: this.choices.planetImg,
       shipImg: this.choices.shipImg,
       suitImg: this.choices.suitImg,
       selectedDate: this.selectedDate
     };
-
+  
     const token = localStorage.getItem('authToken');
-
+  
     if (!token) {
       console.error('Nessun token trovato, reindirizzando al login.');
       this.router.navigate(['/auth']);
       return;
     }
-
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-
+  
+    // Effettua la richiesta POST per inviare l'ordine
     this.http.post(this.apiUrl, data, { headers }).subscribe(
       response => {
+        // Aggiungi il viaggio prenotato al servizio ScelteUtenteService
+        this.scelteUtenteService.addBookedTrip(data);
         alert('Ordine ricevuto! Controlla la tua email per il biglietto.');
       },
       error => {

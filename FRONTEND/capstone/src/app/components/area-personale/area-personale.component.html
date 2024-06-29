@@ -1,23 +1,35 @@
 <div class="container mt-4">
-    <h2>Area Personale</h2>
+    <h2 class="text-center mb-4">Area Personale</h2>
   
+    <!-- Dati Personali -->
     <div *ngIf="user" class="card mb-4">
-        <div class="card-header">
-          Dati Personali
-        </div>
-        <div class="card-body">
-          <p><strong>Nome:</strong> {{ user.nome }}</p>
-          <p><strong>Cognome:</strong> {{ user.cognome }}</p>
-          <p><strong>Email:</strong> {{ user.email }}</p>
-         
-          <!-- Verifica se avatar è presente e mostra l'immagine -->
-          <div *ngIf="user.avatar">
-            <img [src]="user.avatar" alt="Avatar di {{ user.username }}" class="avatar-image">
-          </div>
+      <div class="card-header bg-secondary-subtle fw-bold fs-4">Dati Personali</div>
+      <div class="card-body">
+        <p><strong>Nome:</strong> {{ user.nome }}</p>
+        <p><strong>Cognome:</strong> {{ user.cognome }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+  
+        <!-- Mostra l'avatar solo se è presente -->
+        <div *ngIf="user.avatar" class="avatar-container">
+          <img [src]="user.avatar" alt="Avatar di {{ user.username }}" class="avatar-image">
         </div>
       </div>
-      
+    </div>
   
+    <!-- Viaggi Prenotati -->
+    <div class="card mb-4 p-3 bg-secondary-subtle">
+        <div class=" fw-bold fs-4 mb-2">Viaggi prenotati</div>
+      <div *ngFor="let trip of bookedTrips" class="card mb-2">
+        <div class="card-body">
+          <p><strong>Pianeta:</strong> {{ trip.planet }}</p>
+          <p><strong>Nave:</strong> {{ trip.ship }}</p>
+          <p><strong>Tuta:</strong> {{ trip.suit }}</p>
+          <p><strong>Data Selezionata:</strong> {{ trip.selectedDate }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Logout Button -->
     <button class="btn btn-danger mt-3" (click)="logout()">Logout</button>
   </div>
   

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/interface/user.interface';
 
@@ -8,17 +9,25 @@ import { User } from 'src/app/interface/user.interface';
   styleUrls: ['./area-personale.component.scss']
 })
 export class AreaPersonaleComponent implements OnInit {
-  user: User | null = null;  // Inizializza user come null o con i dati predefiniti
-  // Inject AuthService nel costruttore
-  constructor(private authService: AuthService) {}
+  user: User | null = null;
+  bookedTrips: any[] = [];
+
+  constructor(
+    private authService: AuthService,
+    private scelteUtenteService: ScelteUtenteService
+  ) {}
 
   ngOnInit(): void {
-    this.loadUserData();  // Chiama la funzione per caricare i dati dell'utente
+    this.loadUserData();
+    this.loadBookedTrips();
   }
 
   loadUserData(): void {
     this.user = this.authService.getUserFromLocalStorage();
-    console.log('User in AreaPersonaleComponent:', this.user);
+  }
+
+  loadBookedTrips(): void {
+    this.bookedTrips = this.scelteUtenteService.getBookedTrips();
   }
 
   logout(): void {
