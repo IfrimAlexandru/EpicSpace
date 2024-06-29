@@ -33,30 +33,29 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
-        System.out.println(request);
+        // Verifica se c'è un token JWT valido
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            try {
+                jwtTool.verifyToken(token);
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new UnauthorizedException("Errore in authorization, token mancante!");
+                int userId = jwtTool.getIdFromToken(token);
+
+                Optional<User> utenteOptional = utenteService.getUserById(userId);
+
+                if (utenteOptional.isPresent()) {
+                    User user = utenteOptional.get();
+
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    throw new NotFoundException("Utente non trovato con id " + userId);
+                }
+            } catch (UnauthorizedException e) {
+                // Logica per gestire token non validi
+                // Se si desidera, si può gestire diversamente il caso di token non valido, ma è importante lasciare passare la richiesta.
+            }
         }
-
-        String token = authHeader.substring(7);
-
-
-        jwtTool.verifyToken(token);
-
-        int userId = jwtTool.getIdFromToken(token);
-
-        Optional <User> utenteOptional = utenteService.getUserById(userId);
-
-        if(utenteOptional.isPresent()) {
-            User user = utenteOptional.get();
-
-            Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } else {
-            throw new NotFoundException("Utente non trovato con id " + userId);
-        }
-
 
         filterChain.doFilter(request, response);
     }
