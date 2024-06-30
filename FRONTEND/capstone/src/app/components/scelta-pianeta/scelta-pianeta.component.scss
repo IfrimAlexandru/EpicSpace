@@ -7,33 +7,34 @@
   background-color: transparent;
   color: #f1e7e7;
   position: relative;
-  overflow: hidden; /* Ensure content does not overflow */
+  overflow: hidden;
+  font-family: "Orbitron", sans-serif;
 }
 
 .moon-background {
   position: absolute;
-  right: +10%; /* Move it a bit more to the right */
-  transform: translateY(-25%) translateX(+35%) rotate(220deg); /* Center vertically and rotate */
-  width: 85%; /* Maintain aspect ratio */
-  z-index: -1; /* Ensure it is behind other content */
+  right: 10%; /* Sposto leggermente verso destra */
+  transform: translateY(-25%) translateX(35%) rotate(220deg); /* Centro verticalmente e ruoto */
+  width: 85%;
+  z-index: -1;
 }
 
 .container-wrapper {
   position: relative;
-  z-index: 1; /* Ensure content is above the background image */
-  width: 100%; /* Ensure the container-wrapper takes full width */
+  z-index: 1;
+  width: 100%;
   display: flex;
-  justify-content: center; /* Center the container */
+  justify-content: center;
 }
 
 .container {
   text-align: center;
-  background-color: rgb(12, 11, 11); /* Dark gray background with some transparency */
+  background-color: rgb(12, 11, 11);
   padding: 20px;
   z-index: 2;
-  position: relative; /* Relative position to contain the absolute positioned button */
-  width: 80vw; /* Set the width to 80% of the viewport width */
-  max-width: 2000px; /* Optional: Set a maximum width */
+  position: relative;
+  width: 80vw;
+  max-width: 2000px;
   border: 0.1px solid rgb(104, 104, 104);
   height: 80vh;
 }
@@ -63,35 +64,33 @@
   text-align: center;
 }
 
-.planet img
- {
+.planet img,
+.saturno img {
   margin-top: 40px;
-  border-radius: 50%;
   width: 100px;
 }
 
-.saturno img{
-    margin-top: 40px;
-    width: 238px;
-    // filter: drop-shadow(0 0 0.75rem rgb(189, 24, 167));
+.saturno img {
+  width: 238px;
 }
 
 .planet:hover img:not(.selected),
 .saturno:hover img:not(.selected) {
-  transform: scale(1.5);
+  transform: scale(1.6);
   transition: 0.4s;
-  margin-bottom: 25px;
+  margin-bottom: 33px;
 }
 
 .selected {
-  // border: 2px solid white;
-  // border-radius: 50%;
-  // box-shadow: 0 0 10px rgba(255, 255, 255, 1);
   filter: drop-shadow(0 0 0.45rem rgb(255, 255, 255));
   transform: scale(1.5);
-  margin-bottom: 25px; /* Add scale transform for selected state */
+  padding-bottom: 20px;
 }
 
+.selected p {
+  
+
+}
 
 .details {
   margin-top: 20px;
@@ -112,11 +111,40 @@
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.3s;
-  position: absolute; /* Absolute position within the container */
-  bottom: 0px; /* 20px from the bottom of the container */
-  right: 0px; /* 20px from the right of the container */
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .book-btn:hover {
   background-color: #cc0000;
+}
+
+@media (min-width: 1500px) {
+  .carousel-item img.saturno {
+    width: 240px !important;
+  }
+
+  .carousel-item img.marte {
+    margin-right: -20px;
+  }
+
+  .carousel-item img.giove,
+  .carousel-item p.giove {
+    margin-right: -180px;
+  }
+}
+
+.planet {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.planet img {
+  margin-bottom: 10px;
+}
+
+.planet p {
+  margin: 0;
+  font-size: 1.2em;
 }

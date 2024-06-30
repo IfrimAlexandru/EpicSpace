@@ -279,78 +279,85 @@
 
 // CAROUSEL PIANETI
 
-.carousel-inner{
+.carousel-inner {
   padding: 150px 0;
 }
 
-.carousel{
+.carousel {
   background-image: url("../../../assets/img/viaLattea3.jpg");
   background-size: cover;
   background-color: black;
 }
 
 @media (min-width: 576px) and (max-width: 767.9px) {
-  
   .carousel-item img {
     width: 120px;
-    }
- 
-   .saturno {
-     width: 250px !important;
-     margin-right: -15px;
   }
 
-  .giove {
+  .carousel-item img.saturno {
+    width: 250px !important;
+    margin-right: -15px;
+  }
+
+  .carousel-item img.giove {
     margin-right: -20px;
-    
   }
 
-  .marte{
+  .carousel-item img.marte {
     margin-left: 15px;
-    
-  }
- }
-
-
- @media (min-width: 768px) and (max-width: 991.9px) {
-  .carousel-item img {
-    width: 170px;
-   }
- 
-   .saturno {
-     width: 350px !important;
   }
 }
 
- @media (min-width: 992px) and (max-width: 1199.9px) {
+@media (min-width: 768px) and (max-width: 991.9px) {
+  .carousel-item img {
+    width: 170px;
+  }
+
+  .carousel-item img.saturno {
+    width: 350px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.9px) {
   .carousel-item img {
     width: 200px;
-   }
- 
-   .saturno {
-     width: 430px !important;
+  }
+
+  .carousel-item img.saturno {
+    width: 430px !important;
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1499.9px) {
   .carousel-item img {
-   width: 220px;
+    width: 220px;
   }
 
-  .saturno {
+  .carousel-item img.saturno {
     width: 490px !important;
- }
+  }
 }
 
 @media (min-width: 1500px) {
   .carousel-item img {
-   width: 270px;
+    width: 270px;
+   
   }
 
- .saturno {
-     width: 600px !important;
+  .carousel-item img.saturno {
+    width: 550px !important;
+  }
+
+  .carousel-item img.giove {
+    margin-right: -190px ;
+  }
+
+  .carousel-item img.marte {
+    margin-right: -150px ;
   }
 }
+
+
 
 // SECTION 1
 

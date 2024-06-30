@@ -38,10 +38,10 @@
       <div class="carousel-item" *ngFor="let group of pianetiGroups; let i = index" [class.active]="i === 0">
         <div class="d-flex justify-content-around">
           <div *ngFor="let pianeta of group" class="text-center">
-            <img [src]="pianeta.immagine" class="fixed-width-image"
-                 [class.saturno]="pianeta.nome === 'Saturno'"
-                 [class.giove]="pianeta.nome === 'Giove'"
-                 [class.marte]="pianeta.nome === 'Marte'">
+            <img [src]="pianeta.immagine" class=""
+                 [class.saturno]="pianeta.nome === 'saturno'"
+                 [class.giove]="pianeta.nome === 'giove'"
+                 [class.marte]="pianeta.nome === 'marte'">
           </div>
         </div>
       </div>
@@ -56,11 +56,6 @@
     </button>
   </div>
 </div>
-
-
-
-
-
 
 
 <!--SECTION 2-->

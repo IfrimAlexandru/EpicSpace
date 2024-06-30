@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
+import { PlanetService } from 'src/app/service/planet.service';
+import { Pianeta } from 'src/app/interface/pianeta.interface';
+
+type PlanetName = "luna" | "marte" | "venere" | "nettuno" | "mercurio" | "giove" | "saturno" | "urano" | "plutone";
 
 @Component({
   selector: 'app-scelta-pianeta',
@@ -7,15 +11,15 @@ import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
   styleUrls: ['./scelta-pianeta.component.scss']
 })
 export class SceltaPianetaComponent {
-  selectedPlanet: keyof typeof this.planetDetails = 'moon';
+  selectedPlanet: keyof typeof this.planetDetails = 'luna';
 
   planetDetails = {
-    moon: {
+    luna: {
       flightTime: '3 hrs',
       distance: '384,400 km',
       price: 'Since $10000'
     },
-    mars: {
+    marte: {
       flightTime: '84 days/ 2hrs with warp',
       distance: '78 million km',
       price: 'Since $20000'
@@ -57,7 +61,40 @@ export class SceltaPianetaComponent {
     }
   };
 
-  constructor(private scelteUtenteService: ScelteUtenteService) {}
+  pianeti: Pianeta[] = [];
+  pianetiGroups: Pianeta[][] = [];
+
+  constructor(private planetService: PlanetService, private scelteUtenteService: ScelteUtenteService) {}
+
+  ngOnInit(): void {
+    this.loadPianeti();
+  }
+
+  loadPianeti(): void {
+    this.planetService.getPlanets().subscribe(
+      (data: Pianeta[]) => { // Adjust type for data based on your service response
+        console.log('Received pianeti data:', data);
+        this.pianeti = data;
+        this.groupPianeti();
+      },
+      error => {
+        console.error('Error loading pianeti:', error);
+        // Handle error
+      }
+    );
+  }
+
+  groupPianeti(): void {
+    this.pianetiGroups = [];
+    let group: Pianeta[] = [];
+    for (let i = 0; i < this.pianeti.length; i++) {
+      group.push(this.pianeti[i]);
+      if (group.length === 3 || i === this.pianeti.length - 1) {
+        this.pianetiGroups.push(group);
+        group = [];
+      }
+    }
+  }
 
   get details() {
     return this.planetDetails[this.selectedPlanet];

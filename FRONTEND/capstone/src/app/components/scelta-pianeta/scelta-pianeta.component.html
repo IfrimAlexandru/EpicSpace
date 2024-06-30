@@ -35,82 +35,32 @@
     <div class="sub-header">
       <div id="planetCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active">
+          <div class="carousel-item" *ngFor="let group of pianetiGroups; let i = index" [ngClass]="{ 'active': i === 0 }">
             <div class="d-flex justify-content-around">
-              <div class="planet" (click)="selectPlanet('mercurio')">
-                <img src="../../../assets/img/immagini-pianeti/mercurio.png" alt="mercurio" />
-                <p>Mercurio</p>
-              </div>
-              <div class="planet" (click)="selectPlanet('venere')">
-                <img src="../../../assets/img/immagini-pianeti/venere.png" alt="venere" />
-                <p>Venere</p>
-              </div>
-              <div class="planet" (click)="selectPlanet('moon')">
-                <img src="../../../assets/img/immagini-pianeti/luna.png" alt="moon" />
-                <p>Luna</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="d-flex justify-content-around">
-              <div class="planet" (click)="selectPlanet('mars')">
-                <img src="../../../assets/img/immagini-pianeti/mars.png" alt="mars" />
-                <p>Marte</p>
-              </div>
-              <div class="planet" (click)="selectPlanet('giove')">
-                <img src="../../../assets/img/immagini-pianeti/giove.png" alt="giove" />
-                <p>Giove</p>
-              </div>
-              <div class="saturno" (click)="selectPlanet('saturno')">
-                <img src="../../../assets/img/immagini-pianeti/saturno.png" alt="saturno" />
-                <p>Saturno</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="d-flex justify-content-around">
-              <div class="planet" (click)="selectPlanet('nettuno')">
-                <img src="../../../assets/img/immagini-pianeti/nettuno.png" alt="nettuno" />
-                <p>Nettuno</p>
-              </div>
-              <div class="planet" (click)="selectPlanet('urano')">
-                <img src="../../../assets/img/immagini-pianeti/urano.png" alt="urano" />
-                <p>Urano</p>
-              </div>
-              <div class="planet" (click)="selectPlanet('plutone')">
-                <img src="../../../assets/img/immagini-pianeti/plutone.png" alt="plutone" />
-                <p>Plutone</p>
+              <div class="planet d-flex flex-column align-items-center" *ngFor="let pianeta of group" (click)="selectPlanet(pianeta.nome)">
+                <img [src]="pianeta.immagine" [alt]="pianeta.nome"
+                  [ngClass]="{ 'saturno': pianeta.nome === 'saturno', 'giove': pianeta.nome === 'giove', 'marte': pianeta.nome === 'marte' }" />
+                <p [ngClass]="{ 'saturno': pianeta.nome === 'saturno', 'giove': pianeta.nome === 'giove', 'marte': pianeta.nome === 'marte' }">
+                  {{ pianeta.nome | uppercase }}
+                </p>
               </div>
             </div>
           </div>
         </div>
-        <button
-          class="carousel-control-prev"
-          style="width: 80px"
-          type="button"
-          data-bs-target="#planetCarousel"
-          data-bs-slide="prev"
-        >
-          <span
-            class="carousel-control-prev-icon me-2"
-            aria-hidden="true"
-          ></span>
+        <button class="carousel-control-prev" style="width: 80px" type="button" data-bs-target="#planetCarousel"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon me-2" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button
-          class="carousel-control-next"
-          style="width: 80px"
-          type="button"
-          data-bs-target="#planetCarousel"
-          data-bs-slide="next"
-        >
-          <span
-            class="carousel-control-next-icon ms-2"
-            aria-hidden="true"
-          ></span>
+        <button class="carousel-control-next" style="width: 80px" type="button" data-bs-target="#planetCarousel"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon ms-2" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+    </div>
+    
+    
 
       <!-- DATI VOLO -->
 
@@ -136,4 +86,4 @@
       </div>
     </div>
   </div>
-</div>
+
