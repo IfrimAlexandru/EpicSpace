@@ -31,64 +31,37 @@
   </div>
 </div>
 
-<!-- CAROUSEL PIANETI -->
-
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-  
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="100000">
-      <div class="d-flex justify-content-around">
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/mercurio.png" alt="pianeta mercurio">
-        </div>
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/venere.png" alt="pianeta venere">
-        </div>
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/luna.png" alt="luna">
-        </div>
-  </div>
-      
-      
-  </div>
-    <div class="carousel-item" data-bs-interval="20000">
-      <div class="d-flex justify-content-around align-items-center">
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/mars.png" class="marte"  alt="pianeta marte">
-        </div>
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/giove.png" class="giove" alt="pianeta giove ">
-        </div>
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/saturno.png" class="saturno" alt="pianeta saturno">
+<!-- Carousel Pianeti -->
+<div class="container-fluid px-0">
+  <div id="carouselPianeti" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let group of pianetiGroups; let i = index" [class.active]="i === 0">
+        <div class="d-flex justify-content-around">
+          <div *ngFor="let pianeta of group" class="text-center">
+            <img [src]="pianeta.immagine" class="fixed-width-image"
+                 [class.saturno]="pianeta.nome === 'Saturno'"
+                 [class.giove]="pianeta.nome === 'Giove'"
+                 [class.marte]="pianeta.nome === 'Marte'">
+          </div>
         </div>
       </div>
     </div>
-    <div class="carousel-item">
-      <div class="d-flex justify-content-around">
-        <div>
-          <img src="../../../assets//img/immagini-pianeti/urano.png" class="d-block" alt="pianeta urano">
-        </div>
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/nettuno.png" class="d-block" alt="pianeta nettuno">
-        </div>
-        <div>
-          <img src="../../../assets/img/immagini-pianeti/plutone.png" class="d-block" alt="pianeta plutone">
-        </div>
-        
-        
-     </div>
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPianeti" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselPianeti" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next ms-3" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
+
+
+
+
+
+
 
 <!--SECTION 2-->
 

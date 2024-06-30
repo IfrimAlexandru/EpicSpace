@@ -13,7 +13,7 @@ export class SceltaPianetaComponent {
     moon: {
       flightTime: '3 hrs',
       distance: '384,400 km',
-      price: 'Since $2000'
+      price: 'Since $10000'
     },
     mars: {
       flightTime: '84 days/ 2hrs with warp',
@@ -28,32 +28,32 @@ export class SceltaPianetaComponent {
     nettuno: {
       flightTime: '5 days with warp(127hrs)',
       distance: '4351 billion km',
-      price: 'Since $30000'
+      price: 'Since $40000'
     },
     mercurio: {
       flightTime: '83 days(2003hrs)/ 2hrs with warp',
       distance: '77 million km',
-      price: 'Since $30000'
+      price: 'Since $50000'
     },
     giove: {
       flightTime: '16hrs with warp',
       distance: '628 million km',
-      price: 'Since $30000'
+      price: 'Since $60000'
     },
     saturno: {
       flightTime: '33hrs with warp',
       distance: '1275 billion km',
-      price: 'Since $30000'
+      price: 'Since $70000'
     },
     urano: {
       flightTime: '3 days with warp(74 hrs)',
       distance: '2723 billion km',
-      price: 'Since $30000'
+      price: 'Since $80000'
     },
     plutone: {
       flightTime: '6 days with warp(153 hrs)',
       distance: '5913 billion km',
-      price: 'Since $30000'
+      price: 'Since $90000'
     }
   };
 
