@@ -47,7 +47,7 @@
 
     <div class="form-container mt-5 text-black">
       <h1>Acquista Biglietto</h1>
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="unisciFunzionalita()">
         <div class="form-group">
           <label for="buyer-name">Nome Acquirente:</label>
           <input type="text" id="buyer-name" name="buyer-name" class="form-control" [(ngModel)]="buyerName" required />
@@ -60,5 +60,7 @@
         <button type="submit" class="btn btn-primary btn-block">Acquista</button>
       </form>
     </div>
+    
+    
   </div>
 </div>

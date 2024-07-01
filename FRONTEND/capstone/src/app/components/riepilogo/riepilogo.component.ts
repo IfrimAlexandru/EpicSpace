@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { CheckoutComponent } from '../checkout/checkout.component';
 
 @Component({
   selector: 'app-riepilogo',
@@ -12,7 +13,9 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RiepilogoComponent implements OnInit {
 
-  choices: any; // Dichiarazione della proprietà choices come any
+  @ViewChild(CheckoutComponent) checkoutComponent!: CheckoutComponent; 
+
+  choices: any; 
 
   buyerName: string = '';
   email: string = '';
@@ -20,7 +23,7 @@ export class RiepilogoComponent implements OnInit {
   availableDates: string[] = [];
 
   private apiUrl = `${environment.apiUrl}api/biglietti/submit-order`;
-  private datesUrl = `${environment.apiUrl}api/dates`; // URL per recuperare le date disponibili
+  private datesUrl = `${environment.apiUrl}api/dates`; 
 
   constructor(
     private scelteUtenteService: ScelteUtenteService,
@@ -30,18 +33,18 @@ export class RiepilogoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadUserChoices(); // Carica le scelte dell'utente
-    this.loadAvailableDates(); // Carica le date disponibili
+    this.loadUserChoices(); 
+    this.loadAvailableDates(); 
   }
 
   loadUserChoices(): void {
-    this.choices = this.scelteUtenteService.getChoices(); // Ottieni le scelte dell'utente dal servizio
+    this.choices = this.scelteUtenteService.getChoices(); 
     this.authService.user$.subscribe(user => {
       if (user) {
-        this.buyerName = user.user.nome;  // Assumendo che l'oggetto user abbia un campo 'nome'
-        this.email = user.user.email;    // Assumendo che l'oggetto user abbia un campo 'email'
+        this.buyerName = user.user.nome;  
+        this.email = user.user.email;    
       } else {
-        this.router.navigate(['/auth']);  // Reindirizza al login se non c'è un utente loggato
+        this.router.navigate(['/auth']); 
       }
     });
   }
@@ -55,7 +58,7 @@ export class RiepilogoComponent implements OnInit {
     this.http.get<{ id: number, data: string }[]>(this.datesUrl, { headers }).subscribe(
       data => {
         this.availableDates = data.map(dateObj => dateObj.data);
-        console.log('Loaded dates:', this.availableDates); // Log delle date per debug
+        console.log('Loaded dates:', this.availableDates); 
       },
       error => {
         console.error('Errore nel caricamento delle date disponibili:', error);
@@ -63,7 +66,14 @@ export class RiepilogoComponent implements OnInit {
     );
   }
 
-  onSubmit(): void {
+  async unisciFunzionalita(): Promise<void> {
+    if (confirm('Vuoi procedere con l\'acquisto?')) {
+      await this.onSubmit();  // Aspetta che l'invio del modulo sia completato
+      await this.checkoutComponent.pay(); // Poi esegui il pagamento
+    }
+  }
+
+  async onSubmit(): Promise<void> {
     const data = {
       buyerName: this.buyerName,
       email: this.email,
@@ -90,7 +100,7 @@ export class RiepilogoComponent implements OnInit {
     });
   
     // Effettua la richiesta POST per inviare l'ordine
-    this.http.post(this.apiUrl, data, { headers }).subscribe(
+    await this.http.post(this.apiUrl, data, { headers }).toPromise().then(
       response => {
         // Aggiungi il viaggio prenotato al servizio ScelteUtenteService
         this.scelteUtenteService.addBookedTrip(data);
