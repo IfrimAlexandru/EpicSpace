@@ -13,17 +13,16 @@ export class CheckoutComponent {
   stripePromise = loadStripe(environment.stripe);
   constructor(private http: HttpClient) {}
 
-  money = 99900; // Assicurati che l'importo sia corretto
-
-  async pay(): Promise<void> {
+  async pay(price: number, planetName: string): Promise<void> { // Accetta anche il nome del pianeta come parametro
     const payment = {
-      name: 'Iphone',
-      currency: 'usd',
-      amount: this.money,
+      name: `Viaggio spaziale per ${planetName}`,
+      currency: 'eur', 
+      amount: price * 100, 
       quantity: 1,
       cancelUrl: 'http://localhost:4200/cancel',
       successUrl: 'http://localhost:4200/success',
     };
+
 
     const stripe = await this.stripePromise;
 
