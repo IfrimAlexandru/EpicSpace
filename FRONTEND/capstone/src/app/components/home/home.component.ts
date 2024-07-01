@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { Pianeta } from 'src/app/interface/pianeta.interface'; // Importa l'interfaccia Pianeta
+import { Recensione } from 'src/app/interface/recensione.interface';
 
 @Component({
   selector: 'app-home',
@@ -12,37 +12,54 @@ import { Pianeta } from 'src/app/interface/pianeta.interface'; // Importa l'inte
 })
 export class HomeComponent implements OnInit {
   navicelle: any[] = [];
-  pianeti: Pianeta[] = []; // Utilizza l'interfaccia Pianeta anziché any[]
-  navicellePairs: any[][] = [];  // Array to hold pairs of navicelle
-  pianetiGroups: Pianeta[][] = [];   // Array to hold groups of pianeti
+  pianeti: any[] = [];
+  navicellePairs: any[][] = [];
+  pianetiGroups: any[][] = [];
+  recensioni: Recensione[] = [];
+  isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.getUserRole() === 'ADMIN';
     this.loadNavicelle();
     this.loadPianeti();
-  }
-
-  loadPianeti(): void {
-    this.http.get<Pianeta[]>(`${environment.apiUrl}pianeti`).subscribe(data => {
-      console.log('Received pianeti data:', data); // Log data for debugging
-      this.pianeti = data;
-      this.groupPianeti();  // Group pianeti into groups of 3
-    });
+    this.loadRecensioni();
   }
 
   loadNavicelle(): void {
     const headers = this.getAuthHeaders();
     this.http.get<any[]>(`${environment.apiUrl}navi_spaziali`, { headers }).subscribe(data => {
-      console.log('Received navicelle data:', data); // Log data for debugging
       this.navicelle = data;
-      this.groupNavicelleInPairs();  // Group navicelle in pairs
+      this.groupNavicelleInPairs();
     });
+  }
+
+  loadPianeti(): void {
+    this.http.get<any[]>(`${environment.apiUrl}pianeti`).subscribe(data => {
+      this.pianeti = data;
+      this.groupPianeti();
+    });
+  }
+
+  loadRecensioni(): void {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      this.http.get<Recensione[]>(`${environment.apiUrl}recensioni`, { headers }).subscribe(data => {
+        console.log('Received recensioni data in home:', data); // Log data for debugging
+        this.recensioni = data.slice(0, 2); // Prendi solo le prime due recensioni
+      }, error => {
+        console.error('Error loading recensioni', error);
+      });
+    } else {
+      this.router.navigate(['/auth']);
+    }
   }
 
   groupPianeti(): void {
     this.pianetiGroups = [];
-    let group: Pianeta[] = [];
+    let group: any[] = [];
     for (let i = 0; i < this.pianeti.length; i++) {
       group.push(this.pianeti[i]);
       if (group.length === 3 || i === this.pianeti.length - 1) {
@@ -67,7 +84,7 @@ export class HomeComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/sceltaPianeta']);
     } else {
-      this.authService.redirectUrl = '/sceltaPianeta';  // Save the redirect URL
+      this.authService.redirectUrl = '/sceltaPianeta';
       this.router.navigate(['/auth']);
     }
   }

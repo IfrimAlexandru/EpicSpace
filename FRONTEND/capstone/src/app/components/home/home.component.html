@@ -35,7 +35,7 @@
 <div class="container-fluid px-0">
   <div id="carouselPianeti" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item" *ngFor="let group of pianetiGroups; let i = index" [class.active]="i === 0">
+      <div class="carousel-item" *ngFor="let group of pianetiGroups; let i = index" [class.active]="i === 0" [attr.data-bs-interval]="100000">
         <div class="d-flex justify-content-around">
           <div *ngFor="let pianeta of group" class="text-center">
             <img [src]="pianeta.immagine" class=""
@@ -107,19 +107,14 @@
 
 
 <!-- RECENSIONI -->
-
 <div class="reviews-container">
   <div class="header">
     <h2>Recensioni dei nostri viaggiatori</h2>
   </div>
   <div class="reviews-grid">
-    <div class="review">
-      <p class="review-text">“Un'esperienza incredibile! Il viaggio nello spazio è stato fantastico e sicuro. Consiglio vivamente!”Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-      <p class="review-author">- Marco R.</p>
-    </div>
-    <div class="review">
-      <p class="review-text">“Servizio eccellente e vista mozzafiato della Terra dalla stazione spaziale. Un sogno diventato realtà!”Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis recusandae eaque nulla voluptatem eligendi neque quas facilis nobis. Molestias, cumque possimus!</p>
-      <p class="review-author">- Laura S.</p>
+    <div class="review" *ngFor="let recensione of recensioni">
+      <p class="review-text">{{ recensione.text }}</p>
+      <p class="review-author">- {{ recensione.user.nome }}</p>
     </div>
   </div>
   <div class="button-container">
