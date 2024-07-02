@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { PlanetService } from 'src/app/service/planet.service';
 import { Pianeta } from 'src/app/interface/pianeta.interface';
@@ -10,7 +10,7 @@ type PlanetName = "luna" | "marte" | "venere" | "nettuno" | "mercurio" | "giove"
   templateUrl: './scelta-pianeta.component.html',
   styleUrls: ['./scelta-pianeta.component.scss']
 })
-export class SceltaPianetaComponent {
+export class SceltaPianetaComponent implements OnInit {
   selectedPlanet: keyof typeof this.planetDetails = 'luna';
 
   planetDetails = {
@@ -72,14 +72,13 @@ export class SceltaPianetaComponent {
 
   loadPianeti(): void {
     this.planetService.getPlanets().subscribe(
-      (data: Pianeta[]) => { // Adjust type for data based on your service response
+      (data: Pianeta[]) => {
         console.log('Received pianeti data:', data);
         this.pianeti = data;
         this.groupPianeti();
       },
       error => {
         console.error('Error loading pianeti:', error);
-        // Handle error
       }
     );
   }
@@ -100,9 +99,11 @@ export class SceltaPianetaComponent {
     return this.planetDetails[this.selectedPlanet];
   }
 
-  selectPlanet(planet: keyof typeof this.planetDetails) {
-    this.selectedPlanet = planet;
-    this.scelteUtenteService.setChoice('planet', planet);
+  selectPlanet(pianeta: Pianeta): void {
+    this.selectedPlanet = pianeta.nome as keyof typeof this.planetDetails;
+    this.scelteUtenteService.setChoice('planet', pianeta.nome);
+    this.scelteUtenteService.setChoice('planetImg', pianeta.immagine); // Salva l'URL dell'immagine
+    console.log('Selected planet image:', pianeta.immagine); // Debug: verifica l'URL dell'immagine
     this.updateSelectedPlanetUI();
   }
 

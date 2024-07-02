@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { CheckoutComponent } from '../checkout/checkout.component';
 
-type Planet = 'luna' | 'marte' | 'venere' | 'nettuno' | 'mercurio' | 'giove' | 'saturno' | 'urano' | 'plutone';
-
 @Component({
   selector: 'app-riepilogo',
   templateUrl: './riepilogo.component.html',
@@ -18,7 +16,6 @@ export class RiepilogoComponent implements OnInit {
   @ViewChild(CheckoutComponent) checkoutComponent!: CheckoutComponent;
 
   choices: any;
-
   buyerName: string = '';
   email: string = '';
   selectedDate: string = '';
@@ -26,18 +23,6 @@ export class RiepilogoComponent implements OnInit {
 
   private apiUrl = `${environment.apiUrl}api/biglietti/submit-order`;
   private datesUrl = `${environment.apiUrl}api/dates`;
-
-  planetDetails: Record<Planet, number> = {
-    luna: 10000,
-    marte: 20000,
-    venere: 30000,
-    nettuno: 40000,
-    mercurio: 50000,
-    giove: 60000,
-    saturno: 70000,
-    urano: 80000,
-    plutone: 90000
-  };
 
   constructor(
     private scelteUtenteService: ScelteUtenteService,
@@ -53,6 +38,7 @@ export class RiepilogoComponent implements OnInit {
 
   loadUserChoices(): void {
     this.choices = this.scelteUtenteService.getChoices();
+    console.log('User choices:', this.choices); // Debug: verifica il valore delle scelte
     this.authService.user$.subscribe(user => {
       if (user) {
         this.buyerName = user.user.nome;
@@ -62,12 +48,10 @@ export class RiepilogoComponent implements OnInit {
       }
     });
   }
+  
 
   loadAvailableDates(): void {
     const token = localStorage.getItem('authToken');
-    console.log('Auth Token:', token); // Debugging: Verifica il token
-    console.log('Dates URL:', this.datesUrl); // Debugging: Verifica l'URL
-
     if (!token) {
       console.error('No auth token found, redirecting to login.');
       this.router.navigate(['/auth']);
@@ -81,7 +65,6 @@ export class RiepilogoComponent implements OnInit {
     this.http.get<{ id: number, data: string }[]>(this.datesUrl, { headers }).subscribe(
       data => {
         this.availableDates = data.map(dateObj => dateObj.data);
-        console.log('Loaded dates:', this.availableDates);
       },
       error => {
         console.error('Errore nel caricamento delle date disponibili:', error);
@@ -89,14 +72,10 @@ export class RiepilogoComponent implements OnInit {
     );
   }
 
-  getPlanetPrice(planet: Planet): number {
-    return this.planetDetails[planet];
-  }
-
   async unisciFunzionalita(): Promise<void> {
     if (confirm('Vuoi procedere con l\'acquisto?')) {
       await this.onSubmit();
-      const planet = this.choices.planet as Planet;
+      const planet = this.choices.planet;
       const price = this.getPlanetPrice(planet);
       await this.checkoutComponent.pay(price, planet); // Passa anche il nome del pianeta
     }
@@ -144,5 +123,20 @@ export class RiepilogoComponent implements OnInit {
         }
       }
     );
+  }
+
+  getPlanetPrice(planet: string): number {
+    const planetDetails: Record<string, number> = {
+      luna: 10000,
+      marte: 20000,
+      venere: 30000,
+      nettuno: 40000,
+      mercurio: 50000,
+      giove: 60000,
+      saturno: 70000,
+      urano: 80000,
+      plutone: 90000
+    };
+    return planetDetails[planet];
   }
 }
