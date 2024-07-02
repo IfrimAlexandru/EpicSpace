@@ -36,14 +36,6 @@ export class RecensioniComponent implements OnInit {
     }
   }
 
-  showReviewForm(): void {
-    if (this.authService.isLoggedIn()) {
-      document.getElementById('review-form')!.style.display = 'block';
-    } else {
-      this.router.navigate(['/auth']);
-    }
-  }
-
   submitReview(): void {
     const text = this.reviewText;
     const token = this.authService.getToken();

@@ -56,7 +56,6 @@
 }
 
 .review-form {
-  display: none;
   margin-top: 20px;
   text-align: center;
   
@@ -90,4 +89,9 @@
 
 .delete-button:hover {
   background-color: rgb(94, 6, 6);
+}
+
+.button-container {
+  text-align: left;
+  margin-left: 11.4em; /* Aligns the button to the right */
 }
