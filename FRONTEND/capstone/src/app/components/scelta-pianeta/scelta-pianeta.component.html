@@ -37,7 +37,7 @@
         <div class="carousel-inner">
           <div class="carousel-item" *ngFor="let group of pianetiGroups; let i = index" [ngClass]="{ 'active': i === 0 }">
             <div class="d-flex justify-content-around">
-              <div class="planet d-flex flex-column align-items-center" *ngFor="let pianeta of group" (click)="selectPlanet(pianeta.nome)">
+              <div class="planet d-flex flex-column align-items-center" *ngFor="let pianeta of group" (click)="selectPlanet(pianeta)">
                 <img [src]="pianeta.immagine" [alt]="pianeta.nome"
                   [ngClass]="{ 'saturno': pianeta.nome === 'saturno', 'giove': pianeta.nome === 'giove', 'marte': pianeta.nome === 'marte' }" />
                 <p [ngClass]="{ 'saturno': pianeta.nome === 'saturno', 'giove': pianeta.nome === 'giove', 'marte': pianeta.nome === 'marte' }">
@@ -60,30 +60,25 @@
       </div>
     </div>
     
-    
-
-      <!-- DATI VOLO -->
-
-      <div class="d-flex justify-content-between" style="margin-top: 100px">
-        <div class="details d-flex justify-content-around">
-          <div class="text-start mx-3">
-            <p>Flight time</p>
-            <p class="fw-bold">{{ details.flightTime }}</p>
-          </div>
-          <div class="text-start mx-3">
-            <p>Distance from Earth</p>
-            <p class="fw-bold">{{ details.distance }}</p>
-          </div>
-          <div class="text-start mx-3">
-            <p>Price</p>
-            <p class="fw-bold">{{ details.price }}</p>
-          </div>
+    <!-- DATI VOLO -->
+    <div class="d-flex justify-content-between" style="margin-top: 100px">
+      <div class="details d-flex justify-content-around">
+        <div class="text-start mx-3">
+          <p>Flight time</p>
+          <p class="fw-bold">{{ details.flightTime }}</p>
         </div>
-        <div>
-          <!-- (click)="bookFlight()"-->
-          <button class="book-btn" routerLink="/sceltaNave">Scegli navicella -></button>
+        <div class="text-start mx-3">
+          <p>Distance from Earth</p>
+          <p class="fw-bold">{{ details.distance }}</p>
         </div>
+        <div class="text-start mx-3">
+          <p>Price</p>
+          <p class="fw-bold">{{ details.price }}</p>
+        </div>
+      </div>
+      <div>
+        <button class="book-btn" routerLink="/sceltaNave">Scegli navicella -></button>
       </div>
     </div>
   </div>
-
+</div>
