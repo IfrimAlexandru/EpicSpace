@@ -39,10 +39,10 @@
                   />
                   
                 </div>
-                <p>{{tuta.nome}}</p>
+                <p class="m-0">{{tuta.nome}}</p>
                 <i
                     *ngIf="selectedSuit?.id === tuta.id"
-                    class="bi bi-arrow-repeat fs-3"
+                    class="bi bi-arrow-repeat fs-3 m-0"
                     (click)="toggleImage(tuta.id)"></i>
               </div>
               
@@ -71,8 +71,8 @@
           <p class="fw-bold" *ngIf="selectedSuit">{{ selectedSuit.descrizione }}</p>
         </div>
       </div>
-      <div class="text-center mt-3">
-        <button class="book-btn" routerLink="/riepilogo">Riepilogo -></button>
+      <div>
+        <button class="book-btn" routerLink="/riepilogo">Riepilogo <i class="bi bi-arrow-right"></i></button>
       </div>
     </div>
   </div>

@@ -35,7 +35,7 @@
   width: 80vw;
   max-width: 2000px;
   border: 0.1px solid rgb(104, 104, 104);
-  height: 80vh;
+  height: 81vh;
 }
 
 .header {
@@ -76,7 +76,7 @@
 .selected {
   filter: drop-shadow(0 0 0.25rem rgba(255, 255, 255, 0.658));
   transform: scale(1.6);
-  margin-bottom: 45px;
+  margin-bottom: 40px;
   padding: 5px;
 }
 
@@ -144,8 +144,9 @@
   }
 }
 
-.bi-arrow-repeat{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  top: 10px;
+.details {
+  margin-top: 20px;
+  position: absolute;
+  bottom: 20px;
 }
+
