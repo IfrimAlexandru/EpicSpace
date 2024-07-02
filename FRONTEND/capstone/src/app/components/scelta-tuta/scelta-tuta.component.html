@@ -35,16 +35,17 @@
                     [ngClass]="{ 'selected': selectedSuit?.id === tuta.id }"
                     [src]="isFront[tuta.id] ? tuta.immagineFronte : tuta.immagineRetro"
                     alt="{{tuta.nome}}"
-                    class="fixed-width-image"
+                    style="width: 80px;"
                   />
-                  <i
-                    *ngIf="selectedSuit?.id === tuta.id"
-                    class="bi bi-arrow-repeat fs-3 position-absolute start-50 translate-middle"
-                    (click)="toggleImage(tuta.id)"
-                  ></i>
+                  
                 </div>
                 <p>{{tuta.nome}}</p>
+                <i
+                    *ngIf="selectedSuit?.id === tuta.id"
+                    class="bi bi-arrow-repeat fs-3"
+                    (click)="toggleImage(tuta.id)"></i>
               </div>
+              
             </div>
           </div>
         </div>
@@ -58,18 +59,22 @@
         </button>
       </div>
 
-      <!-- TUTA DESCRIPTION -->
-      <div class="description-section mt-5" *ngIf="selectedSuit">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ selectedSuit.nome }}</h5>
-            <p class="card-text">{{ selectedSuit.descrizione }}</p>
-          </div>
+    <!-- DATI TUTA -->
+    <div class="d-flex justify-content-between" style="margin-top: 100px">
+      <div class="details d-flex justify-content-around">
+        <div class="text-start mx-3">
+          <p>Nome Tuta</p>
+          <p class="fw-bold" *ngIf="selectedSuit">{{ selectedSuit.nome }}</p>
         </div>
-        <div class="text-center mt-3">
-          <button class="book-btn" routerLink="/riepilogo">Riepilogo -></button>
+        <div class="text-start mx-3">
+          <p>Descrizione</p>
+          <p class="fw-bold" *ngIf="selectedSuit">{{ selectedSuit.descrizione }}</p>
         </div>
+      </div>
+      <div class="text-center mt-3">
+        <button class="book-btn" routerLink="/riepilogo">Riepilogo -></button>
       </div>
     </div>
   </div>
+</div>
 </div>
