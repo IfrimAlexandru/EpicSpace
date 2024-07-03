@@ -19,7 +19,6 @@ public class User implements UserDetails {
     private int idUtente;
     private String email;
     private String password;
-    private String username;
     private String nome;
     private String cognome;
     @Enumerated(EnumType.STRING)
@@ -27,15 +26,14 @@ public class User implements UserDetails {
     private String avatar;
     private String provider;
 
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
     @Override
     public String getPassword() {
         return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
     }
 
 

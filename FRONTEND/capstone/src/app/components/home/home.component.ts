@@ -88,4 +88,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/auth']);
     }
   }
+
+  formatAuthorName(nome: string, cognome: string): string {
+    return `${nome} ${cognome.charAt(0)}.`;
+  }
 }

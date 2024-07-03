@@ -72,4 +72,8 @@ export class RecensioniComponent implements OnInit {
       }
     }
   }
+
+  formatAuthorName(nome: string, cognome: string): string {
+    return `${nome} ${cognome.charAt(0)}.`;
+  }
 }

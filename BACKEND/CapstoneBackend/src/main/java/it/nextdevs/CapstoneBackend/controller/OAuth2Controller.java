@@ -50,37 +50,6 @@ public class OAuth2Controller {
         this.clientService = clientService;
     }
 
-//    @GetMapping("/auth/login/oauth2/code/{provider}")
-//    public Integer loginSuccess(@PathVariable String provider,@AuthenticationPrincipal OAuth2AuthenticationToken authenticationToken) {
-//
-//        OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(
-//                authenticationToken.getAuthorizedClientRegistrationId(),
-//                authenticationToken.getName()
-//        );
-//
-//        Map<String, Object> attributes = authenticationToken.getPrincipal().getAttributes();
-//        String userEmail = (String) attributes.get("email");
-//
-//        Optional<User> existingUser = userRepository.findByEmail(userEmail);
-//        if (existingUser.isEmpty()) {
-//            UserDto userDto = new UserDto();
-//            userDto.setEmail(userEmail);
-//            userDto.setPassword(PasswordGenerator.generatePassword(32));
-//            userDto.setUsername(userEmail);
-//            userDto.setProvider(provider);
-//            if (Objects.equals(provider, "Google")) {
-//                userDto.setNome((String) attributes.get("given_name"));
-//                userDto.setCognome((String) attributes.get("family_name"));
-//            } else if (Objects.equals(provider, "Facebook")) {
-//                userDto.setNome((String) attributes.get("first_name"));
-//                userDto.setCognome((String) attributes.get("last_name"));
-//            }
-//            userDto.setNewsletter(false);
-//            return userService.saveUser(userDto);
-//        } else {
-//            return existingUser.get().getIdUtente();
-//        }
-//    }
 
     @PostMapping("/auth/login/oauth2/code/{provider}")
     public AuthDataDto loginSuccess(@PathVariable String provider, @RequestBody Map<String, String> request) throws GeneralSecurityException, IOException {
@@ -105,7 +74,6 @@ public class OAuth2Controller {
                 UserDto userDto = new UserDto();
                 userDto.setEmail(email);
                 userDto.setPassword(PasswordGenerator.generatePassword(32));
-                userDto.setUsername(email);
                 userDto.setProvider(provider);
                 userDto.setAvatar(pictureUrl);
                 userDto.setNome(name);
@@ -124,7 +92,6 @@ public class OAuth2Controller {
                     userDataDto.setCognome(utente.getCognome());
                     userDataDto.setIdUtente(utente.getIdUtente());
                     userDataDto.setTipoUtente(utente.getTipoUtente());
-                    userDataDto.setUsername(utente.getUsername());
                     authDataDto.setUser(userDataDto);
                     authDataDto.setAccessToken(jwtTool.createToken(utente));
                     return authDataDto;
@@ -142,7 +109,6 @@ public class OAuth2Controller {
                 userDataDto.setCognome(utente.getCognome());
                 userDataDto.setIdUtente(utente.getIdUtente());
                 userDataDto.setTipoUtente(utente.getTipoUtente());
-                userDataDto.setUsername(utente.getUsername());
                 authDataDto.setUser(userDataDto);
                 authDataDto.setAccessToken(jwtTool.createToken(utente));
                 return authDataDto;
@@ -150,41 +116,6 @@ public class OAuth2Controller {
         } else {
             throw new BadRequestException("Token Google non valido");
         }
-//        System.out.println(authenticationToken);
-//        if (authenticationToken == null) {
-//            // Handle the case where authenticationToken is null
-//            throw new IllegalStateException("Authentication token is missing.");
-//        }
-
-//        OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(
-//                authenticationToken.getAuthorizedClientRegistrationId(),
-//                authenticationToken.getName()
-//        );
-//
-//        Map<String, Object> attributes = authenticationToken.getPrincipal().getAttributes();
-//        String userEmail = (String) attributes.get("email");
-//
-//        Optional<User> existingUser = userRepository.findByEmail(userEmail);
-//        if (existingUser.isEmpty()) {
-//            UserDto userDto = new UserDto();
-//            userDto.setEmail(userEmail);
-//            userDto.setPassword(PasswordGenerator.generatePassword(32));
-//            userDto.setUsername(userEmail);
-//            userDto.setProvider(provider);
-//            if (Objects.equals(provider, "Google")) {
-//                userDto.setNome((String) attributes.get("given_name"));
-//                userDto.setCognome((String) attributes.get("family_name"));
-//            } else if (Objects.equals(provider, "Facebook")) {
-//                userDto.setNome((String) attributes.get("first_name"));
-//                userDto.setCognome((String) attributes.get("last_name"));
-//            }
-//            userDto.setNewsletter(false);
-//            return userService.saveUser(userDto);
-//        } else {
-//            return existingUser.get().getIdUtente();
-//        }
     }
-
-
 }
 

@@ -13,8 +13,6 @@ public class UserDto{
     private String email;
     @NotBlank(message = "La password non può essere vuota, mancante o composta da soli spazi")
     private String password;
-    @NotBlank(message = "Lo username dell'utente non può essere vuoto, mancante o composto da soli spazi")
-    private String username;
     @NotBlank(message = "Il nome dell'utente non può essere vuoto, mancante o composto da soli spazi")
     private String nome;
     @NotBlank(message = "Il cognome dell'utente non può essere vuoto, mancante o composto da soli spazi")

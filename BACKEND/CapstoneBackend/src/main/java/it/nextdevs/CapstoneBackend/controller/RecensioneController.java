@@ -1,8 +1,10 @@
 package it.nextdevs.CapstoneBackend.controller;
 
+import it.nextdevs.CapstoneBackend.dto.RecensioneDto;
 import it.nextdevs.CapstoneBackend.model.Recensione;
 import it.nextdevs.CapstoneBackend.model.User;
 import it.nextdevs.CapstoneBackend.service.RecensioneService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,8 +23,8 @@ public class RecensioneController {
     @PostMapping
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public Recensione createRecensione(@RequestBody RecensioneRequest recensioneRequest, @AuthenticationPrincipal User user) {
-        return recensioneService.saveRecensione(recensioneRequest.getText(), user.getIdUtente());
+    public Recensione createRecensione(@Valid @RequestBody RecensioneDto recensioneDto, @AuthenticationPrincipal User user) {
+        return recensioneService.saveRecensione(recensioneDto.getText(), user.getIdUtente());
     }
 
     @GetMapping
@@ -38,17 +40,4 @@ public class RecensioneController {
         recensioneService.deleteRecensione(id);
     }
 
-    // Classe di richiesta interna per gestire i dati della richiesta
-    public static class RecensioneRequest {
-        private String text;
-
-        // Getters and Setters
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-    }
 }

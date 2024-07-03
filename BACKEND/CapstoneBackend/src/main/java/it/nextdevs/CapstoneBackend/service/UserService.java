@@ -44,7 +44,6 @@ public class UserService {
             User user = new User();
             user.setNome(userDto.getNome());
             user.setCognome(userDto.getCognome());
-            user.setUsername(userDto.getUsername());
             user.setEmail(userDto.getEmail());
             user.setTipoUtente(TipoUtente.USER);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -73,7 +72,6 @@ public class UserService {
             User user = userOptional.get();
             user.setNome(userDto.getNome());
             user.setCognome(userDto.getCognome());
-            user.setUsername(userDto.getUsername());
             user.setEmail(userDto.getEmail());
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             return userRepository.save(user);
@@ -102,9 +100,6 @@ public class UserService {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (userDto.getUsername() != null) {
-                user.setUsername(userDto.getUsername());
-            }
             if (userDto.getPassword() != null) {
                 user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             }
@@ -126,7 +121,6 @@ public class UserService {
             userDataDto.setCognome(user.getCognome());
             userDataDto.setAvatar(user.getAvatar());
             userDataDto.setEmail(user.getEmail());
-            userDataDto.setUsername(user.getUsername());
             userDataDto.setIdUtente(user.getIdUtente());
             userDataDto.setTipoUtente(user.getTipoUtente());
             return userDataDto;
@@ -148,7 +142,6 @@ public class UserService {
             userDataDto.setCognome(user.getCognome());
             userDataDto.setAvatar(user.getAvatar());
             userDataDto.setEmail(user.getEmail());
-            userDataDto.setUsername(user.getUsername());
             userDataDto.setIdUtente(user.getIdUtente());
             userDataDto.setTipoUtente(user.getTipoUtente());
             return userDataDto;

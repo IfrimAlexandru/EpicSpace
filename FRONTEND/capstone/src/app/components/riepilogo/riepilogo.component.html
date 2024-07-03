@@ -1,8 +1,8 @@
 <div class="container-wrapper">
   <img class="moon-background" src="../../../assets/img/LUNA4-Photoroom.png" alt="Moon" />
-  <div class="container" style="margin: 0 auto">
-    <div class="row d-flex justify-content-between align-items-center pb-5">
-      <div class="col-auto">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center pb-5">
+      <div>
         <img src="../../../assets/img/LOGO.png" style="width: 170px" alt="logoEpicSpace" />
       </div>
       <div class="d-flex justify-content-between align-content-center">
@@ -14,30 +14,38 @@
         <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
         <div class="mx-2 fs-4 fw-bold">Riepilogo</div>
       </div>
-      <div class="col-auto">
+      <div>
         <i class="bi bi-arrow-return-left fs-1" routerLink="/sceltaTuta"></i>
       </div>
     </div>
-    <div class="pb-5 text-center">
+    <div class="pb-5">
       <h1 class="header">To Space and Back</h1>
       <p>Safely in one day, just select destination</p>
     </div>
 
-    <div class="content row justify-content-between">
-      <div class="col-lg-6 summary">
+    <div class="content">
+      <div class="summary">
         <h2>Riepilogo delle tue scelte</h2>
-        <p>Pianeta selezionato <br>{{ choices.planet }}</p>
-        <img [src]="choices.planetImg" alt="Pianeta" class="image-small" *ngIf="choices.planetImg" />
-        <p>Nave selezionata <br> {{ choices.ship }}</p>
-        <img [src]="choices.shipImg" alt="Nave" class="image-small" *ngIf="choices.shipImg" />
-        <p>Tuta selezionata <br> {{ choices.suit }}</p>
-        <img [src]="choices.suitImg" alt="Tuta" class="image-small" *ngIf="choices.suitImg" />
+        <div class="choices-container">
+          <div class="choice-item">
+            <p>Pianeta selezionato <br>{{ choices.planet }}</p>
+            <img [src]="choices.planetImg" alt="Pianeta" class="image-planet" *ngIf="choices.planetImg" />
+          </div>
+          <div class="choice-item">
+            <p>Nave selezionata <br>{{ choices.ship }}</p>
+            <img [src]="choices.shipImg" alt="Nave" class="image-ship" *ngIf="choices.shipImg" />
+          </div>
+          <div class="choice-item">
+            <p>Tuta selezionata <br>{{ choices.suit }}</p>
+            <img [src]="choices.suitImg" alt="Tuta" class="image-suit" *ngIf="choices.suitImg" />
+          </div>
+        </div>
       </div>
 
-      <div class="col-lg-6 date-selection">
+      <div class="date-selection">
         <h2>Seleziona Data Disponibile</h2>
         <div class="available-dates">
-          <label for="available-date">Data Disponibile:</label>
+          <label for="available-date">Data Partenza:</label>
           <select id="available-date" name="available-date" [(ngModel)]="selectedDate" required>
             <option *ngFor="let date of availableDates" [value]="date">{{ date }}</option>
           </select>

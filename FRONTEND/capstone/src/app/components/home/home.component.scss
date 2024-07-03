@@ -1,295 +1,36 @@
-  .overlay {
-    background: rgba(0, 0, 0, 0.2); /* Filtro nero semi-trasparente */
-  }
-  
-  .testo h2 {
+.overlay {
+  background: rgba(0, 0, 0, 0.2); /* Filtro nero semi-trasparente */
+}
+
+.testo h2 {
+  font-size: 1.5em;
+}
+
+.testo button {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.7em;
+  padding: 10px 20px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 575.9px) {
+  .testo {
+    margin-left: 1em;
+    margin-top: 100px;
     font-size: 1.5em;
   }
-  
+
+  .testo h2 {
+    font-size: 1em;
+  }
+
   .testo button {
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-    border-radius: 20px;
-    font-size: 0.7em;
-    padding: 10px 20px;
-  }
-  
-  @media (max-width: 575.9px) {
-    .testo {
-      margin-left: 1em;
-      margin-top: 100px;
-      font-size: 1.5em;
-    }
-  
-    .testo h2 {
-      font-size: 1em;
-    }
-  
-    .testo button {
-      font-size: 0.5em;
-    }
-  }
-  
-  @media (min-width: 576px) and (max-width: 767.9px) {
-    .testo {
-      margin-left: 8em;
-      margin-top: 10em;
-      font-size: 1.7em;
-    }
-  
-    .testo h2 {
-      font-size: 1.2em;
-    }
-  
-    .testo button {
-      font-size: 0.7em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 550px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-    
-  }
-  
-  @media (min-width: 768px) and (max-width: 991.9px) {
-    .testo {
-      margin-left: 10em;
-      margin-top: 10em;
-      font-size: 1.7em;
-      padding: 20px;
-    }
-  
-    .testo h2 {
-      font-size: 1.3em;
-    }
-  
-    .testo button {
-      font-size: 0.7em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 750px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-    
-  }
-  
-  @media (min-width: 992px) and (max-width: 1199.9px) {
-    .testo {
-      margin-left: 13em;
-      margin-top: 10em;
-      font-size: 1.7em;
-    }
-  
-    .testo h2 {
-      font-size: 1.5em;
-    }
-  
-    .testo button {
-      font-size: 0.8em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 765px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-    
+    font-size: 0.5em;
   }
 
-  @media (min-width: 1200px) and (max-width: 1399.9px) {
-    .testo {
-      margin-left: 14em;
-      margin-top: 10em;
-      font-size: 1.7em;
-    }
-  
-    .testo h2 {
-      font-size: 1.5em;
-    }
-  
-    .testo button {
-      font-size: 0.8em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 820px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-    
-  }
-
-  @media (min-width: 1400px) and (max-width: 1599.9px) {
-    .testo {
-      margin-left: 15em;
-      margin-top: 10em;
-      font-size: 1.8em;
-      max-width: 50%;
-    }
-  
-    .testo h2 {
-      font-size: 1.6em;
-    }
-  
-    .testo button {
-      font-size: 0.8em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 820px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-  }
-
-  @media (min-width: 1600px) and (max-width: 1799.9px) {
-    .testo {
-      margin-left: 16em;
-      margin-top: 11em;
-      font-size: 1.8em;
-      
-    }
-  
-    .testo h2 {
-      font-size: 1.6em;
-    }
-  
-    .testo button {
-      font-size: 0.8em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 820px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-  }
-
-  @media (min-width: 1800px){
-    .testo {
-      margin-left: 16em;
-      margin-top: 11em;
-      font-size: 1.8em;
-      
-    }
-  
-    .testo h2 {
-      font-size: 1.6em;
-    }
-  
-    .testo button {
-      font-size: 0.8em;
-    }
-
-    video{
-      width: 100vh;
-      height: auto;
-    }
-
-    .video-container {
-      height: 823px; /* Imposta l'altezza del contenitore video */
-      overflow: hidden;
-    }
-
-    .video-container video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      
-    }
-  }
-
-// CAROUSEL PIANETI
-
-.carousel-inner {
-  padding: 150px 0;
-}
-
-.carousel {
-  background-image: url("../../../assets/img/viaLattea3.jpg");
-  background-size: cover;
-  background-color: black;
-}
-
-@media (min-width: 576px) and (max-width: 767.9px) {
   .carousel-item img {
     width: 120px;
   }
@@ -308,7 +49,67 @@
   }
 }
 
+@media (min-width: 576px) and (max-width: 767.9px) {
+  .testo {
+    margin-left: 8em;
+    margin-top: 10em;
+    font-size: 1.7em;
+  }
+
+  .testo h2 {
+    font-size: 1.2em;
+  }
+
+  .testo button {
+    font-size: 0.7em;
+  }
+
+  .carousel-item img {
+    width: 120px;
+  }
+
+  .carousel-item img.saturno {
+    width: 250px !important;
+    margin-right: -15px;
+  }
+
+  .carousel-item img.giove {
+    margin-right: -20px;
+  }
+
+  .carousel-item img.marte {
+    margin-left: 15px;
+  }
+
+  .video-container {
+    height: 550px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 991.9px) {
+  .testo {
+    margin-left: 10em;
+    margin-top: 10em;
+    font-size: 1.7em;
+    padding: 20px;
+  }
+
+  .testo h2 {
+    font-size: 1.3em;
+  }
+
+  .testo button {
+    font-size: 0.7em;
+  }
+
   .carousel-item img {
     width: 170px;
   }
@@ -316,9 +117,35 @@
   .carousel-item img.saturno {
     width: 350px !important;
   }
+
+  .video-container {
+    height: 750px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199.9px) {
+  .testo {
+    margin-left: 13em;
+    margin-top: 10em;
+    font-size: 1.7em;
+  }
+
+  .testo h2 {
+    font-size: 1.5em;
+  }
+
+  .testo button {
+    font-size: 0.8em;
+  }
+
   .carousel-item img {
     width: 200px;
   }
@@ -326,9 +153,35 @@
   .carousel-item img.saturno {
     width: 430px !important;
   }
+
+  .video-container {
+    height: 765px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 }
 
-@media (min-width: 1200px) and (max-width: 1499.9px) {
+@media (min-width: 1200px) and (max-width: 1399.9px) {
+  .testo {
+    margin-left: 14em;
+    margin-top: 10em;
+    font-size: 1.7em;
+  }
+
+  .testo h2 {
+    font-size: 1.5em;
+  }
+
+  .testo button {
+    font-size: 0.8em;
+  }
+
   .carousel-item img {
     width: 220px;
   }
@@ -336,12 +189,38 @@
   .carousel-item img.saturno {
     width: 490px !important;
   }
+
+  .video-container {
+    height: 820px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1400px) and (max-width: 1599.9px) {
+  .testo {
+    margin-left: 15em;
+    margin-top: 10em;
+    font-size: 1.8em;
+    max-width: 50%;
+  }
+
+  .testo h2 {
+    font-size: 1.6em;
+  }
+
+  .testo button {
+    font-size: 0.8em;
+  }
+
   .carousel-item img {
     width: 270px;
-   
   }
 
   .carousel-item img.saturno {
@@ -349,36 +228,254 @@
   }
 
   .carousel-item img.giove {
-    margin-right: -190px ;
+    margin-right: -190px;
   }
 
   .carousel-item img.marte {
-    margin-right: -150px ;
+    margin-right: -150px;
+  }
+
+  .video-container {
+    height: 820px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+@media (min-width: 1600px) and (max-width: 1799.9px) {
+  .testo {
+    margin-left: 16em;
+    margin-top: 11em;
+    font-size: 1.8em;
+  }
+
+  .testo h2 {
+    font-size: 1.6em;
+  }
+
+  .testo button {
+    font-size: 0.8em;
+  }
+
+  .carousel-item img {
+    width: 270px;
+  }
+
+  .carousel-item img.saturno {
+    width: 550px !important;
+  }
+
+  .carousel-item img.giove {
+    margin-right: -190px;
+  }
+
+  .carousel-item img.marte {
+    margin-right: -150px;
+  }
+
+  .video-container {
+    height: 820px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+@media (min-width: 1800px) {
+  .testo {
+    margin-left: 16em;
+    margin-top: 11em;
+    font-size: 1.8em;
+  }
+
+  .testo h2 {
+    font-size: 1.6em;
+  }
+
+  .testo button {
+    font-size: 0.8em;
+  }
+
+  .carousel-item img {
+    width: 270px;
+  }
+
+  .carousel-item img.saturno {
+    width: 550px !important;
+  }
+
+  .carousel-item img.giove {
+    margin-right: -190px;
+  }
+
+  .carousel-item img.marte {
+    margin-right: -150px;
+  }
+
+  .video-container {
+    height: 823px; /* Imposta l'altezza del contenitore video */
+    overflow: hidden;
+  }
+
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+/* CAROUSEL */
+
+.carousel-inner {
+  padding: 140px 0;
+}
+
+.n{
+  padding: 110px 0;
+}
+
+
+.carousel {
+  background-image: url("../../../assets/img/viaLattea3.jpg");
+  background-size: cover;
+  background-color: black;
+}
+
+
+/* SECTION 1 & 2 */
+
+.section {
+  background-color: #e4eefc;
+}
+
+.img-section {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.section h2,
+.section p {
+  padding: 10px;
+}
+
+/* Media Queries for Responsive Design */
+@media (min-width: 768px) and (max-width: 991.9px) {
+  .section .text-left {
+    padding: 20px;
+  }
+
+  .section img {
+    max-width: 90%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .section .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .section .text-left,
+  .section img {
+    flex: 1;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.9px) {
+  .section .text-left {
+    font-size: 1.1em;
+    padding: 20px;
+  }
+
+  .section .text-left {
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .section img {
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .section .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .section .text-left,
+  .section img {
+    flex: 1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .section .text-left {
+    padding: 0 30px;
+  }
+
+  .section img {
+    max-width: 100%;
+  }
+
+  .section .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .section .text-left,
+  .section img {
+    flex: 1;
   }
 }
 
 
+/* Flexbox for better alignment */
+@media (min-width: 768px) {
+  .section1 .row,
+  .section2 .row {
+    display: flex;
+    align-items: center;
+  }
 
-// SECTION 1
+  .section1 .text-left,
+  .section2 .text-left {
+    flex: 1;
+  }
 
-.section1 {
-  background-color: #e4eefc;
+  .section1 img,
+  .section2 img {
+    flex: 1;
+  }
 }
 
-.img-section1 {
-  max-width: 80%; 
-  height: auto;
+@media (min-width: 992px) {
+  .section1 .text-left,
+  .section2 .text-left {
+    padding: 0 40px;
+  }
+
+  .section1 img,
+  .section2 img {
+    max-width: 100%;
+  }
 }
 
 
-.section1 h2,
-.section1 p {
-  padding: 10px;
-}
-
-
-
-// RECENSIONI
+/* RECENSIONI */
 
 .reviews-container {
   background-color: #0d0d0d;
@@ -452,28 +549,8 @@
   }
 }
 
-@media (min-width: 768px) {
-  .reviews-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (min-width: 992px) {
   .reviews-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
-
-@media (min-width: 1200px) {
-  .reviews-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-
-
-
-
-
-
-

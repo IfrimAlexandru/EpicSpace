@@ -178,7 +178,28 @@ body {
   margin: 0;
 }
 
-.image-small {
+.image-suit {
   max-width: 100px; /* Imposta una larghezza massima */
   height: auto; /* Mantiene il rapporto di aspetto */
+}
+
+.image-planet{
+  max-width: 140px;
+}
+
+.image-ship{
+  max-width: 140px;
+}
+
+.choices-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.choice-item {
+  flex: 1;
+  margin: 0 10px;
+  text-align: center;
 }
