@@ -36,7 +36,9 @@ public class BigliettoController {
                 biglietto.getSpaceship(),
                 biglietto.getSuit(),
                 formattedDate,
-                bigliettoDto.getShipImg() // Pass the ship image URL
+                bigliettoDto.getShipImg(),
+                bigliettoDto.getSuitImg(),
+                bigliettoDto.getPlanetImg() 
         );
     }
 }

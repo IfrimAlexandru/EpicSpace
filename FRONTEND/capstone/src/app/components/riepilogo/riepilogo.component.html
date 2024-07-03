@@ -28,15 +28,18 @@
         <h2>Riepilogo delle tue scelte</h2>
         <div class="choices-container">
           <div class="choice-item">
-            <p>Pianeta selezionato <br>{{ choices.planet }}</p>
+            <p class="fw-bold fs-5 m-0">Pianeta scelto</p>
+            <p>{{ choices.planet }}</p>
             <img [src]="choices.planetImg" alt="Pianeta" class="image-planet" *ngIf="choices.planetImg" />
           </div>
           <div class="choice-item">
-            <p>Nave selezionata <br>{{ choices.ship }}</p>
+            <p class="fw-bold fs-5 m-0">Nave scelta</p>
+            <p>{{ choices.ship }}</p>
             <img [src]="choices.shipImg" alt="Nave" class="image-ship" *ngIf="choices.shipImg" />
           </div>
           <div class="choice-item">
-            <p>Tuta selezionata <br>{{ choices.suit }}</p>
+            <p class="fw-bold fs-5 m-0">Tuta scelta</p>
+            <p>{{ choices.suit }}</p>
             <img [src]="choices.suitImg" alt="Tuta" class="image-suit" *ngIf="choices.suitImg" />
           </div>
         </div>

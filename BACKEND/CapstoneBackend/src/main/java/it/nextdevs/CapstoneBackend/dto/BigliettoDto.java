@@ -12,5 +12,7 @@ public class BigliettoDto {
     private String ship;
     private String suit;
     private LocalDateTime dataPrenotazione;
-    private String shipImg; // Ensure this is correctly set
+    private String shipImg;
+    private String planetImg;
+    private String suitImg;
 }

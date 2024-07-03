@@ -15,6 +15,8 @@ export class AdminTuteComponent implements OnInit {
   selectedRetroFile: File | null = null;
   selectedFronteFileUpdate: { [key: number]: File | null } = {};
   selectedRetroFileUpdate: { [key: number]: File | null } = {};
+  fronteImagePreview: { [key: number]: string | ArrayBuffer | null } = {};
+  retroImagePreview: { [key: number]: string | ArrayBuffer | null } = {};
 
   @ViewChild('fronteFileInput') fronteFileInput!: ElementRef;
   @ViewChild('retroFileInput') retroFileInput!: ElementRef;
@@ -43,13 +45,29 @@ export class AdminTuteComponent implements OnInit {
   }
 
   onFronteFileUpdateSelected(event: any, tutaId: number): void {
-    this.selectedFronteFileUpdate[tutaId] = event.target.files[0];
-    console.log(`Selected front file for update (ID: ${tutaId}):`, this.selectedFronteFileUpdate[tutaId]); // Log file for debugging
+    const file = event.target.files[0];
+    this.selectedFronteFileUpdate[tutaId] = file;
+    console.log(`Selected front file for update (ID: ${tutaId}):`, file); // Log file for debugging
+
+    // Generate a preview of the selected image
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.fronteImagePreview[tutaId] = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   onRetroFileUpdateSelected(event: any, tutaId: number): void {
-    this.selectedRetroFileUpdate[tutaId] = event.target.files[0];
-    console.log(`Selected back file for update (ID: ${tutaId}):`, this.selectedRetroFileUpdate[tutaId]); // Log file for debugging
+    const file = event.target.files[0];
+    this.selectedRetroFileUpdate[tutaId] = file;
+    console.log(`Selected back file for update (ID: ${tutaId}):`, file); // Log file for debugging
+
+    // Generate a preview of the selected image
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.retroImagePreview[tutaId] = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   uploadFile(id: number, file: File, type: 'front' | 'back'): Observable<{ url: string }> {

@@ -3,9 +3,11 @@ package it.nextdevs.CapstoneBackend.controller;
 import it.nextdevs.CapstoneBackend.model.NaveSpaziale;
 import it.nextdevs.CapstoneBackend.model.Pianeta;
 import it.nextdevs.CapstoneBackend.model.TutaSpaziale;
+import it.nextdevs.CapstoneBackend.model.User;
 import it.nextdevs.CapstoneBackend.repository.NaveSpazialeRepository;
 import it.nextdevs.CapstoneBackend.repository.PianetaRepository;
 import it.nextdevs.CapstoneBackend.repository.TutaSpazialeRepository;
+import it.nextdevs.CapstoneBackend.repository.UserRepository;
 import it.nextdevs.CapstoneBackend.service.FileUploadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class FileUploadController {
 
     @Autowired
     private TutaSpazialeRepository tutaSpazialeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private FileUploadService fileUploadService;
@@ -112,6 +117,25 @@ public class FileUploadController {
             TutaSpaziale tutaSpaziale = tutaSpazialeOptional.get();
             tutaSpaziale.setImmagineRetro(url);
             tutaSpazialeRepository.save(tutaSpaziale);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("url", url);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @PatchMapping(value = "/uploadAvatar/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> uploadAvatar(@PathVariable Integer id, @RequestParam("file") MultipartFile file) throws IOException {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            String url = fileUploadService.uploadFile(file);
+            User user = userOptional.get();
+            user.setAvatar(url);
+            userRepository.save(user);
 
             Map<String, String> response = new HashMap<>();
             response.put("url", url);

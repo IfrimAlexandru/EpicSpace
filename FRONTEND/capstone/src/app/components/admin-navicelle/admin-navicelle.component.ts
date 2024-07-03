@@ -13,6 +13,7 @@ export class AdminNavicelleComponent implements OnInit {
   newNavicella: any = { nome: '', descrizione: '', immagineUrl: '' };
   selectedFile: File | null = null;
   selectedFileUpdate: { [key: number]: File | null } = {};
+  imagePreview: { [key: number]: string | ArrayBuffer | null } = {};
 
   constructor(private http: HttpClient) {}
 
@@ -33,8 +34,16 @@ export class AdminNavicelleComponent implements OnInit {
   }
 
   onFileUpdateSelected(event: any, navicellaId: number): void {
-    this.selectedFileUpdate[navicellaId] = event.target.files[0];
-    console.log(`Selected file for update (ID: ${navicellaId}):`, this.selectedFileUpdate[navicellaId]); // Log file for debugging
+    const file = event.target.files[0];
+    this.selectedFileUpdate[navicellaId] = file;
+    console.log(`Selected file for update (ID: ${navicellaId}):`, file); // Log file for debugging
+
+    // Generate a preview of the selected image
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview[navicellaId] = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   uploadFile(id: number, file: File): Observable<{ url: string }> {
@@ -93,7 +102,6 @@ export class AdminNavicelleComponent implements OnInit {
       } else {
         console.error('No file selected for update upload'); // Log error if no file selected
       }
-      console.log(navicella);
 
       await this.http.patch(`${environment.apiUrl}navi_spaziali/${navicella.id}`, navicella, { headers }).toPromise();
       this.loadNavicelle();

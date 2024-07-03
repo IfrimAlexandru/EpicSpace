@@ -6,7 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../interface/user.interface';
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class AuthService {
   private authSub = new BehaviorSubject<AuthData | null >(null);
   user$ = this.authSub.asObservable();
   private timeout!: any;
-  redirectUrl: string | null = null;  // Aggiungi questa riga
+  redirectUrl: string | null = null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -31,14 +30,14 @@ export class AuthService {
     return this.http.post<AuthData>(`${environment.apiUrl}auth/login`, data).pipe(
       tap((authData) => {
         console.log('Auth:', authData);
-        localStorage.setItem('authToken', authData.accessToken); // Salva il token nel localStorage
+        localStorage.setItem('authToken', authData.accessToken);
         localStorage.setItem('user', JSON.stringify(authData));
         console.log('Token salvato:', authData.accessToken);
         this.authSub.next(authData);
         this.autoLogout(authData);
-        const redirect = this.redirectUrl ? this.redirectUrl : '/';  // Aggiungi questa riga
-        this.redirectUrl = null;  // Aggiungi questa riga
-        this.router.navigate([redirect]);  // Modifica questa riga
+        const redirect = this.redirectUrl ? this.redirectUrl : '/';
+        this.redirectUrl = null;
+        this.router.navigate([redirect]);
       }),
       catchError(this.errors)
     );
@@ -47,31 +46,50 @@ export class AuthService {
   loginGoogle(token: any) {
     return this.http.post<AuthData>(`${environment.apiUrl}auth/login/oauth2/code/google`, token).pipe(
       tap((authData) => {
-        localStorage.setItem('authToken', authData.accessToken); // Salva il token nel localStorage
+        localStorage.setItem('authToken', authData.accessToken);
         localStorage.setItem('user', JSON.stringify(authData));
         console.log('Token salvato:', authData.accessToken);
         this.authSub.next(authData);
         this.autoLogout(authData);
-        const redirect = this.redirectUrl ? this.redirectUrl : '/';  // Aggiungi questa riga
-        this.redirectUrl = null;  // Aggiungi questa riga
-        this.router.navigate([redirect]);  // Modifica questa riga
+        const redirect = this.redirectUrl ? this.redirectUrl : '/';
+        this.redirectUrl = null;
+        this.router.navigate([redirect]);
       }),
       catchError(this.errors)
     );
   }
 
   private initializeGoogleLogin() {
-    window.location.reload(); // Questo è un modo semplice ma potrebbe non essere il più elegante
+    window.location.reload();
   }
 
   updateUser(data: User) {
-     const currentUser = this.authSub.getValue();
-     if (currentUser) {
-       currentUser.user = data;
-       this.authSub.next(currentUser);
-       localStorage.setItem('user', JSON.stringify(currentUser));
-     }
+    const currentUser = this.authSub.getValue();
+    if (currentUser) {
+      currentUser.user = data;
+      this.authSub.next(currentUser);
+      localStorage.setItem('user', JSON.stringify(currentUser));
+    }
   }
+
+  uploadAvatar(userId: number, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    const headers = this.getAuthHeaders();
+    return this.http.patch<{ url: string }>(`${environment.apiUrl}api/uploadAvatar/${userId}`, formData, { headers }).pipe(
+      tap(response => {
+        const currentUser = this.authSub.getValue();
+        if (currentUser) {
+          currentUser.user.avatar = response.url;
+          this.authSub.next(currentUser);
+          localStorage.setItem('user', JSON.stringify(currentUser));
+        }
+      }),
+      catchError(this.errors)
+    );
+  }
+  
 
   logout() {
     this.authSub.next(null);
@@ -129,9 +147,6 @@ export class AuthService {
     }
     return null;
   }
-  
-  
-  
   
 
   private errors(err: any) {

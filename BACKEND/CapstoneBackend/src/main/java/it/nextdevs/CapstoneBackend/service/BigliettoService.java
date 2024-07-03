@@ -14,10 +14,12 @@ import java.util.Optional;
 public class BigliettoService {
 
     private final BigliettoRepository bigliettoRepository;
+    private final EmailService emailService;  // Aggiungi il servizio di email
 
     @Autowired
-    public BigliettoService(BigliettoRepository bigliettoRepository) {
+    public BigliettoService(BigliettoRepository bigliettoRepository, EmailService emailService) {
         this.bigliettoRepository = bigliettoRepository;
+        this.emailService = emailService;  // Inietta il servizio di email
     }
 
     public List<Biglietto> getAllBiglietti() {
@@ -30,7 +32,22 @@ public class BigliettoService {
 
     public Biglietto createBiglietto(BigliettoDto bigliettoDto) {
         Biglietto biglietto = mapDtoToEntity(bigliettoDto);
-        return bigliettoRepository.save(biglietto);
+        Biglietto savedBiglietto = bigliettoRepository.save(biglietto);
+
+        // Invio dell'email
+        emailService.sendTicketEmail(
+                savedBiglietto.getEmail(),
+                savedBiglietto.getBuyerName(),
+                savedBiglietto.getPlanet(),
+                savedBiglietto.getSpaceship(),
+                savedBiglietto.getSuit(),
+                savedBiglietto.getDataPrenotazione().toString(),
+                savedBiglietto.getShipImg(),
+                savedBiglietto.getSuitImg(),
+                savedBiglietto.getPlanetImg()
+        );
+
+        return savedBiglietto;
     }
 
     public Optional<Biglietto> updateBiglietto(Integer id, BigliettoDto bigliettoDto) {
@@ -56,28 +73,9 @@ public class BigliettoService {
         biglietto.setSpaceship(bigliettoDto.getShip());
         biglietto.setSuit(bigliettoDto.getSuit());
         biglietto.setShipImg(bigliettoDto.getShipImg()); // Include the ship image URL
+        biglietto.setSuitImg(bigliettoDto.getSuitImg()); // Include the suit image URL
+        biglietto.setPlanetImg(bigliettoDto.getPlanetImg()); // Include the planet image URL
         biglietto.setDataPrenotazione(LocalDateTime.now());
         return biglietto;
     }
-
 }
-
-//    @Autowired
-//    private BigliettoRepository bigliettoRepository;
-//
-//    public Biglietto createBiglietto(BigliettoDto bigliettoDto) {
-//        Biglietto biglietto = new Biglietto();
-//        biglietto.setBuyerName(bigliettoDto.getBuyerName());
-//        biglietto.setEmail(bigliettoDto.getEmail());
-//        biglietto.setPlanet(bigliettoDto.getPlanet());
-//        biglietto.setSpaceship(bigliettoDto.getShip());
-//        biglietto.setSuit(bigliettoDto.getSuit());
-//
-//        // Set the correct image paths
-//        biglietto.setPlanetImg("src/assets/img/" + bigliettoDto.getPlanet().toLowerCase() + ".png");
-//        biglietto.setShipImg("src/assets/img/immagini-navicelle/" + bigliettoDto.getShip().toLowerCase() + ".png");
-//        biglietto.setSuitImg("src/assets/img/immagini-tute/" + bigliettoDto.getSuit().toLowerCase() + ".png");
-//
-//        return bigliettoRepository.save(biglietto);
-//    }
-//}

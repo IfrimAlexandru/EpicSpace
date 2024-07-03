@@ -37,16 +37,36 @@
     <div class="card-body">
       <form>
         <div class="form-group mb-3">
+          <label for="nome-{{tuta.id}}">Nome</label>
+          <input id="nome-{{tuta.id}}" name="nome-{{tuta.id}}" [(ngModel)]="tuta.nome" class="form-control" placeholder="Nome">
+        </div>
+        <div class="form-group mb-3">
           <label for="descrizione-{{tuta.id}}">Descrizione</label>
           <textarea id="descrizione-{{tuta.id}}" name="descrizione-{{tuta.id}}" [(ngModel)]="tuta.descrizione" class="form-control" placeholder="Descrizione" rows="1" (input)="adjustTextareaHeight($event)"></textarea>
         </div>
-        <div class="form-group mb-3">
-          <label for="immagineFronte-{{tuta.id}}">Immagine Fronte</label>
-          <input id="immagineFronte-{{tuta.id}}" type="file" (change)="onFronteFileUpdateSelected($event, tuta.id)" class="form-control">
+        <div class="form-group mb-3 d-flex align-items-center">
+          <div class="flex-grow-1">
+            <label for="immagineFronte-{{tuta.id}}">Immagine Fronte</label>
+            <input id="immagineFronte-{{tuta.id}}" type="file" (change)="onFronteFileUpdateSelected($event, tuta.id)" class="form-control">
+          </div>
+          <div class="ms-3">
+            <img *ngIf="fronteImagePreview[tuta.id]; else currentFronteImage" [src]="fronteImagePreview[tuta.id]" alt="Anteprima Immagine Fronte" class="img-thumbnail" style="max-width: 100px;">
+            <ng-template #currentFronteImage>
+              <img [src]="tuta.immagineFronte" alt="Immagine Fronte Attuale" class="img-thumbnail" style="max-width: 100px;">
+            </ng-template>
+          </div>
         </div>
-        <div class="form-group mb-3">
-          <label for="immagineRetro-{{tuta.id}}">Immagine Retro</label>
-          <input id="immagineRetro-{{tuta.id}}" type="file" (change)="onRetroFileUpdateSelected($event, tuta.id)" class="form-control">
+        <div class="form-group mb-3 d-flex align-items-center">
+          <div class="flex-grow-1">
+            <label for="immagineRetro-{{tuta.id}}">Immagine Retro</label>
+            <input id="immagineRetro-{{tuta.id}}" type="file" (change)="onRetroFileUpdateSelected($event, tuta.id)" class="form-control">
+          </div>
+          <div class="ms-3">
+            <img *ngIf="retroImagePreview[tuta.id]; else currentRetroImage" [src]="retroImagePreview[tuta.id]" alt="Anteprima Immagine Retro" class="img-thumbnail" style="max-width: 100px;">
+            <ng-template #currentRetroImage>
+              <img [src]="tuta.immagineRetro" alt="Immagine Retro Attuale" class="img-thumbnail" style="max-width: 100px;">
+            </ng-template>
+          </div>
         </div>
         <button type="button" (click)="updateTuta(tuta)" class="btn btn-success me-3">Modifica</button>
         <button type="button" (click)="deleteTuta(tuta.id)" class="btn btn-danger">Elimina</button>

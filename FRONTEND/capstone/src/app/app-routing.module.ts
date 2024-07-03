@@ -22,7 +22,7 @@ import { AreaPersonaleComponent } from './components/area-personale/area-persona
 const routes: Routes = [
   {path: "", component:HomeComponent},
   {path: 'sceltaTuta', component: SceltaTutaComponent},
-  {path: 'sceltaPianeta', component: SceltaPianetaComponent, canActivate:[AuthGuard]},
+  {path: 'sceltaPianeta', component: SceltaPianetaComponent},
   {path: 'sceltaNave', component: SceltaNaveComponent},
   {path: 'auth', component: AutenticazioneComponent },
   {path: 'riepilogo', component: RiepilogoComponent},

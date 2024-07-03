@@ -20,8 +20,9 @@ public class Biglietto {
     private String spaceship;
     private String suit;
     private LocalDateTime dataPrenotazione;
-//    private String planetImg;
-   private String shipImg;
-//    private String suitImg;
+    private String shipImg;
+    private String planetImg;
+    private String suitImg;
+
 
 }
