@@ -150,3 +150,13 @@
   bottom: 20px;
 }
 
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+
+.position-absolute.end-0 {
+  right: 0;
+  top: 20%;
+  transform: translateY(-50%);
+}

@@ -4,31 +4,21 @@
     src="../../../assets/img/LUNA4-Photoroom.png"
     alt="Moon"
   />
-  <div class="container" style="margin: 0 auto">
-    <div class="d-flex justify-content-between align-items-center pb-5">
-      <div>
-        <img
-          src="../../../assets/img/LOGO.png"
-          style="width: 170px"
-          alt="logoEpicSpace"
-        />
-      </div>
+  <div class="container" style="margin: 0 auto; position: relative;">
+    <div class="d-flex justify-content-center align-items-center pb-5">
       <div class="d-flex justify-content-between align-content-center">
         <div class="mx-2 fs-4 fw-bold">Scelta Pianeta</div>
-        <div class="mx-3 "><i class="bi bi-arrow-right"></i></div>
-        <div class="mx-2 ">Scelta nave</div>
-        <div class="mx-3 "><i class="bi bi-arrow-right"></i></div>
-        <div class="mx-2 ">Scelta tuta</div>
-        <div class="mx-3 "><i class="bi bi-arrow-right"></i></div>
+        <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
+        <div class="mx-2">Scelta nave</div>
+        <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
+        <div class="mx-2">Scelta tuta</div>
+        <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
         <div class="mx-2">Riepilogo</div>
-      </div>
-      <div>
-        <p></p>
       </div>
     </div>
     <div class="pb-5">
-      <h1 class="header">To Space and Back</h1>
-      <p>Safely in one day, just select destination</p>
+      <h1 class="header">Verso l'infinito ed oltre</h1>
+      <p>Seleziona la tua destinazione e preparati al decollo!</p>
     </div>
 
     <!-- CAROUSEL -->
@@ -64,20 +54,20 @@
     <div class="d-flex justify-content-between" style="margin-top: 100px">
       <div class="details d-flex justify-content-around">
         <div class="text-start mx-3">
-          <p>Flight time</p>
-          <p class="fw-bold">{{ details.flightTime }}</p>
+          <p>Tempo di volo</p>
+          <p class="fw-bold">{{ selectedPlanet ? details.flightTime : '' }}</p>
         </div>
         <div class="text-start mx-3">
-          <p>Distance from Earth</p>
-          <p class="fw-bold">{{ details.distance }}</p>
+          <p>Distanza dalla terra</p>
+          <p class="fw-bold">{{ selectedPlanet ? details.distance : '' }}</p>
         </div>
         <div class="text-start mx-3">
-          <p>Price</p>
-          <p class="fw-bold">{{ details.price }}</p>
+          <p>Prezzo</p>
+          <p class="fw-bold">{{ selectedPlanet ? details.price : '' }}</p>
         </div>
       </div>
       <div>
-        <button class="book-btn" routerLink="/sceltaNave">Scegli navicella <i class="bi bi-arrow-right"></i></button>
+        <button class="book-btn" (click)="proceedToNextStep()">Scegli navicella <i class="bi bi-arrow-right"></i></button>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { PlanetService } from 'src/app/service/planet.service';
 import { Pianeta } from 'src/app/interface/pianeta.interface';
@@ -11,51 +12,51 @@ type PlanetName = "luna" | "marte" | "venere" | "nettuno" | "mercurio" | "giove"
   styleUrls: ['./scelta-pianeta.component.scss']
 })
 export class SceltaPianetaComponent implements OnInit {
-  selectedPlanet: keyof typeof this.planetDetails = 'luna';
+  selectedPlanet: PlanetName | null = null;
 
   planetDetails = {
     luna: {
-      flightTime: '3 hrs',
+      flightTime: '3 ore',
       distance: '384,400 km',
       price: 'Since $10000'
     },
     marte: {
-      flightTime: '84 days/ 2hrs with warp',
+      flightTime: '84 days/ 2ore with warp',
       distance: '78 million km',
       price: 'Since $20000'
     },
     venere: {
-      flightTime: '44 days/ 1hr with warp',
+      flightTime: '44 days/ 1ora with warp',
       distance: '41 million km',
       price: 'Since $30000'
     },
     nettuno: {
-      flightTime: '5 days with warp(127hrs)',
+      flightTime: '5 days with warp(127ore)',
       distance: '4351 billion km',
       price: 'Since $40000'
     },
     mercurio: {
-      flightTime: '83 days(2003hrs)/ 2hrs with warp',
+      flightTime: '83 days(2003hrs)/ 2ore with warp',
       distance: '77 million km',
       price: 'Since $50000'
     },
     giove: {
-      flightTime: '16hrs with warp',
+      flightTime: '16ore with warp',
       distance: '628 million km',
       price: 'Since $60000'
     },
     saturno: {
-      flightTime: '33hrs with warp',
+      flightTime: '33ore with warp',
       distance: '1275 billion km',
       price: 'Since $70000'
     },
     urano: {
-      flightTime: '3 days with warp(74 hrs)',
+      flightTime: '3 days with warp(74 ore)',
       distance: '2723 billion km',
       price: 'Since $80000'
     },
     plutone: {
-      flightTime: '6 days with warp(153 hrs)',
+      flightTime: '6 days with warp(153 ore)',
       distance: '5913 billion km',
       price: 'Since $90000'
     }
@@ -64,7 +65,7 @@ export class SceltaPianetaComponent implements OnInit {
   pianeti: Pianeta[] = [];
   pianetiGroups: Pianeta[][] = [];
 
-  constructor(private planetService: PlanetService, private scelteUtenteService: ScelteUtenteService) {}
+  constructor(private planetService: PlanetService, private scelteUtenteService: ScelteUtenteService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadPianeti();
@@ -96,7 +97,7 @@ export class SceltaPianetaComponent implements OnInit {
   }
 
   get details() {
-    return this.planetDetails[this.selectedPlanet];
+    return this.selectedPlanet ? this.planetDetails[this.selectedPlanet] : { flightTime: '', distance: '', price: '' };
   }
 
   selectPlanet(pianeta: Pianeta): void {
@@ -105,6 +106,14 @@ export class SceltaPianetaComponent implements OnInit {
     this.scelteUtenteService.setChoice('planetImg', pianeta.immagine); // Salva l'URL dell'immagine
     console.log('Selected planet image:', pianeta.immagine); // Debug: verifica l'URL dell'immagine
     this.updateSelectedPlanetUI();
+  }
+
+  proceedToNextStep(): void {
+    if (!this.selectedPlanet) {
+      alert('Per favore, seleziona un pianeta prima di procedere.');
+      return;
+    }
+    this.router.navigate(['/sceltaNave']);
   }
 
   private updateSelectedPlanetUI() {
