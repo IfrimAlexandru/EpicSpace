@@ -29,9 +29,6 @@ export class SceltaNaveComponent implements OnInit {
     this.http.get<any[]>(`${environment.apiUrl}navi_spaziali`, { headers }).subscribe(data => {
       this.navicelle = data;
       this.groupNavicelleInPairs();  // Group navicelle in pairs
-      if (this.navicelle.length > 0) {
-        this.selectShip(this.navicelle[0]);  // Select the first ship by default
-      }
     });
   }
 
@@ -65,6 +62,10 @@ export class SceltaNaveComponent implements OnInit {
   }
 
   goToNextStep() {
+    if (!this.selectedShip) {
+      alert('Per favore, seleziona una navicella prima di procedere.');
+      return;
+    }
     this.router.navigate(['/sceltaTuta']);  // Navigate to the next step (scelta tuta)
   }
 }

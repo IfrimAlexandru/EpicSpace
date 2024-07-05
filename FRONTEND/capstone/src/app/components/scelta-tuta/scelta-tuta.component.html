@@ -8,7 +8,7 @@
       <div class="d-flex justify-content-between align-content-center">
         <div class="mx-2">Scelta Pianeta</div>
         <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
-        <div class="mx-2 ">Scelta nave</div>
+        <div class="mx-2">Scelta nave</div>
         <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
         <div class="mx-2 fs-4 fw-bold">Scelta tuta</div>
         <div class="mx-3"><i class="bi bi-arrow-right"></i></div>
@@ -25,7 +25,7 @@
 
     <!-- CAROUSEL -->
     <div class="sub-header">
-      <div id="suitCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div id="suitCarousel" class="carousel slide">
         <div class="carousel-inner">
           <div class="carousel-item" *ngFor="let pair of tutePairs; let i = index" [class.active]="i === 0">
             <div class="d-flex justify-content-around text-center">
@@ -58,23 +58,20 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+    </div>
 
     <!-- DATI TUTA -->
-    <div class="d-flex justify-content-between" style="margin-top: 100px">
-      <div class="details d-flex justify-content-around">
-        <div class="text-start mx-3">
-          <p>Nome Tuta</p>
-          <p class="fw-bold" *ngIf="selectedSuit">{{ selectedSuit.nome }}</p>
+    <div class="description-section mt-3" *ngIf="selectedSuit">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ selectedSuit.nome }}</h5>
+          <p class="card-text fs-5">{{ selectedSuit.descrizione }}</p>
         </div>
-        <div class="text-start mx-3">
-          <p>Descrizione</p>
-          <p class="fw-bold" *ngIf="selectedSuit">{{ selectedSuit.descrizione }}</p>
-        </div>
-      </div>
-      <div>
-        <button class="book-btn" routerLink="/riepilogo">Riepilogo <i class="bi bi-arrow-right"></i></button>
       </div>
     </div>
+    
+    <div class="text-center mt-3">
+      <button class="book-btn" (click)="goToSummary()">Scelta tuta <i class="bi bi-arrow-right"></i></button>
+    </div>
   </div>
-</div>
 </div>

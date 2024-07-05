@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scelta-tuta',
@@ -16,7 +17,8 @@ export class SceltaTutaComponent implements OnInit {
 
   constructor(
     private scelteUtenteService: ScelteUtenteService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class SceltaTutaComponent implements OnInit {
 
   selectSuit(suit: any) {
     this.selectedSuit = suit;
-    this.scelteUtenteService.setSuit(suit); // Setta suit e suitImg nel servizio
+    this.scelteUtenteService.setSuit(suit); // Set suit and suitImg in the service
     this.updateSelectedSuitUI();
   }
 
@@ -64,5 +66,13 @@ export class SceltaTutaComponent implements OnInit {
     if (selectedImg) {
       selectedImg.classList.add('selected');
     }
+  }
+
+  goToSummary() {
+    if (!this.selectedSuit) {
+      alert('Per favore, seleziona una tuta prima di procedere.');
+      return;
+    }
+    this.router.navigate(['/riepilogo']); // Navigate to the summary (riepilogo)
   }
 }

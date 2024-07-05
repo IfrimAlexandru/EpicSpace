@@ -20,6 +20,7 @@ export class RiepilogoComponent implements OnInit {
   email: string = '';
   selectedDate: string = '';
   availableDates: string[] = [];
+  isSubmitting: boolean = false; // Flag per prevenire sottomissioni multiple
 
   private apiUrl = `${environment.apiUrl}api/biglietti/submit-order`;
   private datesUrl = `${environment.apiUrl}api/dates`;
@@ -48,7 +49,6 @@ export class RiepilogoComponent implements OnInit {
       }
     });
   }
-  
 
   loadAvailableDates(): void {
     const token = localStorage.getItem('authToken');
@@ -74,14 +74,31 @@ export class RiepilogoComponent implements OnInit {
 
   async unisciFunzionalita(): Promise<void> {
     if (confirm('Vuoi procedere con l\'acquisto?')) {
-      await this.onSubmit();
       const planet = this.choices.planet;
       const price = this.getPlanetPrice(planet);
-      await this.checkoutComponent.pay(price, planet); // Passa anche il nome del pianeta
+
+      try {
+        console.log('Inizio processo di acquisto');
+        // Chiama onSubmit prima e assicurati che termini prima di procedere
+        await this.onSubmit();
+        console.log('Ordine sottomesso con successo, procedo al pagamento');
+        // Poi procedi alla fase di pagamento
+        await this.checkoutComponent.pay(price, planet); // Passa anche il nome del pianeta
+        console.log('Pagamento completato');
+      } catch (error) {
+        console.error('Errore durante il processo di acquisto:', error);
+      }
     }
   }
 
   async onSubmit(): Promise<void> {
+    if (this.isSubmitting) {
+      console.log('Sottomissione già in corso, attendo...');
+      return; // Prevenire sottomissioni multiple
+    }
+    this.isSubmitting = true;
+    console.log('Inizio sottomissione ordine');
+
     const data = {
       buyerName: this.buyerName,
       email: this.email,
@@ -99,6 +116,7 @@ export class RiepilogoComponent implements OnInit {
     if (!token) {
       console.error('Nessun token trovato, reindirizzando al login.');
       this.router.navigate(['/auth']);
+      this.isSubmitting = false;
       return;
     }
 
@@ -108,21 +126,26 @@ export class RiepilogoComponent implements OnInit {
     });
 
     // Effettua la richiesta POST per inviare l'ordine
-    await this.http.post(this.apiUrl, data, { headers }).toPromise().then(
-      response => {
-        // Aggiungi il viaggio prenotato al servizio ScelteUtenteService
-        this.scelteUtenteService.addBookedTrip(data);
-        alert('Ordine ricevuto! Controlla la tua email per il biglietto.');
-      },
-      error => {
-        if (error.status === 401) {
+    try {
+      await this.http.post(this.apiUrl, data, { headers }).toPromise();
+      // Aggiungi il viaggio prenotato al servizio ScelteUtenteService
+      this.scelteUtenteService.addBookedTrip(data);
+      alert('Ordine ricevuto! Controlla la tua email per il biglietto.');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if ((error as any).status === 401) {
           console.error('Errore di autorizzazione, reindirizzando al login.');
           this.router.navigate(['/login']);
         } else {
-          console.error('Errore:', error);
+          console.error('Errore:', error.message);
         }
+      } else {
+        console.error('Errore sconosciuto:', error);
       }
-    );
+    } finally {
+      this.isSubmitting = false;
+      console.log('Fine sottomissione ordine');
+    }
   }
 
   getPlanetPrice(planet: string): number {

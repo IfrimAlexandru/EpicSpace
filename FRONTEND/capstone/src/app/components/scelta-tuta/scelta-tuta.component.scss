@@ -35,7 +35,7 @@
   width: 80vw;
   max-width: 2000px;
   border: 0.1px solid rgb(104, 104, 104);
-  height: 81vh;
+  height: 83vh;
 }
 
 .header {
@@ -63,8 +63,8 @@
 }
 
 .suit img {
-  margin-top: 40px;
-  width: 60px;
+  margin-top: 38px;
+  width: 55px;
 }
 
 .suit:hover img:not(.selected) {
@@ -142,12 +142,6 @@
   .book-btn:hover {
     background-color: #cc0000;
   }
-}
-
-.details {
-  margin-top: 20px;
-  position: absolute;
-  bottom: 20px;
 }
 
 .flex-grow-1 {
