@@ -4,6 +4,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -29,30 +30,39 @@ public class EmailService {
 
             String subject = "Il tuo biglietto per il volo spaziale";
             String htmlContent = "<html>" +
-                    "<body style='font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px;'>" +
-                    "<div style='max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);'>" +
-                    "<h2 style='text-align: center; color: #004080;'>Biglietto di Volo Spaziale</h2>" +
+                    "<head>" +
+                    "<style>" +
+                    "@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');" +
+                    "body { font-family: 'Montserrat', sans-serif; }" +
+                    "</style>" +
+                    "</head>" +
+                    "<body style='font-family: Montserrat, Arial, sans-serif; padding: 20px; color: #ffffff;'>" +
+                    "<div style='max-width: 700px; margin: 0 auto; padding: 10px; background-color: #333333; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);'>" +
+                    "<div style='text-align: center; padding: 10px; border-radius: 10px;'>" +
+                    "<img src='cid:logoImage' alt='EpicSpace Logo' style='max-width: 250px;'/>" +
+                    "</div>" +
+                    
                     "<p>Ciao <strong>" + buyerName + "</strong>,</p>" +
                     "<p>Grazie per aver acquistato il biglietto per il volo spaziale. Ecco i dettagli del tuo volo:</p>" +
-                    "<div style='background-color: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px;'>" +
-                    "<table style='width: 100%; border-collapse: collapse;'>" +
+                    "<div style='background-color: #444444; padding: 15px; border-radius: 10px; margin-bottom: 20px;'>" +
+                    "<table style='width: 100%; border-collapse: collapse; color: #ffffff;'>" +
                     "<tr>" +
-                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: top;'>Pianeta:</td>" +
-                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; display: flex; align-items: center;'>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #555555; font-weight: bold; vertical-align: top;'>Pianeta:</td>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #555555; display: flex; align-items: center;'>" +
                     "<span>" + planet + "</span>" +
                     "<img src='" + planetImageUrl + "' alt='Pianeta' style='max-width: 100px; margin-left: 15px; border-radius: 10px;'>" +
                     "</td>" +
                     "</tr>" +
                     "<tr>" +
-                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: top;'>Nave:</td>" +
-                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; display: flex; align-items: center;'>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #555555; font-weight: bold; vertical-align: top;'>Nave:</td>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #555555; display: flex; align-items: center;'>" +
                     "<span>" + spaceship + "</span>" +
                     "<img src='" + spaceshipImageUrl + "' alt='Nave Spaziale' style='max-width: 100px; margin-left: 15px; border-radius: 10px;'>" +
                     "</td>" +
                     "</tr>" +
                     "<tr>" +
-                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: top;'>Tuta:</td>" +
-                    "<td style='padding: 10px; border-bottom: 1px solid #ddd; display: flex; align-items: center;'>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #555555; font-weight: bold; vertical-align: top;'>Tuta:</td>" +
+                    "<td style='padding: 10px; border-bottom: 1px solid #555555; display: flex; align-items: center;'>" +
                     "<span>" + suit + "</span>" +
                     "<img src='" + suitImageUrl + "' alt='Tuta Spaziale' style='max-width: 100px; margin-left: 15px; border-radius: 10px;'>" +
                     "</td>" +
@@ -60,7 +70,7 @@ public class EmailService {
                     "<tr><td style='padding: 10px; font-weight: bold;'>Data della Prenotazione:</td><td style='padding: 10px;'>" + dataPrenotazione + "</td></tr>" +
                     "</table>" +
                     "</div>" +
-                    "<p style='text-align: center; color: #004080;'>Buon viaggio!</p>" +
+                    "<p style='text-align: center; color: #ffffff;'>Buon viaggio!</p>" +
                     "<p style='text-align: center;'>Saluti,<br>Il team di EpicSpace</p>" +
                     "</div>" +
                     "</body>" +
@@ -69,6 +79,11 @@ public class EmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlContent, true); // true indica che il contenuto è HTML
+
+            // Add the inline image with content ID 'logoImage'
+            ClassPathResource imageResource = new ClassPathResource("/static/assets/img/logo/LOGO.png");
+            helper.addInline("logoImage", imageResource);
+
             mailSender.send(message);
             return 0; // 0 indica successo
         } catch (MessagingException e) {

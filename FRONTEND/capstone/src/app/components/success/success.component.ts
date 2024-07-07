@@ -20,7 +20,7 @@ export class SuccessComponent implements OnInit {
     this.sendConfirmationEmail();
     setTimeout(() => {
       this.router.navigate(['/']); // Reindirizza alla homepage dopo 5 secondi
-    }, 5000);
+    }, 4000);
   }
 
   sendConfirmationEmail(): void {
