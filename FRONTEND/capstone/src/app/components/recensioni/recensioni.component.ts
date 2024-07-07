@@ -14,26 +14,28 @@ export class RecensioniComponent implements OnInit {
   reviewText: string = '';
   recensioni: any[] = [];
   isAdmin: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.isAdmin = this.authService.getUserRole() === 'ADMIN';
+    this.isLoggedIn = this.authService.isLoggedIn();
     this.loadRecensioni();
   }
 
   loadRecensioni(): void {
-    const token = this.authService.getToken();
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      this.http.get<any[]>(`${environment.apiUrl}recensioni`, { headers }).subscribe(data => {
+    // const token = this.authService.getToken();
+    // if (token) {
+      // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      this.http.get<any[]>(`${environment.apiUrl}recensioni`).subscribe(data => {
         this.recensioni = data;
       }, error => {
         console.error('Error loading recensioni', error);
       });
-    } else {
-      this.router.navigate(['/auth']);
-    }
+    // } else {
+    //   this.router.navigate(['/auth']);
+    // }
   }
 
   submitReview(): void {

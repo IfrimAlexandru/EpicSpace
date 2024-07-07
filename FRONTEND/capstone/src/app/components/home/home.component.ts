@@ -44,17 +44,17 @@ export class HomeComponent implements OnInit {
 
   loadRecensioni(): void {
     const token = this.authService.getToken();
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      this.http.get<Recensione[]>(`${environment.apiUrl}recensioni`, { headers }).subscribe(data => {
+    // if (token) {
+      // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      this.http.get<Recensione[]>(`${environment.apiUrl}recensioni`).subscribe(data => {
         console.log('Received recensioni data in home:', data); // Log data for debugging
         this.recensioni = data.slice(0, 2); // Prendi solo le prime due recensioni
       }, error => {
         console.error('Error loading recensioni', error);
       });
-    } else {
-      this.router.navigate(['/auth']);
-    }
+    // } else {
+      // this.router.navigate(['/auth']);
+    // }
   }
 
   groupPianeti(): void {

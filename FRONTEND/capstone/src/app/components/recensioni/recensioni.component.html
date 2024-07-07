@@ -9,7 +9,7 @@
       <button *ngIf="isAdmin" class="delete-button" (click)="deleteRecensione(recensione.id)">Cancella</button>
     </div>
   </div>
-  <div class="review-form" id="review-form">
+  <div *ngIf="isLoggedIn" class="review-form" id="review-form">
     <textarea [(ngModel)]="reviewText" placeholder="Scrivi la tua recensione..."></textarea><br>
     <div class="button-container">
      <button (click)="submitReview()">Invia</button> 

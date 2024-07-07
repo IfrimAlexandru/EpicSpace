@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
 import { environment } from 'src/environments/environment.development';
+import { ScelteUtenteService } from 'src/app/service/scelte-utente.service'; // Importa il servizio
 
 @Component({
   selector: 'app-checkout',
@@ -11,18 +12,28 @@ import { environment } from 'src/environments/environment.development';
 export class CheckoutComponent {
 
   stripePromise = loadStripe(environment.stripe);
-  constructor(private http: HttpClient) {}
 
-  async pay(price: number, planetName: string): Promise<void> { // Accetta anche il nome del pianeta come parametro
+  constructor(private http: HttpClient, private scelteUtenteService: ScelteUtenteService) {} // Inietta il servizio
+
+  async pay(price: number, planetName: string): Promise<void> { 
+    const choices = this.scelteUtenteService.getChoices(); // Usa il servizio per ottenere le scelte
+
     const payment = {
       name: `Viaggio spaziale per ${planetName}`,
       currency: 'eur', 
       amount: price * 100, 
       quantity: 1,
-      cancelUrl: 'http://localhost:4200/cancel',
-      successUrl: 'http://localhost:4200/success',
+      cancelUrl: `${window.location.origin}/cancel`,  // URL di cancellazione
+      successUrl: `${window.location.origin}/success`, // URL di successo
+      metadata: {
+        buyerName: choices.buyerName,
+        email: choices.email,
+        planet: choices.planet,
+        ship: choices.ship,
+        suit: choices.suit,
+        selectedDate: choices.selectedDate
+      }
     };
-
 
     const stripe = await this.stripePromise;
 
@@ -37,6 +48,7 @@ export class CheckoutComponent {
     });
 
     this.http.post(`${environment.serverUrl}/payment`, payment, { headers }).subscribe((data: any) => {
+      console.log('Ricevuto sessionId:', data.id); // Log del sessionId ricevuto
       stripe.redirectToCheckout({
         sessionId: data.id,
       }).then((result) => {

@@ -40,21 +40,6 @@ public class Config implements WebMvcConfigurer {
         return httpSecurity.build();
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.formLogin(AbstractHttpConfigurer::disable);
-//        httpSecurity.csrf(AbstractHttpConfigurer::disable);
-//        httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        httpSecurity.cors(Customizer.withDefaults());
-//
-//        httpSecurity.authorizeHttpRequests(authorizeRequests ->
-//                authorizeRequests
-//                        .requestMatchers("/api/**").hasAnyRole("ADMIN", "USER")
-//                        .anyRequest().permitAll()
-//        );
-//
-//        return httpSecurity.build();
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

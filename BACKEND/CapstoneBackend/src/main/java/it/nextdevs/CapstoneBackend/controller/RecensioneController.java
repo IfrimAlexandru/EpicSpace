@@ -28,7 +28,7 @@ public class RecensioneController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public List<Recensione> getAllRecensioni() {
         return recensioneService.getAllRecensioni();
     }

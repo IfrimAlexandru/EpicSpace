@@ -96,9 +96,10 @@ export class RiepilogoComponent implements OnInit {
       console.log('Sottomissione già in corso, attendo...');
       return; // Prevenire sottomissioni multiple
     }
+    
     this.isSubmitting = true;
     console.log('Inizio sottomissione ordine');
-
+  
     const data = {
       buyerName: this.buyerName,
       email: this.email,
@@ -110,27 +111,28 @@ export class RiepilogoComponent implements OnInit {
       suitImg: this.choices.suitImg,
       selectedDate: this.selectedDate
     };
-
+  
     const token = localStorage.getItem('authToken');
-
+  
     if (!token) {
       console.error('Nessun token trovato, reindirizzando al login.');
       this.router.navigate(['/auth']);
       this.isSubmitting = false;
       return;
     }
-
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-
+  
     // Effettua la richiesta POST per inviare l'ordine
     try {
+      console.log('Invio della richiesta POST per l\'ordine');
       await this.http.post(this.apiUrl, data, { headers }).toPromise();
       // Aggiungi il viaggio prenotato al servizio ScelteUtenteService
       this.scelteUtenteService.addBookedTrip(data);
-      alert('Ordine ricevuto! Controlla la tua email per il biglietto.');
+      // Rimuovi l'alert dell'ordine ricevuto
     } catch (error: unknown) {
       if (error instanceof Error) {
         if ((error as any).status === 401) {
@@ -147,6 +149,7 @@ export class RiepilogoComponent implements OnInit {
       console.log('Fine sottomissione ordine');
     }
   }
+  
 
   getPlanetPrice(planet: string): number {
     const planetDetails: Record<string, number> = {

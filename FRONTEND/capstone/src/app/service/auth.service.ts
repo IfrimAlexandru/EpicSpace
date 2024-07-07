@@ -119,7 +119,7 @@ export class AuthService {
     try {
       const user: AuthData = JSON.parse(userJson);
       this.authSub.next(user);
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
       this.autoLogout(user);
     } catch (error) {
       console.error('Error parsing user JSON:', error);

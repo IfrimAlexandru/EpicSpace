@@ -52,8 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     throw new NotFoundException("Utente non trovato con id " + userId);
                 }
             } catch (UnauthorizedException e) {
-                // Logica per gestire token non validi
-                // Se si desidera, si può gestire diversamente il caso di token non valido, ma è importante lasciare passare la richiesta.
+                System.err.println(e.getMessage());
             }
         }
 
@@ -63,6 +62,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return new AntPathMatcher().match("/auth/**", request.getServletPath());
+
     }
 
 }
