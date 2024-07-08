@@ -33,7 +33,7 @@ public class EmailService {
                     "<head>" +
                     "<style>" +
                     "@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');" +
-                    "body { font-family: 'Montserrat', sans-serif; }" +
+                    "body { font-family: 'Montserrat', sans-serif;}" +
                     "</style>" +
                     "</head>" +
                     "<body style='font-family: Montserrat, Arial, sans-serif; padding: 20px; color: #ffffff;'>" +

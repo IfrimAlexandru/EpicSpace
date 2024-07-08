@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-success',
@@ -19,7 +20,7 @@ export class SuccessComponent implements OnInit {
   ngOnInit(): void {
     this.sendConfirmationEmail();
     setTimeout(() => {
-      this.router.navigate(['/']); // Reindirizza alla homepage dopo 5 secondi
+      this.router.navigate(['/']); 
     }, 4000);
   }
 
@@ -40,7 +41,7 @@ export class SuccessComponent implements OnInit {
       'Content-Type': 'application/json'
     });
 
-    this.http.post('http://localhost:3000/confirm-order', data, { headers }).subscribe(
+    this.http.post(`${environment.apiUrl}confirm-order`, data, { headers }).subscribe(
       response => {
         console.log('Email di conferma inviata con successo:', response);
       },

@@ -34,18 +34,18 @@ public class BigliettoService {
         Biglietto biglietto = mapDtoToEntity(bigliettoDto);
         Biglietto savedBiglietto = bigliettoRepository.save(biglietto);
 
-        // Invio dell'email
-        emailService.sendTicketEmail(
-                savedBiglietto.getEmail(),
-                savedBiglietto.getBuyerName(),
-                savedBiglietto.getPlanet(),
-                savedBiglietto.getSpaceship(),
-                savedBiglietto.getSuit(),
-                savedBiglietto.getDataPrenotazione().toString(),
-                savedBiglietto.getShipImg(),
-                savedBiglietto.getSuitImg(),
-                savedBiglietto.getPlanetImg()
-        );
+//        // Invio dell'email
+//        emailService.sendTicketEmail(
+//                savedBiglietto.getEmail(),
+//                savedBiglietto.getBuyerName(),
+//                savedBiglietto.getPlanet(),
+//                savedBiglietto.getSpaceship(),
+//                savedBiglietto.getSuit(),
+//                savedBiglietto.getDataPrenotazione().toString(),
+//                savedBiglietto.getShipImg(),
+//                savedBiglietto.getSuitImg(),
+//                savedBiglietto.getPlanetImg()
+//        );
 
         return savedBiglietto;
     }

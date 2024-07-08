@@ -20,7 +20,7 @@ export class RiepilogoComponent implements OnInit {
   email: string = '';
   selectedDate: string = '';
   availableDates: string[] = [];
-  isSubmitting: boolean = false; // Flag per prevenire sottomissioni multiple
+  isSubmitting: boolean = false;
 
   private apiUrl = `${environment.apiUrl}api/biglietti/submit-order`;
   private datesUrl = `${environment.apiUrl}api/dates`;
@@ -39,7 +39,7 @@ export class RiepilogoComponent implements OnInit {
 
   loadUserChoices(): void {
     this.choices = this.scelteUtenteService.getChoices();
-    console.log('User choices:', this.choices); // Debug: verifica il valore delle scelte
+    console.log('User choices:', this.choices);
     this.authService.user$.subscribe(user => {
       if (user) {
         this.buyerName = user.user.nome;
@@ -79,11 +79,9 @@ export class RiepilogoComponent implements OnInit {
 
       try {
         console.log('Inizio processo di acquisto');
-        // Chiama onSubmit prima e assicurati che termini prima di procedere
         await this.onSubmit();
         console.log('Ordine sottomesso con successo, procedo al pagamento');
-        // Poi procedi alla fase di pagamento
-        await this.checkoutComponent.pay(price, planet); // Passa anche il nome del pianeta
+        await this.checkoutComponent.pay(price, planet);
         console.log('Pagamento completato');
       } catch (error) {
         console.error('Errore durante il processo di acquisto:', error);
@@ -94,7 +92,7 @@ export class RiepilogoComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (this.isSubmitting) {
       console.log('Sottomissione già in corso, attendo...');
-      return; // Prevenire sottomissioni multiple
+      return;
     }
     
     this.isSubmitting = true;
@@ -126,13 +124,10 @@ export class RiepilogoComponent implements OnInit {
       'Authorization': `Bearer ${token}`
     });
   
-    // Effettua la richiesta POST per inviare l'ordine
     try {
       console.log('Invio della richiesta POST per l\'ordine');
       await this.http.post(this.apiUrl, data, { headers }).toPromise();
-      // Aggiungi il viaggio prenotato al servizio ScelteUtenteService
       this.scelteUtenteService.addBookedTrip(data);
-      // Rimuovi l'alert dell'ordine ricevuto
     } catch (error: unknown) {
       if (error instanceof Error) {
         if ((error as any).status === 401) {
@@ -149,7 +144,6 @@ export class RiepilogoComponent implements OnInit {
       console.log('Fine sottomissione ordine');
     }
   }
-  
 
   getPlanetPrice(planet: string): number {
     const planetDetails: Record<string, number> = {
