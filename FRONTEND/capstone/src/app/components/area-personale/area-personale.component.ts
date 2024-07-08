@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ScelteUtenteService } from 'src/app/service/scelte-utente.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/interface/user.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-area-personale',
@@ -28,10 +27,19 @@ export class AreaPersonaleComponent implements OnInit {
 
   loadUserData(): void {
     this.user = this.authService.getUserFromLocalStorage();
+    if (this.user && this.user.email) {
+      this.loadBookedTrips();
+    }
   }
 
   loadBookedTrips(): void {
-    this.bookedTrips = this.scelteUtenteService.getBookedTrips();
+    if (this.user && this.user.email) {
+      this.scelteUtenteService.getBookedTrips(this.user.email).subscribe(trips => {
+        this.bookedTrips = trips;
+      }, error => {
+        console.error('Error loading booked trips', error);
+      });
+    }
   }
 
   onAvatarSelected(event: any): void {
@@ -55,5 +63,9 @@ export class AreaPersonaleComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

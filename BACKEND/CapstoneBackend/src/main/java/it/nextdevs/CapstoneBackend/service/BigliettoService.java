@@ -14,12 +14,12 @@ import java.util.Optional;
 public class BigliettoService {
 
     private final BigliettoRepository bigliettoRepository;
-    private final EmailService emailService;  // Aggiungi il servizio di email
+    private final EmailService emailService;
 
     @Autowired
     public BigliettoService(BigliettoRepository bigliettoRepository, EmailService emailService) {
         this.bigliettoRepository = bigliettoRepository;
-        this.emailService = emailService;  // Inietta il servizio di email
+        this.emailService = emailService;
     }
 
     public List<Biglietto> getAllBiglietti() {
@@ -32,22 +32,11 @@ public class BigliettoService {
 
     public Biglietto createBiglietto(BigliettoDto bigliettoDto) {
         Biglietto biglietto = mapDtoToEntity(bigliettoDto);
-        Biglietto savedBiglietto = bigliettoRepository.save(biglietto);
+        return bigliettoRepository.save(biglietto);
+    }
 
-//        // Invio dell'email
-//        emailService.sendTicketEmail(
-//                savedBiglietto.getEmail(),
-//                savedBiglietto.getBuyerName(),
-//                savedBiglietto.getPlanet(),
-//                savedBiglietto.getSpaceship(),
-//                savedBiglietto.getSuit(),
-//                savedBiglietto.getDataPrenotazione().toString(),
-//                savedBiglietto.getShipImg(),
-//                savedBiglietto.getSuitImg(),
-//                savedBiglietto.getPlanetImg()
-//        );
-
-        return savedBiglietto;
+    public List<Biglietto> getBookedTripsByEmail(String email) {
+        return bigliettoRepository.findByEmail(email);
     }
 
     public Optional<Biglietto> updateBiglietto(Integer id, BigliettoDto bigliettoDto) {
@@ -55,7 +44,7 @@ public class BigliettoService {
             biglietto.setBuyerName(bigliettoDto.getBuyerName());
             biglietto.setEmail(bigliettoDto.getEmail());
             biglietto.setPlanet(bigliettoDto.getPlanet());
-            biglietto.setSpaceship(bigliettoDto.getShip());
+            biglietto.setSpaceship(bigliettoDto.getSpaceship());
             biglietto.setSuit(bigliettoDto.getSuit());
             return bigliettoRepository.save(biglietto);
         });
@@ -70,12 +59,13 @@ public class BigliettoService {
         biglietto.setBuyerName(bigliettoDto.getBuyerName());
         biglietto.setEmail(bigliettoDto.getEmail());
         biglietto.setPlanet(bigliettoDto.getPlanet());
-        biglietto.setSpaceship(bigliettoDto.getShip());
+        biglietto.setSpaceship(bigliettoDto.getSpaceship());
         biglietto.setSuit(bigliettoDto.getSuit());
-        biglietto.setShipImg(bigliettoDto.getShipImg()); // Include the ship image URL
-        biglietto.setSuitImg(bigliettoDto.getSuitImg()); // Include the suit image URL
-        biglietto.setPlanetImg(bigliettoDto.getPlanetImg()); // Include the planet image URL
+        biglietto.setShipImg(bigliettoDto.getShipImg());
+        biglietto.setSuitImg(bigliettoDto.getSuitImg());
+        biglietto.setPlanetImg(bigliettoDto.getPlanetImg());
         biglietto.setDataPrenotazione(LocalDateTime.now());
+        biglietto.setUserId(bigliettoDto.getUserId()); // Imposta userId
         return biglietto;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/biglietti")
@@ -38,7 +39,12 @@ public class BigliettoController {
                 formattedDate,
                 bigliettoDto.getShipImg(),
                 bigliettoDto.getSuitImg(),
-                bigliettoDto.getPlanetImg() 
+                bigliettoDto.getPlanetImg()
         );
+    }
+
+    @GetMapping("/booked-trips-by-email/{email}")
+    public List<Biglietto> getBookedTripsByEmail(@PathVariable String email) {
+        return bigliettoService.getBookedTripsByEmail(email);
     }
 }

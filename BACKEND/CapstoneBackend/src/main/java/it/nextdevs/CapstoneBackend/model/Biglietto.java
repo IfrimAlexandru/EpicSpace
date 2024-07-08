@@ -14,6 +14,7 @@ public class Biglietto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String userId;
     private String buyerName;
     private String email;
     private String planet;
