@@ -330,11 +330,11 @@
   }
 
   .carousel-item img.giove {
-    margin-right: -190px;
+    margin-right: -210px;
   }
 
   .carousel-item img.marte {
-    margin-right: -150px;
+    margin-right: -160px;
   }
 
   .video-container {
@@ -506,7 +506,7 @@
 
 .header h2 {
   font-size: 26px;
-  color: #00ccff;
+  color: white;
   margin: 0 auto; /* Center align h2 */
 }
 
@@ -532,8 +532,9 @@
 
 .review-author {
   font-size: 16px;
-  color: #00ccff;
+  color: white;
   text-align: right;
+  font-weight: bolder;
 }
 
 .button-container {
@@ -542,7 +543,7 @@
 }
 
 .discover-more-btn {
-  background-color: #00ccff;
+  background-color: #d55725;
   color: #fff;
   border: none;
   padding: 12px 24px;
@@ -553,7 +554,7 @@
 }
 
 .discover-more-btn:hover {
-  background-color: #0099cc;
+  background-color: #a2300d;
 }
 
 /* Responsive grid */

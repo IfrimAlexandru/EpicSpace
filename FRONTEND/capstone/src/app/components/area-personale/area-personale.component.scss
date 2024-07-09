@@ -6,9 +6,9 @@
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
   background-color: #1c1c1c; /* Sfondo del contenitore principale */
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -59,6 +59,7 @@ h2 {
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
+  border: 3px solid white;
 }
 
 .avatar-image {
@@ -66,6 +67,7 @@ h2 {
   height: 100%;
   object-fit: cover;
 }
+
 
 .trip-card {
   display: flex;
@@ -75,25 +77,35 @@ h2 {
   gap: 20px;
 }
 
-.trip-image-container {
-  flex: 0 0 150px; /* Mantieni una larghezza fissa per l'immagine del pianeta */
-  height: 150px; /* Altezza fissa per l'immagine del pianeta */
-  overflow: hidden;
-  border-radius: 8px;
+.trip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
 }
 
 .trip-image {
-  width: 140px;
-  
-  object-fit: contain;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
-.trip-thumbnail {
-  width: 70px;
+.trip-ship {
+  width: 130px;
   
   border-radius: 5px;
   object-fit: contain; /* Evita di tagliare l'immagine */
-  margin-left: 10px;
+ 
+}
+
+.trip-suit{
+  width: 80px;
+  
+  border-radius: 5px;
+  object-fit: contain; /* Evita di tagliare l'immagine */
 }
 
 .trip-details {
@@ -121,8 +133,7 @@ h2 {
   }
 
   .trip-image {
-    margin-left: 0;
-    margin-top: 10px;
+    height: auto;
   }
 
   .trip-thumbnail {

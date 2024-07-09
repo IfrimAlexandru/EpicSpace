@@ -10,7 +10,7 @@ public class BigliettoDto {
     private String buyerName;
     private String email;
     private String planet;
-    private String spaceship;
+    private String ship;
     private String suit;
     private LocalDateTime dataPrenotazione;
     private String shipImg;

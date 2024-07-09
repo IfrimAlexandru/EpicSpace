@@ -22,7 +22,7 @@ public class EmailService {
     @Value("${gmail.mail.from}")
     private String fromEmail;
 
-    public Integer sendTicketEmail(String to, String buyerName, String planet, String spaceship, String suit, String dataPrenotazione, String spaceshipImageUrl, String suitImageUrl, String planetImageUrl) {
+    public Integer sendTicketEmail(String to, String buyerName, String planet, String ship, String suit, String dataPrenotazione, String spaceshipImageUrl, String suitImageUrl, String planetImageUrl) {
         MimeMessage message = mailSender.createMimeMessage();
 
         try {
@@ -56,7 +56,7 @@ public class EmailService {
                     "<tr>" +
                     "<td style='padding: 10px; border-bottom: 1px solid #555555; font-weight: bold; vertical-align: top;'>Nave:</td>" +
                     "<td style='padding: 10px; border-bottom: 1px solid #555555; display: flex; align-items: center;'>" +
-                    "<span>" + spaceship + "</span>" +
+                    "<span>" + ship + "</span>" +
                     "<img src='" + spaceshipImageUrl + "' alt='Nave Spaziale' style='max-width: 100px; margin-left: 15px; border-radius: 10px;'>" +
                     "</td>" +
                     "</tr>" +
@@ -67,7 +67,7 @@ public class EmailService {
                     "<img src='" + suitImageUrl + "' alt='Tuta Spaziale' style='max-width: 100px; margin-left: 15px; border-radius: 10px;'>" +
                     "</td>" +
                     "</tr>" +
-                    "<tr><td style='padding: 10px; font-weight: bold;'>Data della Prenotazione:</td><td style='padding: 10px;'>" + dataPrenotazione + "</td></tr>" +
+                    "<tr><td style='padding: 10px; font-weight: bold;'>Partenza prevista:</td><td style='padding: 10px;'>" + dataPrenotazione + "</td></tr>" +
                     "</table>" +
                     "</div>" +
                     "<p style='text-align: center; color: #ffffff;'>Buon viaggio!</p>" +

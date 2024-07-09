@@ -34,7 +34,7 @@ public class BigliettoController {
                 biglietto.getEmail(),
                 biglietto.getBuyerName(),
                 biglietto.getPlanet(),
-                biglietto.getSpaceship(),
+                biglietto.getShip(),
                 biglietto.getSuit(),
                 formattedDate,
                 bigliettoDto.getShipImg(),

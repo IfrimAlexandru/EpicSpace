@@ -44,7 +44,7 @@ public class BigliettoService {
             biglietto.setBuyerName(bigliettoDto.getBuyerName());
             biglietto.setEmail(bigliettoDto.getEmail());
             biglietto.setPlanet(bigliettoDto.getPlanet());
-            biglietto.setSpaceship(bigliettoDto.getSpaceship());
+            biglietto.setShip(bigliettoDto.getShip());
             biglietto.setSuit(bigliettoDto.getSuit());
             return bigliettoRepository.save(biglietto);
         });
@@ -59,7 +59,7 @@ public class BigliettoService {
         biglietto.setBuyerName(bigliettoDto.getBuyerName());
         biglietto.setEmail(bigliettoDto.getEmail());
         biglietto.setPlanet(bigliettoDto.getPlanet());
-        biglietto.setSpaceship(bigliettoDto.getSpaceship());
+        biglietto.setShip(bigliettoDto.getShip());
         biglietto.setSuit(bigliettoDto.getSuit());
         biglietto.setShipImg(bigliettoDto.getShipImg());
         biglietto.setSuitImg(bigliettoDto.getSuitImg());
